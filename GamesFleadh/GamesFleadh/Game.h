@@ -1,0 +1,80 @@
+/// <summary>
+/// Ruslan Gavrilov
+/// December 2022
+///
+/// 
+/// </summary>
+#ifndef GAME_HPP
+#define GAME_HPP
+/// <summary>
+/// include guards used so we don't process this file twice
+/// same as #pragma once
+/// Don't forget the endif at the bottom
+/// </summary>
+#include <SFML/Graphics.hpp>
+#include<iostream>
+#include"Player.h"
+#include"Events.h"
+#include"AnimatedSprite.h"
+#include"Background.h"
+#include"Enemy.h"
+#include"Collision.h"
+#include"Fish.h"
+#include"BigFish.h"
+#include"LongFish.h"
+
+class Game
+{
+public:
+	Game();
+	~Game();
+	/// <summary>
+	/// main method for game
+	/// </summary>
+	void run();
+
+private:
+
+	void processEvents();
+	void processKeys(sf::Event t_event);
+	void processMouse(sf::Event t_event);
+	void processKeyRelease(sf::Event t_event);
+	void update(sf::Time t_deltaTime);
+	void render();
+	void setupFontAndText();
+
+	bool m_exitGame; // control exiting game
+
+	sf::RenderWindow m_window; // main SFML window
+
+	sf::Font m_ArialBlackfont; // font used by message
+	
+	//Player TEXTURES AND SPRITE
+	sf::Texture player_texture;
+	Player* player;
+	AnimatedSprite player_animated_sprite;
+
+	//PLAYER ANIMATION EVENTS
+	gpp::Events input;
+	void FSM();
+	//BACKGROUND
+	Background* bg1;
+	Background* bg2;
+	//ENEMIES
+	Enemy* fish[5];
+	Enemy* bigFish[5];
+	Enemy* longFish[5];
+	//TAKING DAMAGE
+	int tumble = 0;
+	int immuneTimer = 0;
+	bool damaged = false;
+	bool immune = false;
+	void damage();
+
+	//COLLISION
+	
+	void fishColl();
+};
+
+#endif // !GAME_HPP
+

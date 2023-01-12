@@ -23,6 +23,7 @@
 #include"BigFish.h"
 #include"LongFish.h"
 #include"Mine.h"
+#include"OverLay.h"
 
 class Game
 {
@@ -54,6 +55,16 @@ private:
 	sf::Texture player_texture;
 	Player* player;
 	AnimatedSprite player_animated_sprite;
+
+	sf::Sprite m_bubbles;
+	sf::Texture m_bubblesTexture;
+	int bubbleTimer = 0;
+	int bubbleFrame = 0;
+	void animateBubbles();
+
+	bool gameOver = false;
+
+	OverLay myOverLay;
 
 	//PLAYER ANIMATION EVENTS
 	gpp::Events input;

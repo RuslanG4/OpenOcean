@@ -6,14 +6,18 @@
 
 Player::Player(const AnimatedSprite& sprite) : m_animated_sprite(sprite)
 {
-	// Set the Player to Default to IdlePlayer State 
+
+	//Set the Player to Default to IdlePlayer State 
 	// and Enter that State
 	m_state = new IdlePlayerState();
 	m_state->enter(*this);
 	m_animated_sprite.setOrigin(40, 42);
-	m_animated_sprite.setPosition(200,200);
+	m_animated_sprite.setPosition(200, 200);
+	m_animated_sprite.setScale(3, 3);
 	m_box.setFillColor(sf::Color::Transparent);
 	m_box.setOutlineThickness(3);
+
+	
 }
 
 void Player::handleInput(gpp::Events input) {
@@ -34,6 +38,7 @@ void Player::update() {
 	move();
 	boundary();
 	HB();
+	updateOxy();
 }
 
 AnimatedSprite& Player::getAnimatedSprite() {
@@ -67,23 +72,21 @@ float Player::vectorLengthSquared()
 
 void Player::move()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	m_veloctiy.x = -pushbackSpeed;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && isMoving)
 	{
-		m_veloctiy.x=2;
-		m_animated_sprite.setScale(2, 2);
+		m_veloctiy.x=1;
+		m_animated_sprite.setScale(3, 3);
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-	{
-		m_veloctiy.x = -2;
-		m_animated_sprite.setScale(-2, 2);
-	}
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		m_veloctiy.y = -1;
+		m_veloctiy.y = -1.5;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-		m_veloctiy.y = 1;
+		m_veloctiy.y = 1.5;
 	}
 
 	m_veloctiy = m_veloctiy * FRICTION;
@@ -93,9 +96,9 @@ void Player::move()
 
 void Player::boundary()
 {
-	if (m_position.x > 700)
+	if (m_position.x > 400)
 	{
-		m_position.x = 700;
+		m_position.x = 400;
 	}
 }
 
@@ -112,6 +115,21 @@ void Player::HB()
 		playerHB = new Rectangle(m_animated_sprite.getPosition().x - 10, m_animated_sprite.getPosition().y - 40, 40, 80);
 		m_box.setSize(sf::Vector2f(40, 80));
 		m_box.setPosition(m_animated_sprite.getPosition().x - 10, m_animated_sprite.getPosition().y - 40);
+	}
+}
+
+void Player::hit()
+{ 
+	isMoving = false;	
+	oxygenLvl -= 5;
+}
+
+void Player::updateOxy()
+{
+	if (m_oxyTimer.getElapsedTime().asSeconds() > 1)
+	{
+		oxygenLvl--;
+		m_oxyTimer.restart();
 	}
 }
 

@@ -15,7 +15,7 @@ PlayerState* IdlePlayerState::handleInput(gpp::Events& input) {
 	}
 	if (input.getCurrent() == gpp::Events::Event::DAMAGE_TAKEN)
 	{
-		DEBUG_MSG("RunRightPlayerState -> IdlePlayerState");
+		DEBUG_MSG("IdlePlayerState -> DamagedPlayerState");
 		return new DamagedPlayerState();
 	}
 

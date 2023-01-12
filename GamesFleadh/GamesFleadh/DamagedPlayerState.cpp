@@ -6,13 +6,10 @@
 
 PlayerState* DamagedPlayerState::handleInput(gpp::Events& input)
 {
-	if (input.getCurrent() == gpp::Events::Event::SWIM_RIGHT_START_EVENT)
+	if (input.getCurrent() == gpp::Events::Event::DAMAGE_TAKEN_STOP)
 	{
-		return new IdlePlayerState();
-	}
-	else if (input.getCurrent() == gpp::Events::Event::DAMAGE_TAKEN_STOP)
-	{
-		return new IdlePlayerState();
+		DEBUG_MSG("Damged -> stopDamage");
+		return new RunRightPlayerState();
 	}
     return nullptr;
 }
@@ -21,7 +18,7 @@ void DamagedPlayerState::update(Player& player)
 {
 	if (m_clock.getElapsedTime().asSeconds() > 0.7f) {
 		PlayerState* temp = player.getPlayerState();
-		PlayerState* state = new IdlePlayerState();
+		PlayerState* state = new RunRightPlayerState();
 		player.getPlayerState()->exit(player);
 		player.setPlayerState(state);
 		player.getPlayerState()->enter(player);
@@ -31,7 +28,7 @@ void DamagedPlayerState::update(Player& player)
 
 void DamagedPlayerState::enter(Player& player)
 {
-	DEBUG_MSG("Entering RunRightPlayerState");
+	DEBUG_MSG("Entering Damaged State");
 
 	player.getAnimatedSprite().clearFrames();
 
@@ -47,5 +44,5 @@ void DamagedPlayerState::enter(Player& player)
 
 void DamagedPlayerState::exit(Player& player)
 {
-
+	DEBUG_MSG("Exiting Damaged State");
 }

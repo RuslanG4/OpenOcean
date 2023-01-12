@@ -95,7 +95,7 @@ void Game::processMouse(sf::Event t_event)
 
 void Game::processKeyRelease(sf::Event t_event)
 {
-
+	
 }
 
 /// <summary>
@@ -108,24 +108,34 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
-
-	FSM();
-	player->handleInput(input);
-	player->update();
-
-	for (int i = 0; i < currentEnemies; i++)
+	if (!gameOver)
 	{
-		fish[i]->update();
-		bigFish[i]->update();
-		longFish[i]->update();
-		mine[i]->update();
-	}
-	damage();
-	fishColl();
-	increaseEnemies();
 
-	bg1->update();
-	bg2->update();
+		myOverLay.getOxyLevel(player->getOxyLvl());
+
+		FSM();
+		player->handleInput(input);
+		player->update();
+
+		for (int i = 0; i < currentEnemies; i++)
+		{
+			fish[i]->update();
+			bigFish[i]->update();
+			longFish[i]->update();
+			mine[i]->update();
+		}
+		damage();
+		fishColl();
+		increaseEnemies();
+
+		bg1->update();
+		bg2->update();
+
+		if (player->getOxyLvl() < 0)
+		{
+			gameOver = true;
+		}
+	}
 
 }
 /// <summary>
@@ -144,8 +154,9 @@ void Game::render()
 		longFish[i]->render(m_window);
 		mine[i]->render(m_window);
 	}
-
+	myOverLay.render(m_window);
 	m_window.draw(player->getAnimatedSpriteFrame());
+	m_window.draw(m_bubbles);
 	m_window.display();
 }
 
@@ -155,10 +166,21 @@ void Game::setupFontAndText()
 	{
 		std::cout << "error";
 	}
+	if (!m_ArialBlackfont.loadFromFile(FONT))
+	{
+		std::cout << "error loading font";
+	}
+	myOverLay.initialise(m_ArialBlackfont);
+	if (!m_bubblesTexture.loadFromFile(BUBBLES))
+	{
+		std::cout << "error loading bubbles";
+	}
+	m_bubbles.setTexture(m_bubblesTexture);
+	m_bubbles.setScale(3, 3);
+	m_bubbles.setTextureRect(sf::IntRect(0, 0, 23, 40));
 
 	player_animated_sprite = AnimatedSprite(player_texture);
 	player = new Player(player_animated_sprite);
-	player->getAnimatedSpriteFrame().setScale(2, 2);
 
 	bg1 = new Background(BG_, 3.4,2,2,1350);
 	bg2 = new Background(BG_ROCKS, 3.8,2,2,1920);
@@ -177,26 +199,49 @@ void Game::setupFontAndText()
 		mine[i] = new Mine();
 		mine[i]->loadTextures();
 	}
+
+	myOverLay.initialise(m_ArialBlackfont);
+}
+
+void Game::animateBubbles()
+{
+	m_bubbles.setPosition(player->getAnimatedSpriteFrame().getPosition().x-30, player->getAnimatedSpriteFrame().getPosition().y-100);
+	bubbleTimer++;
+	if (bubbleTimer > 6)
+	{
+		bubbleFrame++;
+		if (bubbleFrame >= 4) //frame 44 is the last frame the robot is running
+		{
+			bubbleFrame = 0; //37 is the first frame the robot is running
+			
+		}
+		bubbleTimer = 0;
+	}
+	int col = bubbleFrame % 4; //total cols is 5
+	int row = 0; //
+
+	sf::IntRect rectSourceSprite;
+	rectSourceSprite.height = 40;
+	rectSourceSprite.width = 23;
+	rectSourceSprite.left = col * rectSourceSprite.width;
+	rectSourceSprite.top = row * rectSourceSprite.height;
+	m_bubbles.setTextureRect(rectSourceSprite);
 }
 
 void Game::FSM()
 {
 	if (!damaged)
 	{
+		input.setCurrent(gpp::Events::Event::SWIM_RIGHT_START_EVENT);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		{
-			input.setCurrent(gpp::Events::Event::SWIM_RIGHT_START_EVENT);
-			player->makeIsMoveT();
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		{
-			input.setCurrent(gpp::Events::Event::SWIM_RIGHT_START_EVENT);
+			input.setCurrent(gpp::Events::Event::SWIM_FAST);
 			player->makeIsMoveT();
 		}
 		if (player->vectorLengthSquared() < 0.25)
 		{
 			input.setCurrent(gpp::Events::Event::SWIM_RIGHT_STOP_EVENT);
-			player->makeIsMoveF();
+			player->hit();
 		}
 	}
 
@@ -209,7 +254,7 @@ void Game::fishColl()
 		if (player->CollisionBox()->checkRectangleCollision(fish[i]->CollisionBox()) && !immune)
 		{
 			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
-			player->makeIsMoveF();
+			player->hit();
 			player->setVel();
 			damaged = true;
 			immune = true;
@@ -217,7 +262,7 @@ void Game::fishColl()
 		if (player->CollisionBox()->checkRectangleCollision(bigFish[i]->CollisionBox()) && !immune)
 		{
 			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
-			player->makeIsMoveF();
+			player->hit();
 			player->setVel();
 			damaged = true;
 			immune = true;
@@ -225,19 +270,19 @@ void Game::fishColl()
 		if (player->CollisionBox()->checkRectangleCollision(longFish[i]->CollisionBox()) && !immune)
 		{
 			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
-			player->makeIsMoveF();
+			player->hit();
 			player->setVel();
 			damaged = true;
 			immune = true;
 		}
-		if (player->CollisionBox()->checkRectangleCollision(mine[i]->CollisionBox()))
+		if (player->CollisionBox()->checkRectangleCollision(mine[i]->CollisionBox()) &&!immune)
 		{
 			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
-			player->makeIsMoveF();
+			player->hit();
 			player->setVel();
 			mine[i]->setDamageT();
 			damaged = true;
-			//immune = true;
+			immune = true;
 		}
 	}
 }
@@ -260,19 +305,29 @@ void Game::damage()
 {
 	if (damaged)
 	{
+		animateBubbles();
 		tumble++;
+		if (tumble > 30)
+		{
+			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN_STOP);
+
+		}
 		if (tumble > 42)
 		{
 			tumble = 0;
 			damaged = false;
-			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN_STOP);
+			
 		}
 	}
 	immuneTimer++;
-	if (immuneTimer > 90)
+	if (immuneTimer > 100)
 	{
 		immune = false;
 		immuneTimer = 0;
+	}
+	if (!damaged)
+	{
+		m_bubbles.setPosition(-100, -100);
 	}
 }
 

@@ -14,11 +14,20 @@ private:
 	AnimatedSprite m_animated_sprite;
 
 	sf::Vector2f m_veloctiy;
-	sf::Vector2f m_position{ 200,200 };
+	sf::Vector2f m_position{ 350,200 };
 	sf::RectangleShape m_box{ sf::Vector2f(40,80) };
 	Rectangle* playerHB;
 
 	const float FRICTION = 0.995;
+
+	float oxygenLvl = 110;
+	bool lostOxygen = false;
+
+	bool isMoving = false;
+
+	int pushbackSpeed = 2;
+
+	sf::Clock m_oxyTimer;
 
 public:
 	//FSM
@@ -38,12 +47,17 @@ public:
 	void move();
 	void boundary();
 
-	void setVel() { m_veloctiy.x = m_veloctiy.x * 0.5; m_veloctiy.y = m_veloctiy.y * 0.5; };
+	void setVel() { pushbackSpeed = 4; };
 
 	void HB();
-	void makeIsMoveT() { isMoving = true; };
-	void makeIsMoveF() { isMoving = false; };
-	bool isMoving = false;
+	void makeIsMoveT() { isMoving = true; pushbackSpeed = 2;
+	};
+	void hit(); 
+
+	void minusOxygen() { lostOxygen = true; }
+	
+	void updateOxy();
+	float const getOxyLvl() { return oxygenLvl; };
 
 };
 #endif

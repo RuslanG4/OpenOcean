@@ -14,6 +14,7 @@ namespace gpp {
 			IDLE,
 			DAMAGE_TAKEN,
 			DAMAGE_TAKEN_STOP,
+			SWIM_FAST,
 			SWIM_RIGHT_START_EVENT,
 			SWIM_RIGHT_STOP_EVENT,
 			Count

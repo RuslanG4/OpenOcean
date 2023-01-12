@@ -37,6 +37,12 @@
     <Filter Include="Source Files\Enemy">
       <UniqueIdentifier>{589cfa83-6fcd-44d0-bbd7-caba5394079b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameEntities">
+      <UniqueIdentifier>{5992b8d0-01f1-4152-abc9-9568d7cf99cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameEntities">
+      <UniqueIdentifier>{6de1ec95-fab4-470d-aa50-7e7fdaca0b47}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -80,6 +86,12 @@
     </ClCompile>
     <ClCompile Include="Mine.cpp">
       <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="OverLay.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="SwinFastState.cpp">
+      <Filter>Source Files\FSM</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +145,12 @@
     </ClInclude>
     <ClInclude Include="Mine.h">
       <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="OverLay.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="SwinFastState.h">
+      <Filter>Header Files\FSM</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

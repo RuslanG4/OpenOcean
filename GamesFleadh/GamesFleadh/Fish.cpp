@@ -69,4 +69,8 @@ void Fish::boundary()
 	}
 }
 
+void Fish::animateDeath()
+{
+}
+
 

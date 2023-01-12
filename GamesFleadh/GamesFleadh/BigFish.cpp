@@ -62,4 +62,8 @@ void BigFish::boundary()
 	}
 }
 
+void BigFish::animateDeath()
+{
+}
+
 

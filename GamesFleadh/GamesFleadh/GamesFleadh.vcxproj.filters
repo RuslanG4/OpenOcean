@@ -78,6 +78,9 @@
     <ClCompile Include="LongFish.cpp">
       <Filter>Source Files\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Mine.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defines.h">
@@ -126,6 +129,9 @@
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="LongFish.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Mine.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
   </ItemGroup>

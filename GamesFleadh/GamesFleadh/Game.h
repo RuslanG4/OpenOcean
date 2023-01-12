@@ -22,6 +22,7 @@
 #include"Fish.h"
 #include"BigFish.h"
 #include"LongFish.h"
+#include"Mine.h"
 
 class Game
 {
@@ -64,6 +65,7 @@ private:
 	Enemy* fish[5];
 	Enemy* bigFish[5];
 	Enemy* longFish[5];
+	Enemy* mine[5];
 	//TAKING DAMAGE
 	int tumble = 0;
 	int immuneTimer = 0;
@@ -72,8 +74,10 @@ private:
 	void damage();
 
 	//COLLISION
-	
 	void fishColl();
+	void increaseEnemies();
+	int currentEnemies = 1;
+	sf::Clock clock;
 };
 
 #endif // !GAME_HPP

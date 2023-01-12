@@ -62,5 +62,9 @@ void LongFish::boundary()
 	}
 }
 
+void LongFish::animateDeath()
+{
+}
+
 
 

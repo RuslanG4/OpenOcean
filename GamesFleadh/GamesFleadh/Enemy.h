@@ -18,6 +18,9 @@ public:
 	virtual void boundary() = 0;
 	virtual Rectangle* CollisionBox() = 0;
 	virtual sf::Sprite getBody()=0;
+	virtual void animateDeath() = 0;
+	virtual void setDamageF() = 0;
+	virtual void setDamageT() = 0;
 
 };
 

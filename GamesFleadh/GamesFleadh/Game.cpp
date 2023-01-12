@@ -113,14 +113,16 @@ void Game::update(sf::Time t_deltaTime)
 	player->handleInput(input);
 	player->update();
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < currentEnemies; i++)
 	{
 		fish[i]->update();
 		bigFish[i]->update();
 		longFish[i]->update();
+		mine[i]->update();
 	}
 	damage();
 	fishColl();
+	increaseEnemies();
 
 	bg1->update();
 	bg2->update();
@@ -135,11 +137,12 @@ void Game::render()
 	bg1->draw(m_window);
 	bg2->draw(m_window);
 	player->render(m_window);
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < currentEnemies; i++)
 	{
 		fish[i]->render(m_window);
 		bigFish[i]->render(m_window);
 		longFish[i]->render(m_window);
+		mine[i]->render(m_window);
 	}
 
 	m_window.draw(player->getAnimatedSpriteFrame());
@@ -170,6 +173,9 @@ void Game::setupFontAndText()
 
 		longFish[i] = new LongFish();
 		longFish[i]->loadTextures();
+
+		mine[i] = new Mine();
+		mine[i]->loadTextures();
 	}
 }
 
@@ -198,7 +204,7 @@ void Game::FSM()
 
 void Game::fishColl()
 {
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < currentEnemies; i++)
 	{
 		if (player->CollisionBox()->checkRectangleCollision(fish[i]->CollisionBox()) && !immune)
 		{
@@ -221,6 +227,28 @@ void Game::fishColl()
 			damaged = true;
 			immune = true;
 		}
+		if (player->CollisionBox()->checkRectangleCollision(mine[i]->CollisionBox()) && !immune)
+		{
+			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
+			player->makeIsMoveF();
+			mine[i]->setDamageT();
+			damaged = true;
+			immune = true;
+		}
+	}
+}
+
+void Game::increaseEnemies()
+{
+	if (clock.getElapsedTime().asSeconds() > 20.f)
+	{
+		std::cout << "CLOCK";
+		currentEnemies++;
+		if (currentEnemies >= 5)
+		{
+			currentEnemies = 5;
+		}
+		clock.restart();
 	}
 }
 

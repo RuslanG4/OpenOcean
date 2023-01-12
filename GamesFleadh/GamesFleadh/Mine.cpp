@@ -22,14 +22,14 @@ void Mine::loadTextures()
 	m_sprite.setTexture(m_texture);
 	m_sprite.setScale(2, 2);
 	m_sprite.setTextureRect(sf::IntRect(0, 0, 85, 85));
-	m_sprite.setPosition(rand() % 400 + 1600, rand() % 800 + 100);
+	m_sprite.setPosition(rand() % 400 + 1600, rand() % 700 + 100);
 
 	m_box.setFillColor(sf::Color::Transparent);
 	m_box.setOutlineThickness(3);
 }
 void Mine::render(sf::RenderWindow& t_window)
 {
-	t_window.draw(m_box);
+	//t_window.draw(m_box);
 	t_window.draw(m_sprite);
 }
 void Mine::animate()
@@ -59,7 +59,7 @@ void Mine::boundary()
 {
 	if (m_sprite.getPosition().x < -150)
 	{
-		m_sprite.setPosition(rand() % 300 + 1600, rand() % 800 + 100);
+		m_sprite.setPosition(rand() % 300 + 1600, rand() % 700 + 100);
 		m_sprite.setTexture(m_texture);
 		damaged = false;
 	}

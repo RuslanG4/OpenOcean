@@ -23,7 +23,7 @@ void LongFish::loadTextures()
 }
 void LongFish::render(sf::RenderWindow& t_window)
 {
-	t_window.draw(m_box);
+	//t_window.draw(m_box);
 	t_window.draw(m_sprite);
 }
 void LongFish::animate()

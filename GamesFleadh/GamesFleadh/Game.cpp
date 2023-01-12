@@ -230,14 +230,14 @@ void Game::fishColl()
 			damaged = true;
 			immune = true;
 		}
-		if (player->CollisionBox()->checkRectangleCollision(mine[i]->CollisionBox()) && !immune)
+		if (player->CollisionBox()->checkRectangleCollision(mine[i]->CollisionBox()))
 		{
 			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
 			player->makeIsMoveF();
 			player->setVel();
 			mine[i]->setDamageT();
 			damaged = true;
-			immune = true;
+			//immune = true;
 		}
 	}
 }

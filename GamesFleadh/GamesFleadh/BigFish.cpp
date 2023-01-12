@@ -23,7 +23,7 @@ void BigFish::loadTextures()
 }
 void BigFish::render(sf::RenderWindow& t_window)
 {
-	t_window.draw(m_box);
+	//t_window.draw(m_box);
 	t_window.draw(m_sprite);
 }
 void BigFish::animate()

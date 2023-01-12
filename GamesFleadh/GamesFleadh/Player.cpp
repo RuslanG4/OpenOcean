@@ -32,7 +32,7 @@ void Player::update() {
 	m_state->update(*this);
 
 	move();
-	//boundary();
+	boundary();
 	HB();
 }
 
@@ -56,7 +56,7 @@ void Player::setPlayerState(PlayerState* state) { this->m_state = state; }
 
 void Player::render(sf::RenderWindow& window)
 {
-	window.draw(m_box);
+	//window.draw(m_box);
 }
 
 float Player::vectorLengthSquared()

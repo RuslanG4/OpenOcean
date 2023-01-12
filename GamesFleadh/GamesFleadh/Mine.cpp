@@ -20,7 +20,8 @@ void Mine::loadTextures()
 		std::cout << "error loading big explosion";
 	}
 	m_sprite.setTexture(m_texture);
-	m_sprite.setScale(1, 1);
+	m_sprite.setScale(2, 2);
+	m_sprite.setTextureRect(sf::IntRect(0, 0, 85, 85));
 	m_sprite.setPosition(rand() % 400 + 1600, rand() % 800 + 100);
 
 	m_box.setFillColor(sf::Color::Transparent);
@@ -50,17 +51,16 @@ void Mine::animate()
 }
 void Mine::move()
 {
-	mineHB = new Rectangle(m_sprite.getPosition().x+5, m_sprite.getPosition().y+5, 55, 55);
-	m_box.setPosition(m_sprite.getPosition().x + 5, m_sprite.getPosition().y+5);
+	mineHB = new Rectangle(m_sprite.getPosition().x+35, m_sprite.getPosition().y+35, 95, 95);
+	m_box.setPosition(m_sprite.getPosition().x + 35, m_sprite.getPosition().y+35);
 	m_sprite.move(-speed, 0);
 }
 void Mine::boundary()
 {
-	if (m_sprite.getPosition().x < -50)
+	if (m_sprite.getPosition().x < -150)
 	{
 		m_sprite.setPosition(rand() % 300 + 1600, rand() % 800 + 100);
 		m_sprite.setTexture(m_texture);
-		m_sprite.setTextureRect(sf::IntRect(0, 0, 69, 69));
 		damaged = false;
 	}
 }
@@ -68,13 +68,15 @@ void Mine::boundary()
 void Mine::animateDeath()
 {
 	explosionTimer++;
-	if (explosionTimer > 5)
+	if (explosionTimer > 3)
 	{
 		explosionFrame++;
-		if (explosionFrame > 10) //frame 44 is the last frame the robot is running
+		if (explosionFrame >= 10) //frame 44 is the last frame the robot is running
 		{
 			explosionFrame = 0; //37 is the first frame the robot is running
 			damaged = false;
+			m_sprite.setPosition(rand() % 300 + 1600, rand() % 800 + 100);
+			m_sprite.setTexture(m_texture);
 		}
 		explosionTimer = 0;
 	}
@@ -82,11 +84,13 @@ void Mine::animateDeath()
 	int row = 0; //
 
 	sf::IntRect rectSourceSprite;
-	rectSourceSprite.height = 87;
+	rectSourceSprite.height = 85;
 	rectSourceSprite.width = 85;
 	rectSourceSprite.left = col * rectSourceSprite.width;
 	rectSourceSprite.top = row * rectSourceSprite.height;
 	m_sprite.setTextureRect(rectSourceSprite);
+
+
 }
 
 

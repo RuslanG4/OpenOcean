@@ -8,7 +8,7 @@ private:
 	sf::Texture m_texture;
 	sf::Texture m_explodingTexture;
 	sf::Sprite m_sprite;
-	sf::RectangleShape m_box{ sf::Vector2f(55,55) };
+	sf::RectangleShape m_box{ sf::Vector2f(95,95) };
 	Rectangle* mineHB;
 	bool damaged = false;
 	int mineTimer = 0;
@@ -26,8 +26,10 @@ public:
 
 	virtual void animateDeath();
 	virtual void setDamageF() {damaged = false;}
-	virtual void setDamageT() { damaged = true;	m_sprite.setTexture(m_explodingTexture);
-	damaged = true;
+	virtual void setDamageT()
+	{
+		m_sprite.setTexture(m_explodingTexture);;
+		damaged = true;
 	}
 
 	

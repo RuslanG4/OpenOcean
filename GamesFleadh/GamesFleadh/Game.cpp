@@ -210,6 +210,7 @@ void Game::fishColl()
 		{
 			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
 			player->makeIsMoveF();
+			player->setVel();
 			damaged = true;
 			immune = true;
 		}
@@ -217,6 +218,7 @@ void Game::fishColl()
 		{
 			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
 			player->makeIsMoveF();
+			player->setVel();
 			damaged = true;
 			immune = true;
 		}
@@ -224,6 +226,7 @@ void Game::fishColl()
 		{
 			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
 			player->makeIsMoveF();
+			player->setVel();
 			damaged = true;
 			immune = true;
 		}
@@ -231,6 +234,7 @@ void Game::fishColl()
 		{
 			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
 			player->makeIsMoveF();
+			player->setVel();
 			mine[i]->setDamageT();
 			damaged = true;
 			immune = true;

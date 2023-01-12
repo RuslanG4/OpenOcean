@@ -38,6 +38,8 @@ public:
 	void move();
 	void boundary();
 
+	void setVel() { m_veloctiy.x = m_veloctiy.x * 0.5; m_veloctiy.y = m_veloctiy.y * 0.5; };
+
 	void HB();
 	void makeIsMoveT() { isMoving = true; };
 	void makeIsMoveF() { isMoving = false; };

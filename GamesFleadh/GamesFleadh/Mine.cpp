@@ -1,5 +1,5 @@
 #include "Mine.h"
-void Mine::update()
+void Mine::update(sf::Vector2f t_playerPos)
 {
 	animate();
 	move();

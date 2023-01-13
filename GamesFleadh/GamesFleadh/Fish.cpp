@@ -1,6 +1,6 @@
 #include "Fish.h"
 
-void Fish::update()
+void Fish::update(sf::Vector2f t_playerPos)
 {
 	animate();
 	move();

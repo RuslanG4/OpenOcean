@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Events.h"
 #include "IdlePlayerState.h"
+#include"RunRightPlayerState.h"
 
 
 Player::Player(const AnimatedSprite& sprite) : m_animated_sprite(sprite)
@@ -9,13 +10,16 @@ Player::Player(const AnimatedSprite& sprite) : m_animated_sprite(sprite)
 
 	//Set the Player to Default to IdlePlayer State 
 	// and Enter that State
-	m_state = new IdlePlayerState();
+	m_state = new RunRightPlayerState();
 	m_state->enter(*this);
 	m_animated_sprite.setOrigin(40, 42);
 	m_animated_sprite.setPosition(200, 200);
 	m_animated_sprite.setScale(3, 3);
 	m_box.setFillColor(sf::Color::Transparent);
 	m_box.setOutlineThickness(3);
+	playerHB = new Rectangle(m_animated_sprite.getPosition().x - 20, m_animated_sprite.getPosition().y + 5, 100, 25);
+	m_box.setSize(sf::Vector2f(100, 25));
+	m_box.setPosition(m_animated_sprite.getPosition().x - 20, m_animated_sprite.getPosition().y + 5);
 
 	
 }
@@ -35,7 +39,12 @@ void Player::update() {
 	m_animated_sprite.update();
 	m_state->update(*this);
 
-	move();
+	m_veloctiy.x = -pushbackSpeed;
+	m_veloctiy = m_veloctiy * FRICTION;
+	m_position += m_veloctiy;
+	m_animated_sprite.setPosition(m_position);
+	//move();
+
 	boundary();
 	HB();
 	updateOxy();
@@ -70,58 +79,53 @@ float Player::vectorLengthSquared()
 	return length;
 }
 
-void Player::move()
+void Player::boundary()
 {
-	m_veloctiy.x = -pushbackSpeed;
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && isMoving)
+	if (m_position.x > 650)
 	{
-		m_veloctiy.x=1;
+		m_position.x = 650;
+	}
+	if (m_position.y < 20)
+	{
+		m_position.y = 20;
+	}
+}
+
+void Player::moveLEAP(std::string t_action)
+{
+	if (t_action == "right-hand")
+	{
+		m_veloctiy.x = 1.15;
 		m_animated_sprite.setScale(3, 3);
 	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	else if (t_action == "left-hand")
 	{
-		m_veloctiy.y = -1.5;
+		m_veloctiy.x = 1.15;
+		m_animated_sprite.setScale(3, 3);
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	if (t_action == "fingers")
 	{
-		m_veloctiy.y = 1.5;
+		m_veloctiy.y = -0.9;
 	}
-
-	m_veloctiy = m_veloctiy * FRICTION;
+	else if (t_action == "fingersDown")
+	{
+		m_veloctiy.y = 0.9;
+	}
 	m_position += m_veloctiy;
 	m_animated_sprite.setPosition(m_position);
 }
 
-void Player::boundary()
-{
-	if (m_position.x > 400)
-	{
-		m_position.x = 400;
-	}
-}
-
 void Player::HB()
 {
-	if (isMoving)
-	{
-		playerHB = new Rectangle(m_animated_sprite.getPosition().x - 40, m_animated_sprite.getPosition().y, 80, 30);
-		m_box.setSize(sf::Vector2f(80, 30));
-		m_box.setPosition(m_animated_sprite.getPosition().x - 40, m_animated_sprite.getPosition().y);
-	}
-	else
-	{
-		playerHB = new Rectangle(m_animated_sprite.getPosition().x - 10, m_animated_sprite.getPosition().y - 40, 40, 80);
-		m_box.setSize(sf::Vector2f(40, 80));
-		m_box.setPosition(m_animated_sprite.getPosition().x - 10, m_animated_sprite.getPosition().y - 40);
-	}
+	playerHB = new Rectangle(m_animated_sprite.getPosition().x - 20, m_animated_sprite.getPosition().y+5, 100, 25);
+	m_box.setSize(sf::Vector2f(100, 25));
+	m_box.setPosition(m_animated_sprite.getPosition().x - 20, m_animated_sprite.getPosition().y + 5);
 }
 
 void Player::hit()
 { 
-	isMoving = false;	
 	oxygenLvl -= 5;
+	pushbackSpeed = 4;
 }
 
 void Player::updateOxy()

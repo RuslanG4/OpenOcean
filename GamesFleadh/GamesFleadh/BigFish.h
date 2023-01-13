@@ -8,11 +8,21 @@ private:
 	sf::Sprite m_sprite;
 	sf::RectangleShape m_box{ sf::Vector2f(54,49) };
 	Rectangle* fishHB;
+
+	sf::Vector2f position;
 	bool damaged = false;
 	int fishTimer = 0;
 	int fishFrame = 0;
+
+	bool chase = false;
+	bool hasChased = false;
+
+	int chaseTimer = 0;
+
+	sf::Vector2f chaseDirection;
+
 public:
-	virtual void update();
+	virtual void update(sf::Vector2f t_playerPos);
 	virtual void loadTextures();
 	virtual void animate();
 	virtual void move();
@@ -23,5 +33,7 @@ public:
 	virtual void animateDeath();
 	virtual void setDamageF() { damaged = false; }
 	virtual void setDamageT() { damaged = true; }
+	void aiBehaviour();
+	void chaseAI(sf::Vector2f t_playerPos);
 };
 

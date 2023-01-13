@@ -21,7 +21,8 @@ private:
 	int miliseconds = 120;
 
 	//VARIBALES FOR ENTITIES
-	int score = 0;
+	int distance = 0;
+	sf::Clock clock;
 	int coins = 0;
 
 	//
@@ -34,5 +35,6 @@ public:
 	void update();
 	void initialise(sf::Font& t_font);
 	void getOxyLevel(float t_oxygen);
+	void getDistance();
 };
 

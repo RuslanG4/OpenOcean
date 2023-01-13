@@ -6,6 +6,7 @@
 #include "AnimatedSprite.h"
 #include"Defines.h"
 #include"Collision.h"
+#include<Leap.h>
 
 class Player
 {
@@ -20,12 +21,10 @@ private:
 
 	const float FRICTION = 0.995;
 
-	float oxygenLvl = 110;
+	float oxygenLvl = 105;
 	bool lostOxygen = false;
 
-	bool isMoving = false;
-
-	int pushbackSpeed = 2;
+	int pushbackSpeed = 1;
 
 	sf::Clock m_oxyTimer;
 
@@ -44,14 +43,14 @@ public:
 	sf::Vector2f getVel() { return m_veloctiy; };
 	Rectangle* CollisionBox() { return playerHB; };
 	float vectorLengthSquared();
-	void move();
 	void boundary();
+	const sf::Vector2f getPosition() { return m_animated_sprite.getPosition(); };
 
-	void setVel() { pushbackSpeed = 4; };
+	void moveLEAP(std::string t_action);
+
+	void setVelBack() { pushbackSpeed = 1; };
 
 	void HB();
-	void makeIsMoveT() { isMoving = true; pushbackSpeed = 2;
-	};
 	void hit(); 
 
 	void minusOxygen() { lostOxygen = true; }

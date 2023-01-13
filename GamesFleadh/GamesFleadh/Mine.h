@@ -15,7 +15,7 @@ private:
 	int explosionTimer = 0;
 	int explosionFrame = 0;
 public:
-	virtual void update();
+	virtual void update(sf::Vector2f t_playerPos);
 	virtual void loadTextures();
 	virtual void animate();
 	virtual void move();
@@ -31,6 +31,7 @@ public:
 		m_sprite.setTexture(m_explodingTexture);;
 		damaged = true;
 	}
+	virtual void aiBehaviour() {};
 
 	
 };

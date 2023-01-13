@@ -11,6 +11,7 @@ Game::Game() :
 	m_exitGame{ false } //when true game will exit
 {
 	setupFontAndText();
+	enableGestures();
 
 }
 
@@ -112,21 +113,23 @@ void Game::update(sf::Time t_deltaTime)
 	{
 
 		myOverLay.getOxyLevel(player->getOxyLvl());
+		myOverLay.update();
 
-		FSM();
+	//	FSM();
 		player->handleInput(input);
 		player->update();
 
 		for (int i = 0; i < currentEnemies; i++)
 		{
-			fish[i]->update();
-			bigFish[i]->update();
-			longFish[i]->update();
-			mine[i]->update();
+			fish[i]->update(player->getPosition());
+			bigFish[i]->update(player->getPosition());
+			longFish[i]->update(player->getPosition());
+			mine[i]->update(player->getPosition());
 		}
 		damage();
 		fishColl();
 		increaseEnemies();
+
 
 		bg1->update();
 		bg2->update();
@@ -135,6 +138,8 @@ void Game::update(sf::Time t_deltaTime)
 		{
 			gameOver = true;
 		}
+
+		checkHand(controller);
 	}
 
 }
@@ -236,7 +241,6 @@ void Game::FSM()
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		{
 			input.setCurrent(gpp::Events::Event::SWIM_FAST);
-			player->makeIsMoveT();
 		}
 		if (player->vectorLengthSquared() < 0.25)
 		{
@@ -255,7 +259,6 @@ void Game::fishColl()
 		{
 			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
 			player->hit();
-			player->setVel();
 			damaged = true;
 			immune = true;
 		}
@@ -263,7 +266,6 @@ void Game::fishColl()
 		{
 			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
 			player->hit();
-			player->setVel();
 			damaged = true;
 			immune = true;
 		}
@@ -271,7 +273,6 @@ void Game::fishColl()
 		{
 			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
 			player->hit();
-			player->setVel();
 			damaged = true;
 			immune = true;
 		}
@@ -279,7 +280,6 @@ void Game::fishColl()
 		{
 			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
 			player->hit();
-			player->setVel();
 			mine[i]->setDamageT();
 			damaged = true;
 			immune = true;
@@ -289,7 +289,7 @@ void Game::fishColl()
 
 void Game::increaseEnemies()
 {
-	if (clock.getElapsedTime().asSeconds() > 20.f)
+	if (clock.getElapsedTime().asSeconds() > 40.f)
 	{
 		std::cout << "CLOCK";
 		currentEnemies++;
@@ -310,13 +310,13 @@ void Game::damage()
 		if (tumble > 30)
 		{
 			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN_STOP);
-
+			player->setVelBack();
 		}
 		if (tumble > 42)
 		{
 			tumble = 0;
 			damaged = false;
-			
+
 		}
 	}
 	immuneTimer++;
@@ -331,3 +331,94 @@ void Game::damage()
 	}
 }
 
+void Game::enableGestures()
+{
+	controller.addListener(listener);
+
+	controller.enableGesture(Leap::Gesture::TYPE_CIRCLE);
+	controller.enableGesture(Leap::Gesture::TYPE_KEY_TAP);
+	controller.enableGesture(Leap::Gesture::TYPE_SWIPE);
+	controller.enableGesture(Leap::Gesture::TYPE_SCREEN_TAP);
+}
+
+int Game::detectGestures(Leap::Frame frame)
+{
+	Leap::GestureList gestures = frame.gestures();
+
+	for (int i = 0; i < gestures.count(); i++)
+	{
+		Leap::Gesture gesture = gestures[i];
+		switch (gesture.type())
+			{
+		case Leap::Gesture::TYPE_CIRCLE:
+			return 1;
+			break;
+		case Leap::Gesture::TYPE_KEY_TAP:
+			std::cout << "key tap detected";
+			break;
+		case Leap::Gesture::TYPE_SWIPE:
+			break;
+		case Leap::Gesture::TYPE_SCREEN_TAP:
+			std::cout << "tap detected";
+			break;
+		}
+	}
+	return-1;
+
+}
+
+void Game::checkHand(Leap::Controller controller)
+{
+	const Leap::Frame frame = controller.frame();
+	int i = detectGestures(frame);
+	std::string handType = handCheck(controller);
+
+	if (!damaged)
+	{
+		input.setCurrent(gpp::Events::Event::SWIM_RIGHT_START_EVENT);
+
+		if (i == 1 && handType == "Left hand")
+		{
+			input.setCurrent(gpp::Events::Event::SWIM_FAST);
+			player->moveLEAP(std::string("left-hand"));
+			std::cout << "left hand circle";
+		}
+		else if (i == 1 && handType == "Right hand")
+		{
+			input.setCurrent(gpp::Events::Event::SWIM_FAST);
+			player->moveLEAP(std::string("right-hand"));
+			std::cout << "Right hand circle";
+		}
+		if (player->vectorLengthSquared() < 0.25)
+		{
+			input.setCurrent(gpp::Events::Event::SWIM_RIGHT_STOP_EVENT);
+			player->hit();
+		}
+		if (frame.fingers().extended().count() > 8)
+		{
+			player->moveLEAP(std::string("fingers"));
+		}
+		if (frame.fingers().extended().count() < 7)
+		{
+			player->moveLEAP(std::string("fingersDown"));
+		}
+	}
+}
+
+
+std::string Game::handCheck(Leap::Controller controller)
+{
+	const Leap::Frame frame = controller.frame();
+	std::string handType;
+
+	Leap::HandList hands = frame.hands();
+	for (Leap::HandList::const_iterator hl = hands.begin(); hl != hands.end(); ++hl)
+	{
+		// Get the first hand
+		const Leap::Hand hand = *hl;
+		handType = hand.isLeft() ? "Left hand" : "Right hand";
+
+		return handType;
+	}
+	
+}

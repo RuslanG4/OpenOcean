@@ -24,6 +24,7 @@
 #include"LongFish.h"
 #include"Mine.h"
 #include"OverLay.h"
+#include<Leap.h>
 
 class Game
 {
@@ -89,6 +90,15 @@ private:
 	void increaseEnemies();
 	int currentEnemies = 1;
 	sf::Clock clock;
+
+	Leap::Controller controller;
+	Leap::Listener listener;
+	void enableGestures();
+	int detectGestures(Leap::Frame frame);
+	void checkHand(Leap::Controller controller);
+	std::string handCheck(Leap::Controller controller);
+
+
 };
 
 #endif // !GAME_HPP

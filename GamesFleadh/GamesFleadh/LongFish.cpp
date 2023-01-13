@@ -1,6 +1,6 @@
 #include "LongFish.h"
 
-void LongFish::update()
+void LongFish::update(sf::Vector2f t_playerPos)
 {
 	animate();
 	move();

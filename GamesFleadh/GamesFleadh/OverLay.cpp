@@ -10,6 +10,7 @@ void OverLay::render(sf::RenderWindow& window)
 
 void OverLay::update()
 {
+	getDistance();
 }
 
 void OverLay::initialise(sf::Font& t_font)
@@ -25,7 +26,7 @@ void OverLay::initialise(sf::Font& t_font)
 
 	o2percent.setFont(m_font);
 	o2percent.setCharacterSize(32U);
-	o2percent.setPosition(64, 64);
+	o2percent.setPosition(64, 104);
 
 	o2Meter.setPosition(60, 42);
 	o2Meter.setFillColor(sf::Color::Green);
@@ -41,5 +42,29 @@ void OverLay::initialise(sf::Font& t_font)
 void OverLay::getOxyLevel(float t_oxygen)
 {
 	o2Meter.setSize(sf::Vector2f(t_oxygen *2, 15*2));
-	//o2percent.setString(std::to_string(static_cast<int>(t_oxygen)) + "%");
+}
+
+void OverLay::getDistance()
+{
+	if (clock.getElapsedTime().asSeconds() > 0.5)
+	{
+		distance++;
+		clock.restart();
+	}
+	if (distance < 10)
+	{
+		o2percent.setString("000" + std::to_string(static_cast<int>(distance)) + "m");
+	}
+	if (distance >= 10)
+	{
+		o2percent.setString("00" + std::to_string(static_cast<int>(distance)) + "m");
+	}
+	if (distance >= 100)
+	{
+		o2percent.setString("0" + std::to_string(static_cast<int>(distance)) + "m");
+	}
+	if (distance >= 1000)
+	{
+		o2percent.setString(std::to_string(static_cast<int>(distance)) + "m");
+	}
 }

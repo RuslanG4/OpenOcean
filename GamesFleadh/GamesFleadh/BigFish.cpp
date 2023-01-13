@@ -1,10 +1,15 @@
 #include "BigFish.h"
 
-void BigFish::update()
+void BigFish::update(sf::Vector2f t_playerPos)
 {
 	animate();
-	move();
+	if (!chase)
+	{
+		move();
+	}
 	boundary();
+	aiBehaviour();
+	chaseAI(t_playerPos);
 }
 void BigFish::loadTextures()
 {
@@ -56,14 +61,68 @@ void BigFish::move()
 }
 void BigFish::boundary()
 {
-	if (m_sprite.getPosition().x < -50)
+	if (hasChased)
 	{
-		m_sprite.setPosition(rand() % 300 + 1600, rand() % 800 + 100);
+		if (m_sprite.getPosition().x < -60)
+		{
+			m_sprite.setPosition(rand() % 300 + 1600, rand() % 800 + 100);
+			hasChased = false;
+			chase = false;
+		}
+	}
+	if (chase && !hasChased )
+	{
+		if (m_sprite.getPosition().x >20)
+		{
+			m_sprite.setPosition(20,m_sprite.getPosition().y);
+		}
 	}
 }
 
 void BigFish::animateDeath()
 {
+}
+
+void BigFish::aiBehaviour()
+{
+	if (m_sprite.getPosition().x <  -100 && !hasChased)
+	{
+		chase = true;
+	}
+}
+
+void BigFish::chaseAI(sf::Vector2f t_playerPos)
+{
+	position = m_sprite.getPosition();
+	if (chase)
+	{
+		m_sprite.setScale(2, 2);
+		chaseDirection = t_playerPos - m_sprite.getPosition();
+		thor::setLength(chaseDirection, float(2));
+		position += chaseDirection;
+		m_sprite.setPosition(position);
+		if (position.y < t_playerPos.y)
+		{
+			m_sprite.setRotation(15);
+		}
+		else
+		{
+			m_sprite.setRotation(-15);
+		}
+		 
+		chaseTimer++;
+		if (chaseTimer > 540)
+		{
+			m_sprite.setRotation(0);
+			m_sprite.setScale(-2, 2);
+			chase = false;
+			hasChased = true;
+			chaseTimer = 0;
+		
+			
+		}
+	}
+	
 }
 
 

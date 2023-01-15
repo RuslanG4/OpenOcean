@@ -138,6 +138,7 @@
     <ClCompile Include="Events.cpp" />
     <ClCompile Include="Fish.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="IdlePlayerState.cpp" />
     <ClCompile Include="LongFish.cpp" />
     <ClCompile Include="main.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="Events.h" />
     <ClInclude Include="Fish.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameOver.h" />
     <ClInclude Include="IdlePlayerState.h" />
     <ClInclude Include="LongFish.h" />
     <ClInclude Include="Mine.h" />

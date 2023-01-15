@@ -22,6 +22,9 @@ const char* const BUBBLES = "ASSETS\\IMAGES\\bubbles.png";
 const char* const BG_ = "ASSETS\\IMAGES\\bg.jpg";
 const char* const BG_ROCKS = "ASSETS\\IMAGES\\midground.png";
 
+const sf::Color DEEPGREEN{ 52,20,44 };
+
+
 const int WINDOW_WIDTH = 1400;
 const int WINDOW_HEIGHT = 950;
 

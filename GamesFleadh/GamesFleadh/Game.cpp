@@ -109,6 +109,15 @@ void Game::update(sf::Time t_deltaTime)
 	{
 		m_window.close();
 	}
+
+	for (int i = 0; i < currentEnemies; i++)
+	{
+		fish[i]->update(player->getPosition());
+		bigFish[i]->update(player->getPosition());
+		longFish[i]->update(player->getPosition());
+		mine[i]->update(player->getPosition());
+	}
+
 	if (!gameOver)
 	{
 
@@ -119,20 +128,12 @@ void Game::update(sf::Time t_deltaTime)
 		player->handleInput(input);
 		player->update();
 
-		for (int i = 0; i < currentEnemies; i++)
-		{
-			fish[i]->update(player->getPosition());
-			bigFish[i]->update(player->getPosition());
-			longFish[i]->update(player->getPosition());
-			mine[i]->update(player->getPosition());
-		}
+		bg1->update();
+		bg2->update();
+
 		damage();
 		fishColl();
 		increaseEnemies();
-
-
-		bg1->update();
-		bg2->update();
 
 		if (player->getOxyLvl() < 0)
 		{
@@ -140,6 +141,17 @@ void Game::update(sf::Time t_deltaTime)
 		}
 
 		checkHand(controller);
+	}
+	else
+	{
+		gameOverScreen.update();
+		if (gameOverScreen.getRestart())
+		{
+			deleteEntities();
+			restartGame();
+			gameOverScreen.setRestartFalse();
+			gameOver = false;
+		}
 	}
 
 }
@@ -162,6 +174,12 @@ void Game::render()
 	myOverLay.render(m_window);
 	m_window.draw(player->getAnimatedSpriteFrame());
 	m_window.draw(m_bubbles);
+
+	if (gameOver)
+	{
+		gameOverScreen.render(m_window);
+	}
+
 	m_window.display();
 }
 
@@ -206,6 +224,7 @@ void Game::setupFontAndText()
 	}
 
 	myOverLay.initialise(m_ArialBlackfont);
+	gameOverScreen.initialise(m_ArialBlackfont);
 }
 
 void Game::animateBubbles()
@@ -421,4 +440,50 @@ std::string Game::handCheck(Leap::Controller controller)
 		return handType;
 	}
 	
+}
+
+void Game::deleteEntities()
+{
+	delete player;
+	delete bg1;
+	delete bg2;
+	for (int i = 0; i < currentEnemies; i++)
+	{
+		delete fish[i];
+		delete bigFish[i];
+		delete longFish[i];
+		delete mine[i];
+	}
+}
+
+void Game::restartGame()
+{
+	myOverLay.reset();
+
+	currentEnemies = 1;
+	tumble = 0;
+	immuneTimer = 0;
+	damaged = false;
+	immune = false;
+
+	player = new Player(player_animated_sprite);
+
+	bg1 = new Background(BG_, 3.4, 2, 2, 1350);
+	bg2 = new Background(BG_ROCKS, 3.8, 2, 2, 1920);
+
+	for (int i = 0; i < 5; i++)
+	{
+		fish[i] = new Fish();
+		fish[i]->loadTextures();
+
+		bigFish[i] = new BigFish();
+		bigFish[i]->loadTextures();
+
+		longFish[i] = new LongFish();
+		longFish[i]->loadTextures();
+
+		mine[i] = new Mine();
+		mine[i]->loadTextures();
+	}
+
 }

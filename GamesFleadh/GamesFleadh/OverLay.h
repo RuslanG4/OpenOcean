@@ -36,5 +36,6 @@ public:
 	void initialise(sf::Font& t_font);
 	void getOxyLevel(float t_oxygen);
 	void getDistance();
+	void reset() { distance = 0; };
 };
 

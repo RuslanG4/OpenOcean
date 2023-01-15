@@ -15,7 +15,7 @@ void Mine::loadTextures()
 	{
 		std::cout << "error loading fish";
 	}
-	if (m_explodingTexture.loadFromFile(MINE_BIG_EXPLOSION))
+	if (!m_explodingTexture.loadFromFile(MINE_BIG_EXPLOSION))
 	{
 		std::cout << "error loading big explosion";
 	}

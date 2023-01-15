@@ -24,6 +24,7 @@
 #include"LongFish.h"
 #include"Mine.h"
 #include"OverLay.h"
+#include"GameOver.h"
 #include<Leap.h>
 
 class Game
@@ -66,6 +67,7 @@ private:
 	bool gameOver = false;
 
 	OverLay myOverLay;
+	GameOver gameOverScreen;
 
 	//PLAYER ANIMATION EVENTS
 	gpp::Events input;
@@ -97,6 +99,9 @@ private:
 	int detectGestures(Leap::Frame frame);
 	void checkHand(Leap::Controller controller);
 	std::string handCheck(Leap::Controller controller);
+
+	void deleteEntities();
+	void restartGame();
 
 
 };

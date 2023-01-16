@@ -134,8 +134,6 @@ void Game::update(sf::Time t_deltaTime)
 		myOverLay.getOxyLevel(player->getOxyLvl());
 		myOverLay.update();
 
-	//	FSM();
-
 		bg1->update();
 		bg2->update();
 
@@ -265,24 +263,6 @@ void Game::animateBubbles()
 	rectSourceSprite.left = col * rectSourceSprite.width;
 	rectSourceSprite.top = row * rectSourceSprite.height;
 	m_bubbles.setTextureRect(rectSourceSprite);
-}
-
-void Game::FSM()
-{
-	if (!damaged)
-	{
-		input.setCurrent(gpp::Events::Event::SWIM_RIGHT_START_EVENT);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		{
-			input.setCurrent(gpp::Events::Event::SWIM_FAST);
-		}
-		if (player->vectorLengthSquared() < 0.25)
-		{
-			input.setCurrent(gpp::Events::Event::SWIM_RIGHT_STOP_EVENT);
-			player->hit();
-		}
-	}
-
 }
 
 void Game::fishColl()
@@ -429,11 +409,6 @@ void Game::checkHand(Leap::Controller controller)
 			input.setCurrent(gpp::Events::Event::SWIM_FAST);
 			player->moveLEAP(std::string("right-hand"));
 			
-		}
-		if (player->vectorLengthSquared() < 0.25)
-		{
-			input.setCurrent(gpp::Events::Event::SWIM_RIGHT_STOP_EVENT);
-			player->hit();
 		}
 		if (frame.fingers().extended().count() > 8)
 		{

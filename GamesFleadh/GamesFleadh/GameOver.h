@@ -26,6 +26,8 @@ private:
 
 	int xPos = 0;
 
+	int distance = 0;
+
 	bool restarted = false;
 	bool drawnBox = false;
 
@@ -44,6 +46,7 @@ public:
 	box.setPosition(0, WINDOW_HEIGHT / 2);
 	};
 	void animateGameOver();
+	void getDistance(int t_distance);
 
 };
 

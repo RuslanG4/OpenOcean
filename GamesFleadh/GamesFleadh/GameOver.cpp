@@ -9,6 +9,7 @@ void GameOver::render(sf::RenderWindow& window)
 	{
 		window.draw(m_text);
 		window.draw(m_gameOverText);
+		window.draw(m_distanceText);
 	}
 }
 
@@ -30,12 +31,16 @@ void GameOver::initialise(sf::Font& t_font)
 	m_font = t_font;
 	m_text.setFont(m_font);
 	m_text.setCharacterSize(164U);
-	m_text.setPosition(665, 350);
+	m_text.setPosition(660, 400);
 
 	m_gameOverText.setString("GAME OVER");
 	m_gameOverText.setFont(m_font);
 	m_gameOverText.setCharacterSize(104U);
 	m_gameOverText.setPosition(460, 250);
+
+	m_distanceText.setFont(m_font);
+	m_distanceText.setCharacterSize(48U);
+	m_distanceText.setPosition(310, 380);
 
 	box.setFillColor(DEEPGREEN);
 	box.setSize(sf::Vector2f(WINDOW_WIDTH, sizeIncrease));
@@ -80,4 +85,10 @@ void GameOver::animateGameOver()
 		
 		//boxTimer = 0;
 	//}
+}
+
+void GameOver::getDistance(int t_distance)
+{
+	distance = t_distance;
+	m_distanceText.setString("You   travelled   " + std::to_string(distance) + "m   before   drowning");
 }

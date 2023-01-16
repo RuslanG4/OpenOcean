@@ -37,5 +37,6 @@ public:
 	void getOxyLevel(float t_oxygen);
 	void getDistance();
 	void reset() { distance = 0; };
+	int returnDistance() { return distance; };
 };
 

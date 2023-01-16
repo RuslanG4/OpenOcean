@@ -21,7 +21,7 @@ private:
 
 	const float FRICTION = 0.995;
 
-	float oxygenLvl = 5;
+	float oxygenLvl = 100;
 	bool lostOxygen = false;
 
 	int pushbackSpeed = 1;

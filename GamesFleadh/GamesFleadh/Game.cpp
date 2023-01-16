@@ -144,6 +144,7 @@ void Game::update(sf::Time t_deltaTime)
 	}
 	else
 	{
+		gameOverScreen.getDistance(myOverLay.returnDistance());
 		gameOverScreen.update();
 		if (gameOverScreen.getRestart())
 		{

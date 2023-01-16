@@ -116,13 +116,20 @@ void Game::update(sf::Time t_deltaTime)
 		bigFish[i]->update(player->getPosition());
 		longFish[i]->update(player->getPosition());
 		mine[i]->update(player->getPosition());
-	}
+	}	
 
 	player->update();
 	player->handleInput(input);
 
 	if (!gameOver)
 	{
+		if (!player->getAlive())
+		{
+			gameOver = true;
+
+		}
+
+		myPlant->update();
 
 		myOverLay.getOxyLevel(player->getOxyLvl());
 		myOverLay.update();
@@ -132,19 +139,18 @@ void Game::update(sf::Time t_deltaTime)
 		bg1->update();
 		bg2->update();
 
+		pearlReset();
+
 		damage();
 		fishColl();
+		pearlCollision();
 		increaseEnemies();
-
-		if (!player->getAlive())
-		{
-			gameOver = true;
-		}
 
 		checkHand(controller);
 	}
 	else
 	{
+		input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
 		gameOverScreen.getDistance(myOverLay.returnDistance());
 		gameOverScreen.update();
 		if (gameOverScreen.getRestart())
@@ -176,6 +182,10 @@ void Game::render()
 	myOverLay.render(m_window);
 	m_window.draw(player->getAnimatedSpriteFrame());
 	m_window.draw(m_bubbles);
+
+	
+	myPlant->render(m_window);
+	
 
 	if (gameOver)
 	{
@@ -225,6 +235,9 @@ void Game::setupFontAndText()
 		mine[i]->loadTextures();
 	}
 
+	myPlant = new Plant;
+	myPlant->initialise();
+	
 	myOverLay.initialise(m_ArialBlackfont);
 	gameOverScreen.initialise(m_ArialBlackfont);
 }
@@ -320,7 +333,6 @@ void Game::increaseEnemies()
 {
 	if (clock.getElapsedTime().asSeconds() > 40.f)
 	{
-		std::cout << "CLOCK";
 		currentEnemies++;
 		if (currentEnemies >= 5)
 		{
@@ -383,12 +395,12 @@ int Game::detectGestures(Leap::Frame frame)
 			return 1;
 			break;
 		case Leap::Gesture::TYPE_KEY_TAP:
-			std::cout << "key tap detected";
+			
 			break;
 		case Leap::Gesture::TYPE_SWIPE:
 			break;
 		case Leap::Gesture::TYPE_SCREEN_TAP:
-			std::cout << "tap detected";
+			
 			break;
 		}
 	}
@@ -410,13 +422,13 @@ void Game::checkHand(Leap::Controller controller)
 		{
 			input.setCurrent(gpp::Events::Event::SWIM_FAST);
 			player->moveLEAP(std::string("left-hand"));
-			std::cout << "left hand circle";
+			
 		}
 		else if (i == 1 && handType == "Right hand")
 		{
 			input.setCurrent(gpp::Events::Event::SWIM_FAST);
 			player->moveLEAP(std::string("right-hand"));
-			std::cout << "Right hand circle";
+			
 		}
 		if (player->vectorLengthSquared() < 0.25)
 		{
@@ -464,11 +476,16 @@ void Game::deleteEntities()
 		delete longFish[i];
 		delete mine[i];
 	}
+
+	delete myPlant;
+
 }
 
 void Game::restartGame()
 {
 	myOverLay.reset();
+
+	input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN_STOP);
 
 	currentEnemies = 1;
 	tumble = 0;
@@ -494,6 +511,29 @@ void Game::restartGame()
 
 		mine[i] = new Mine();
 		mine[i]->loadTextures();
+	}
+
+	myPlant = new Plant;
+	myPlant->initialise();
+	
+
+}
+
+void Game::pearlReset()
+{
+	if (myPlant->plantPos().x < -100)
+	{
+		myPlant->setPosition();
+	}
+}
+
+void Game::pearlCollision()
+{
+
+	if (player->CollisionBox()->checkRectangleCollision(myPlant->CollisionBox()))
+	{
+		myPlant->bubbleSetPos();
+		player->bubblesHit();
 	}
 
 }

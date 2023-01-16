@@ -144,6 +144,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mine.cpp" />
     <ClCompile Include="OverLay.cpp" />
+    <ClCompile Include="Plant.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RunRightPlayerState.cpp" />
     <ClCompile Include="SwinFastState.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="LongFish.h" />
     <ClInclude Include="Mine.h" />
     <ClInclude Include="OverLay.h" />
+    <ClInclude Include="Plant.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerState.h" />
     <ClInclude Include="RunRightPlayerState.h" />

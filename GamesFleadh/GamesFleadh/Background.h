@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include<iostream>
+#include"Defines.h"
 
 class Background
 {
@@ -8,6 +9,10 @@ private:
 	sf::Sprite back1;
 	sf::Sprite back2;
 	sf::Texture backT;
+
+	sf::Sprite rocks[6];
+	sf::Texture rockTexture;
+
 	float speed;
 	int width = 0;
 
@@ -19,6 +24,7 @@ public:
 	void draw(sf::RenderWindow& window);
 	void update();
 	void move();
+	void moveRocks();
 	void increaseSpeed();
 };
 

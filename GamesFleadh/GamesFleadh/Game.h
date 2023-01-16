@@ -25,6 +25,7 @@
 #include"Mine.h"
 #include"OverLay.h"
 #include"GameOver.h"
+#include"Plant.h"
 #include<Leap.h>
 
 class Game
@@ -80,6 +81,8 @@ private:
 	Enemy* bigFish[5];
 	Enemy* longFish[5];
 	Enemy* mine[5];
+	//ENTITES
+	Plant* myPlant;
 	//TAKING DAMAGE
 	int tumble = 0;
 	int immuneTimer = 0;
@@ -102,6 +105,9 @@ private:
 
 	void deleteEntities();
 	void restartGame();
+
+	void pearlReset();
+	void pearlCollision();
 
 
 };

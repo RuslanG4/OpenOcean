@@ -73,12 +73,6 @@ void Player::render(sf::RenderWindow& window)
 	//window.draw(m_box);
 }
 
-float Player::vectorLengthSquared()
-{
-	const float length = (m_veloctiy.x * m_veloctiy.x) + (m_veloctiy.y * m_veloctiy.y);
-	return length;
-}
-
 void Player::boundary()
 {
 	if (m_position.x > 650)
@@ -129,6 +123,10 @@ void Player::HB()
 void Player::hit()
 { 
 	oxygenLvl -= 5;
+	if (oxygenLvl <= 0)
+	{
+		oxygenLvl = 0;
+	}
 	pushbackSpeed = 4;
 }
 
@@ -140,6 +138,7 @@ void Player::updateOxy()
 		if (oxygenLvl <= 0)
 		{
 			isAlive = false;
+			oxygenLvl = 0;
 		}
 		m_oxyTimer.restart();
 	}

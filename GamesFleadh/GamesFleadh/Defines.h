@@ -18,6 +18,9 @@ const char* const MINE_EXPLOSION = "ASSETS\\IMAGES\\explosion.png";
 const char* const MINE_BIG_EXPLOSION = "ASSETS\\IMAGES\\explosion-big.png";
 const char* const MINE_SMALL_EXPLOSION = "ASSETS\\IMAGES\\explosion-small.png";
 const char* const BUBBLES = "ASSETS\\IMAGES\\bubbles.png";
+const char* const PEARL = "ASSETS\\IMAGES\\pearl.png";
+const char* const TILES = "ASSETS\\IMAGES\\tiles.png";
+const char* const PLANT = "ASSETS\\IMAGES\\plant.png";
 
 const char* const BG_ = "ASSETS\\IMAGES\\bg.jpg";
 const char* const BG_ROCKS = "ASSETS\\IMAGES\\midground.png";

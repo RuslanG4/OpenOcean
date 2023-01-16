@@ -42,31 +42,47 @@ public:
 	void setPlayerState(PlayerState*);
 	void render(sf::RenderWindow& window);
 
+	//GETTERS
 	sf::Vector2f getVel() { return m_veloctiy; };
 	Rectangle* CollisionBox() { return playerHB; };
 	bool getAlive() { return isAlive; };
-	float vectorLengthSquared();
-	void boundary();
 	const sf::Vector2f getPosition() { return m_animated_sprite.getPosition(); };
+	float const getOxyLvl() { return oxygenLvl; };
 
+	//SETTERS
+	void setVelBack() { pushbackSpeed = 1; };
 	void killPlayer() { isAlive = false; }
+	void minusOxygen() { lostOxygen = true; }
 
+	//PLAYER BOUNDARY
+	void boundary();
+
+	//LEAP CONTROLLER
 	void moveLEAP(std::string t_action);
 
-	void setVelBack() { pushbackSpeed = 1; };
-
+	//HIT BOX UPDATER
 	void HB();
-	void hit(); 
 
+	//UPDATES OXYGEN AMOUNT
+	void updateOxy();
+
+	//IF PLAYER HITS GAME ENTITIES
+	void hit(); 
+	void bubblesHit() { oxygenLvl += 10; };
 	void mineHit() {
 		oxygenLvl -= 50;
 		pushbackSpeed = 4;
+		if (oxygenLvl <= 0)
+		{
+			oxygenLvl = 0;
+		}
 	}
-
-	void minusOxygen() { lostOxygen = true; }
 	
-	void updateOxy();
-	float const getOxyLvl() { return oxygenLvl; };
+
+	
+	
+	
+	
 
 };
 #endif

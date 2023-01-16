@@ -96,6 +96,9 @@
     <ClCompile Include="GameOver.cpp">
       <Filter>Source Files\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Plant.cpp">
+      <Filter>Source Files\GameEntities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defines.h">
@@ -157,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="GameOver.h">
       <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Plant.h">
+      <Filter>Header Files\GameEntities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

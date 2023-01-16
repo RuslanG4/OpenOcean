@@ -25,8 +25,8 @@ void OverLay::initialise(sf::Font& t_font)
 	o2Sprite.setPosition(0, 0);
 
 	o2percent.setFont(m_font);
-	o2percent.setCharacterSize(32U);
-	o2percent.setPosition(64, 104);
+	o2percent.setCharacterSize(48U);
+	o2percent.setPosition(WINDOW_WIDTH-164, 26);
 
 	o2Meter.setPosition(60, 42);
 	o2Meter.setFillColor(sf::Color::Green);

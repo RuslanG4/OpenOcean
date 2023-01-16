@@ -15,6 +15,7 @@ private:
 	sf::Font m_font;
 
 	sf::RectangleShape box;
+	sf::RectangleShape biggerBox;
 	int boxTimer = 0;
 
 	int restartTimer = 3;;

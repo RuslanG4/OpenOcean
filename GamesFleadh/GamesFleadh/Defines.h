@@ -8,7 +8,7 @@ const char* const LONG_FISH_SPRITE = "ASSETS\\IMAGES\\fish-dart.png";
 
 const char* const O2_SPRITE = "ASSETS\\IMAGES\\02.png";
 const char* const BAR_SPRITE = "ASSETS\\IMAGES\\bar.png";
-const char* const FONT = "ASSETS\\FONTS\\arial.ttf";
+const char* const FONT = "ASSETS\\FONTS\\ARCADECLASSIC.ttf";
 
 const char* const MINE = "ASSETS\\IMAGES\\mine.png";
 const char* const MINE_BIG = "ASSETS\\IMAGES\\mine-big.png";
@@ -22,7 +22,7 @@ const char* const BUBBLES = "ASSETS\\IMAGES\\bubbles.png";
 const char* const BG_ = "ASSETS\\IMAGES\\bg.jpg";
 const char* const BG_ROCKS = "ASSETS\\IMAGES\\midground.png";
 
-const sf::Color DEEPGREEN{ 52,20,44 };
+const sf::Color DEEPGREEN{ 24,53,67 };
 
 
 const int WINDOW_WIDTH = 1400;

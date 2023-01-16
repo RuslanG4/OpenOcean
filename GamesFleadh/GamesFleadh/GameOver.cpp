@@ -2,6 +2,7 @@
 
 void GameOver::render(sf::RenderWindow& window)
 {
+	window.draw(biggerBox);
 	window.draw(box);
 	
 	if (drawnBox)
@@ -29,17 +30,22 @@ void GameOver::initialise(sf::Font& t_font)
 	m_font = t_font;
 	m_text.setFont(m_font);
 	m_text.setCharacterSize(164U);
-	m_text.setPosition(670, 350);
+	m_text.setPosition(665, 350);
 
 	m_gameOverText.setString("GAME OVER");
 	m_gameOverText.setFont(m_font);
 	m_gameOverText.setCharacterSize(104U);
-	m_gameOverText.setPosition(400, 250);
+	m_gameOverText.setPosition(460, 250);
 
 	box.setFillColor(DEEPGREEN);
 	box.setSize(sf::Vector2f(WINDOW_WIDTH, sizeIncrease));
 	box.setOrigin(0, sizeIncrease / 2);
 	box.setPosition(0, WINDOW_HEIGHT / 2);
+
+
+	biggerBox.setFillColor(sf::Color(26, 8, 0, 128));
+	biggerBox.setSize(sf::Vector2f(WINDOW_WIDTH,WINDOW_HEIGHT));
+	biggerBox.setPosition(0,0);
 }
 
 void GameOver::updateTimer()

@@ -2,6 +2,9 @@
 
 void BigFish::update(sf::Vector2f t_playerPos)
 {
+	fishHB = new Rectangle(m_sprite.getPosition().x - 36, m_sprite.getPosition().y - 16, 54, 49);
+	m_box.setPosition(m_sprite.getPosition().x - 36, m_sprite.getPosition().y - 16);
+
 	animate();
 	if (!chase)
 	{

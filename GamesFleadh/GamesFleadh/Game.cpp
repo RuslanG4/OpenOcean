@@ -118,6 +118,9 @@ void Game::update(sf::Time t_deltaTime)
 		mine[i]->update(player->getPosition());
 	}
 
+	player->update();
+	player->handleInput(input);
+
 	if (!gameOver)
 	{
 
@@ -125,8 +128,6 @@ void Game::update(sf::Time t_deltaTime)
 		myOverLay.update();
 
 	//	FSM();
-		player->handleInput(input);
-		player->update();
 
 		bg1->update();
 		bg2->update();
@@ -135,7 +136,7 @@ void Game::update(sf::Time t_deltaTime)
 		fishColl();
 		increaseEnemies();
 
-		if (player->getOxyLvl() < 0)
+		if (!player->getAlive())
 		{
 			gameOver = true;
 		}
@@ -284,10 +285,18 @@ void Game::fishColl()
 		}
 		if (player->CollisionBox()->checkRectangleCollision(bigFish[i]->CollisionBox()) && !immune)
 		{
-			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
-			player->hit();
-			damaged = true;
-			immune = true;
+			if (bigFish[i]->isChasing())
+			{
+				input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
+				player->killPlayer();
+			}
+			else
+			{
+				input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
+				player->hit();
+				damaged = true;
+				immune = true;
+			}
 		}
 		if (player->CollisionBox()->checkRectangleCollision(longFish[i]->CollisionBox()) && !immune)
 		{
@@ -299,7 +308,7 @@ void Game::fishColl()
 		if (player->CollisionBox()->checkRectangleCollision(mine[i]->CollisionBox()) &&!immune)
 		{
 			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
-			player->hit();
+			player->mineHit();
 			mine[i]->setDamageT();
 			damaged = true;
 			immune = true;

@@ -24,6 +24,8 @@ private:
 	float oxygenLvl = 100;
 	bool lostOxygen = false;
 
+	bool isAlive = true;
+
 	int pushbackSpeed = 1;
 
 	sf::Clock m_oxyTimer;
@@ -42,9 +44,12 @@ public:
 
 	sf::Vector2f getVel() { return m_veloctiy; };
 	Rectangle* CollisionBox() { return playerHB; };
+	bool getAlive() { return isAlive; };
 	float vectorLengthSquared();
 	void boundary();
 	const sf::Vector2f getPosition() { return m_animated_sprite.getPosition(); };
+
+	void killPlayer() { isAlive = false; }
 
 	void moveLEAP(std::string t_action);
 
@@ -52,6 +57,11 @@ public:
 
 	void HB();
 	void hit(); 
+
+	void mineHit() {
+		oxygenLvl -= 50;
+		pushbackSpeed = 4;
+	}
 
 	void minusOxygen() { lostOxygen = true; }
 	

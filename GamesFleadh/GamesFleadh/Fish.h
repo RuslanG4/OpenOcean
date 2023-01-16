@@ -11,6 +11,7 @@ private:
 	bool damaged = false;
 	int fishTimer = 0;
 	int fishFrame = 0;
+
 public:
 	virtual void update(sf::Vector2f t_playerPos);
 	virtual void loadTextures();
@@ -24,5 +25,6 @@ public:
 	virtual void setDamageF() { damaged = false; }
 	virtual void setDamageT() { damaged = true; }
 	virtual void aiBehaviour() {};
+	virtual bool isChasing() { return 1; };
 };
 

@@ -89,6 +89,10 @@ void Player::boundary()
 	{
 		m_position.y = 20;
 	}
+	if (m_position.x < -70)
+	{
+		isAlive = false;
+	}
 }
 
 void Player::moveLEAP(std::string t_action)
@@ -133,6 +137,10 @@ void Player::updateOxy()
 	if (m_oxyTimer.getElapsedTime().asSeconds() > 1)
 	{
 		oxygenLvl--;
+		if (oxygenLvl <= 0)
+		{
+			isAlive = false;
+		}
 		m_oxyTimer.restart();
 	}
 }

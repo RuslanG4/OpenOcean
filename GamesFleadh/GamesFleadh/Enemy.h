@@ -22,6 +22,7 @@ public:
 	virtual void setDamageF() = 0;
 	virtual void setDamageT() = 0;
 	virtual void aiBehaviour() = 0;
+	virtual bool isChasing() { return 1; };
 
 };
 

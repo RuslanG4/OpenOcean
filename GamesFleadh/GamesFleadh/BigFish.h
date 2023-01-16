@@ -35,5 +35,6 @@ public:
 	virtual void setDamageT() { damaged = true; }
 	void aiBehaviour();
 	void chaseAI(sf::Vector2f t_playerPos);
+	virtual bool isChasing() { return chase; };
 };
 

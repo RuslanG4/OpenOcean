@@ -24,5 +24,6 @@ public:
 	virtual void setDamageF() { damaged = false; }
 	virtual void setDamageT() { damaged = true; }
 	virtual void aiBehaviour() {};
+	virtual bool isChasing() { return 1; };
 };
 

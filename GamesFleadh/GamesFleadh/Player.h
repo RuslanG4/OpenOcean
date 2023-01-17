@@ -68,8 +68,16 @@ public:
 
 	//IF PLAYER HITS GAME ENTITIES
 	void hit(); 
-	void bubblesHit() { oxygenLvl += 10; };
-	void mineHit() {
+	void bubblesHit()
+	{
+		oxygenLvl += 15; 
+		if (oxygenLvl >100)
+		{
+			oxygenLvl = 100;
+		}
+	};
+	void mineHit()
+	{
 		oxygenLvl -= 50;
 		pushbackSpeed = 4;
 		if (oxygenLvl <= 0)

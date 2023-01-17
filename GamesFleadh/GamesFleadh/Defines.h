@@ -26,6 +26,7 @@ const char* const BG_ = "ASSETS\\IMAGES\\bg.jpg";
 const char* const BG_ROCKS = "ASSETS\\IMAGES\\midground.png";
 
 const sf::Color DEEPGREEN{ 24,53,67 };
+const sf::Color GREEN{ 5, 255, 68 };
 
 
 const int WINDOW_WIDTH = 1400;

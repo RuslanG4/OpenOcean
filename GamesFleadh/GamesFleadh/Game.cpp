@@ -129,6 +129,8 @@ void Game::update(sf::Time t_deltaTime)
 
 		}
 
+		squidControl();
+
 		myPlant->update();
 
 		myOverLay.getOxyLevel(player->getOxyLvl());
@@ -167,9 +169,16 @@ void Game::update(sf::Time t_deltaTime)
 void Game::render()
 {
 	m_window.clear(sf::Color::White);
+	
 	bg1->draw(m_window);
+	if (!bossFight)
+	{
+		m_window.draw(squid.getBsquid());
+	}
 	bg2->draw(m_window);
+
 	player->render(m_window);
+
 	for (int i = 0; i < currentEnemies; i++)
 	{
 		fish[i]->render(m_window);
@@ -177,14 +186,15 @@ void Game::render()
 		longFish[i]->render(m_window);
 		mine[i]->render(m_window);
 	}
+	if (bossFight)
+	{
+		squid.render(m_window);
+	}
+
 	myOverLay.render(m_window);
 	m_window.draw(player->getAnimatedSpriteFrame());
 	m_window.draw(m_bubbles);
-
-	
 	myPlant->render(m_window);
-	
-
 	if (gameOver)
 	{
 		gameOverScreen.render(m_window);
@@ -192,7 +202,9 @@ void Game::render()
 
 	m_window.display();
 }
-
+/// <summary>
+/// SET UP AND INITIALISATION
+/// </summary>
 void Game::setupFontAndText()
 {
 	if (!player_texture.loadFromFile(PLAYER_SPRITES))
@@ -235,11 +247,15 @@ void Game::setupFontAndText()
 
 	myPlant = new Plant;
 	myPlant->initialise();
+
+	squid.loadTextures();
 	
 	myOverLay.initialise(m_ArialBlackfont);
 	gameOverScreen.initialise(m_ArialBlackfont);
 }
-
+/// <summary>
+/// ANIMATES THE BUBBLES THAT APPEAR WHEN PLAYER IS HIT
+/// </summary>
 void Game::animateBubbles()
 {
 	m_bubbles.setPosition(player->getAnimatedSpriteFrame().getPosition().x-30, player->getAnimatedSpriteFrame().getPosition().y-100);
@@ -264,7 +280,9 @@ void Game::animateBubbles()
 	rectSourceSprite.top = row * rectSourceSprite.height;
 	m_bubbles.setTextureRect(rectSourceSprite);
 }
-
+/// <summary>
+/// CHECKS ALL COLLISION BOXES
+/// </summary>
 void Game::fishColl()
 {
 	for (int i = 0; i < currentEnemies; i++)
@@ -308,7 +326,9 @@ void Game::fishColl()
 		}
 	}
 }
-
+/// <summary>
+/// INCREASES DIFFICULTY BASED ON TIME PLAYED
+/// </summary>
 void Game::increaseEnemies()
 {
 	if (clock.getElapsedTime().asSeconds() > 40.f)
@@ -321,7 +341,9 @@ void Game::increaseEnemies()
 		clock.restart();
 	}
 }
-
+/// <summary>
+/// PLAYER TAKES DAMAGE, SETS DAMAGE STATE AND ANIMATES LOSS OF BUBBLES AND TUMBLE
+/// </summary>
 void Game::damage()
 {
 	if (damaged)
@@ -351,7 +373,9 @@ void Game::damage()
 		m_bubbles.setPosition(-100, -100);
 	}
 }
-
+/// <summary>
+/// ENABLES LEAP GESTURES
+/// </summary>
 void Game::enableGestures()
 {
 	controller.addListener(listener);
@@ -361,7 +385,11 @@ void Game::enableGestures()
 	controller.enableGesture(Leap::Gesture::TYPE_SWIPE);
 	controller.enableGesture(Leap::Gesture::TYPE_SCREEN_TAP);
 }
-
+/// <summary>
+/// DETECTS LEAP GESTURES
+/// </summary>
+/// <param name="frame"> CURRENT LEAP FRAME</param>
+/// <returns></returns>
 int Game::detectGestures(Leap::Frame frame)
 {
 	Leap::GestureList gestures = frame.gestures();
@@ -387,7 +415,10 @@ int Game::detectGestures(Leap::Frame frame)
 	return-1;
 
 }
-
+/// <summary>
+/// CHECKS WHAT ACTION HAND IS DOING AND WHICH HAND
+/// </summary>
+/// <param name="controller"></param>
 void Game::checkHand(Leap::Controller controller)
 {
 	const Leap::Frame frame = controller.frame();
@@ -421,7 +452,11 @@ void Game::checkHand(Leap::Controller controller)
 	}
 }
 
-
+/// <summary>
+/// CHECKS WHICH HAND
+/// </summary>
+/// <param name="controller"></param>
+/// <returns></returns>
 std::string Game::handCheck(Leap::Controller controller)
 {
 	const Leap::Frame frame = controller.frame();
@@ -439,6 +474,9 @@ std::string Game::handCheck(Leap::Controller controller)
 	
 }
 
+/// <summary>
+/// DELETES ALL ENTITIES AND RESPAWN ON GAME OVER
+/// </summary>
 void Game::deleteEntities()
 {
 	delete player;
@@ -456,6 +494,9 @@ void Game::deleteEntities()
 
 }
 
+/// <summary>
+/// RESETS ALL BOOLS AND MAKES NEW GAME ENEMIES AND ENTITIES
+/// </summary>
 void Game::restartGame()
 {
 	myOverLay.reset();
@@ -491,9 +532,12 @@ void Game::restartGame()
 	myPlant = new Plant;
 	myPlant->initialise();
 	
-
+	squid.reset();
 }
 
+/// <summary>
+/// RESETS PLANT POSITION
+/// </summary>
 void Game::pearlReset()
 {
 	if (myPlant->plantPos().x < -100)
@@ -501,7 +545,9 @@ void Game::pearlReset()
 		myPlant->setPosition();
 	}
 }
-
+/// <summary>
+/// BUBBLE COLLISION TO GAIN OXYGEN
+/// </summary>
 void Game::pearlCollision()
 {
 
@@ -509,6 +555,31 @@ void Game::pearlCollision()
 	{
 		myPlant->bubbleSetPos();
 		player->bubblesHit();
+	}
+
+}
+
+/// <summary>
+/// ALL SQUID FUNCTIONS
+/// </summary>
+void Game::squidControl()
+{
+	if (squid.getScale()>=2)
+	{
+		bossFight = true;
+	}
+	if (squid.returnDashes() == 2)
+	{
+		bossFight = false;
+		squid.reset();
+	}
+	if (!bossFight)
+	{
+		squid.update(player->getPosition());
+	}
+	if (bossFight)
+	{
+		squid.bossEntrance(player->getPosition());
 	}
 
 }

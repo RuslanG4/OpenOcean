@@ -29,7 +29,7 @@ void OverLay::initialise(sf::Font& t_font)
 	o2percent.setPosition(WINDOW_WIDTH-164, 26);
 
 	o2Meter.setPosition(60, 42);
-	o2Meter.setFillColor(sf::Color::Green);
+	o2Meter.setFillColor(GREEN);
 	if (!barTexture.loadFromFile(BAR_SPRITE))
 	{
 		std::cout << "eror loading 02";

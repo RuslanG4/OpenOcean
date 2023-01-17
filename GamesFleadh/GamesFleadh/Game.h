@@ -26,6 +26,7 @@
 #include"OverLay.h"
 #include"GameOver.h"
 #include"Plant.h"
+#include"Squid.h"
 #include<Leap.h>
 
 class Game
@@ -59,20 +60,23 @@ private:
 	Player* player;
 	AnimatedSprite player_animated_sprite;
 
+	//PLAYER BUBBLES
 	sf::Sprite m_bubbles;
 	sf::Texture m_bubblesTexture;
 	int bubbleTimer = 0;
 	int bubbleFrame = 0;
 	void animateBubbles();
 
+	//GAME EVENTS
 	bool gameOver = false;
+	bool bossFight = false;
 
+	//SCREENS
 	OverLay myOverLay;
 	GameOver gameOverScreen;
 
 	//PLAYER ANIMATION EVENTS
 	gpp::Events input;
-	void FSM();
 	//BACKGROUND
 	Background* bg1;
 	Background* bg2;
@@ -81,6 +85,10 @@ private:
 	Enemy* bigFish[5];
 	Enemy* longFish[5];
 	Enemy* mine[5];
+	//SQUID
+	Squid squid;
+
+
 	//ENTITES
 	Plant* myPlant;
 	//TAKING DAMAGE
@@ -96,6 +104,7 @@ private:
 	int currentEnemies = 1;
 	sf::Clock clock;
 
+	//LEAP
 	Leap::Controller controller;
 	Leap::Listener listener;
 	void enableGestures();
@@ -103,11 +112,16 @@ private:
 	void checkHand(Leap::Controller controller);
 	std::string handCheck(Leap::Controller controller);
 
+	//RESTARTING GAME
 	void deleteEntities();
 	void restartGame();
 
+	//PLANT
 	void pearlReset();
 	void pearlCollision();
+
+	//SQUID CONTROLS
+	void squidControl();
 
 
 };

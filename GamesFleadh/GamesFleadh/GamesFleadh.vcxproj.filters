@@ -102,6 +102,9 @@
     <ClCompile Include="Squid.cpp">
       <Filter>Source Files\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Chest.cpp">
+      <Filter>Source Files\GameEntities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defines.h">
@@ -169,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="Squid.h">
       <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Chest.h">
+      <Filter>Header Files\GameEntities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

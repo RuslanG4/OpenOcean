@@ -26,6 +26,8 @@ private:
 
 	bool isAlive = true;
 
+	int totalPearls = 0;
+
 	int pushbackSpeed = 1;
 
 	sf::Clock m_oxyTimer;
@@ -48,11 +50,13 @@ public:
 	bool getAlive() { return isAlive; };
 	const sf::Vector2f getPosition() { return m_animated_sprite.getPosition(); };
 	float const getOxyLvl() { return oxygenLvl; };
+	const int getPearls() { return totalPearls; };
 
 	//SETTERS
 	void setVelBack() { pushbackSpeed = 1; };
 	void killPlayer() { isAlive = false; }
 	void minusOxygen() { lostOxygen = true; }
+	void addPearls() { totalPearls++; };
 
 	//PLAYER BOUNDARY
 	void boundary();
@@ -85,9 +89,7 @@ public:
 			oxygenLvl = 0;
 		}
 	}
-	
 
-	
 	
 	
 	

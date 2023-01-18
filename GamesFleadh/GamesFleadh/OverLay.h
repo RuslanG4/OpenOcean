@@ -15,6 +15,13 @@ private:
 	sf::RectangleShape o2Meter;
 	//TEXT FOR AMOUNT
 	sf::Text o2percent;
+
+	sf::Sprite pearlSprite;
+	sf::Texture pearlTexture;
+
+	sf::RectangleShape greyBox[3];
+
+	sf::Text pearlAmount;
 	//FONT
 	sf::Font m_font;
 
@@ -29,14 +36,17 @@ private:
 	int healthTime = 0;
 	int healthFrame = 0;
 
+	int pearlCount = 0;
+
 
 public:
 	void render(sf::RenderWindow& window);
 	void update();
 	void initialise(sf::Font& t_font);
-	void getOxyLevel(float t_oxygen);
+	void getOxyLevel(float t_oxygen, int t_pearls);
 	void getDistance();
 	void reset() { distance = 0; };
 	int returnDistance() { return distance; };
+	void setPearlString();
 };
 

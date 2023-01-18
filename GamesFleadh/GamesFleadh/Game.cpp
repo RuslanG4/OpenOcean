@@ -132,18 +132,20 @@ void Game::update(sf::Time t_deltaTime)
 		squidControl();
 
 		myPlant->update();
+		myChest->update();
+		myChest->checkCollision(player);
 
-		myOverLay.getOxyLevel(player->getOxyLvl());
+		myOverLay.getOxyLevel(player->getOxyLvl(),player->getPearls());
 		myOverLay.update();
 
 		bg1->update();
 		bg2->update();
 
-		pearlReset();
+		plantReset();
 
 		damage();
 		fishColl();
-		pearlCollision();
+		plantBubbleCollision();
 		increaseEnemies();
 
 		checkHand(controller);
@@ -195,6 +197,7 @@ void Game::render()
 	m_window.draw(player->getAnimatedSpriteFrame());
 	m_window.draw(m_bubbles);
 	myPlant->render(m_window);
+	myChest->render(m_window);
 	if (gameOver)
 	{
 		gameOverScreen.render(m_window);
@@ -247,6 +250,9 @@ void Game::setupFontAndText()
 
 	myPlant = new Plant;
 	myPlant->initialise();
+
+	myChest = new Chest();
+	myChest->initialise();
 
 	squid.loadTextures();
 	
@@ -331,7 +337,7 @@ void Game::fishColl()
 /// </summary>
 void Game::increaseEnemies()
 {
-	if (clock.getElapsedTime().asSeconds() > 40.f)
+	if (clock.getElapsedTime().asSeconds() > 50.f)
 	{
 		currentEnemies++;
 		if (currentEnemies >= 5)
@@ -503,11 +509,13 @@ void Game::restartGame()
 
 	input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN_STOP);
 
+	clock.restart();
 	currentEnemies = 1;
 	tumble = 0;
 	immuneTimer = 0;
 	damaged = false;
 	immune = false;
+	bossFight = false;
 
 	player = new Player(player_animated_sprite);
 
@@ -538,17 +546,21 @@ void Game::restartGame()
 /// <summary>
 /// RESETS PLANT POSITION
 /// </summary>
-void Game::pearlReset()
+void Game::plantReset()
 {
 	if (myPlant->plantPos().x < -100)
 	{
 		myPlant->setPosition();
 	}
+	if (myChest->chestPos().x < -200)
+	{
+		myChest->setPosition();
+	}
 }
 /// <summary>
 /// BUBBLE COLLISION TO GAIN OXYGEN
 /// </summary>
-void Game::pearlCollision()
+void Game::plantBubbleCollision()
 {
 
 	if (player->CollisionBox()->checkRectangleCollision(myPlant->CollisionBox()))

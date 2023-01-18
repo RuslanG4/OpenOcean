@@ -26,6 +26,7 @@
 #include"OverLay.h"
 #include"GameOver.h"
 #include"Plant.h"
+#include"Chest.h"
 #include"Squid.h"
 #include<Leap.h>
 
@@ -91,6 +92,7 @@ private:
 
 	//ENTITES
 	Plant* myPlant;
+	Chest* myChest;
 	//TAKING DAMAGE
 	int tumble = 0;
 	int immuneTimer = 0;
@@ -117,8 +119,8 @@ private:
 	void restartGame();
 
 	//PLANT
-	void pearlReset();
-	void pearlCollision();
+	void plantReset();
+	void plantBubbleCollision();
 
 	//SQUID CONTROLS
 	void squidControl();

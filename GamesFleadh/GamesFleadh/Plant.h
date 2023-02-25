@@ -1,6 +1,7 @@
 #pragma once
 #include<iostream>
 #include <SFML/Graphics.hpp>
+#include<SFML/Audio.hpp>
 #include"Defines.h"
 #include"Collision.h"
 
@@ -24,11 +25,16 @@ private:
 	int bubbleSpawnTimer = 0;
 	bool bubbleSpawn = false;
 
+
+	sf::Music bubbleSound;
+	bool sound = false;
+	
+
 public:
 	void render(sf::RenderWindow& window);
 	void update();
 	void initialise();
-	void setPosition() { m_plant.setPosition(sf::Vector2f((rand() % 800) + 1500, 780)); bubbleSpawn = false; };
+	void setPosition() { m_plant.setPosition(sf::Vector2f((rand() % 800) + 1500, 780)); bubbleSpawn = false;};
 	void bubbleSetPos() { m_bubble.setPosition(offScreenPos); };
 	void timeBubbles();
 	void updateHB();
@@ -37,5 +43,7 @@ public:
 	Rectangle* CollisionBox() { return pearlHB; };
 	void animate();
 	sf::Vector2f plantPos() { return m_plant.getPosition(); };
+
+	void playBubble();
 };
 

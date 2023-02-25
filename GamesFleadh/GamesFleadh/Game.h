@@ -12,6 +12,7 @@
 /// Don't forget the endif at the bottom
 /// </summary>
 #include <SFML/Graphics.hpp>
+#include<SFML/Audio.hpp>
 #include<iostream>
 #include"Player.h"
 #include"Events.h"
@@ -124,6 +125,14 @@ private:
 
 	//SQUID CONTROLS
 	void squidControl();
+
+
+	//audio
+	sf::Music bgMusic;
+	sf::Music ambience;
+	void playBG();
+
+	
 
 
 };

@@ -52,6 +52,7 @@ void Plant::timeBubbles()
 			bubbleSpawnTimer--;
 			if (bubbleSpawnTimer <= 0)
 			{
+				playBubble();
 				m_bubble.setPosition(m_plant.getPosition().x + 30, m_plant.getPosition().y);
 				bubbleSpawn = true;
 				bubbleTimer = 0;
@@ -94,4 +95,14 @@ void Plant::animate()
 	rectSourceSprite.left = col * rectSourceSprite.width;
 	rectSourceSprite.top = row * rectSourceSprite.height;
 	m_bubble.setTextureRect(rectSourceSprite);
+}
+
+void Plant::playBubble()
+{
+	if (!bubbleSound.openFromFile("ASSETS\\AUDIO\\bubbles.wav"))
+	{
+		std::cout << "error laoding music";
+	}
+	bubbleSound.play();
+	bubbleSound.setVolume(20);
 }

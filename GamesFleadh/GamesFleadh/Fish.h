@@ -26,5 +26,6 @@ public:
 	virtual void setDamageT() { damaged = true; }
 	virtual void aiBehaviour() {};
 	virtual bool isChasing() { return 1; };
+	void sound() {};
 };
 

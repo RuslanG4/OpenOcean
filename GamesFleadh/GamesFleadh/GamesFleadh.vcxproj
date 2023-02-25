@@ -81,7 +81,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\c00273521\Desktop\FishEndlessSwimmer\GamesFleadh\lib;C:\FishEndlessSwimmer\GamesFleadh\lib;C:\LeapDeveloperKit_3.2.1_win\LeapDeveloperKit_3.2.1+45911_win\LeapSDK\lib\x86;C:\Users\rusla\OneDrive\Desktop\GAMES FLEADH\FishEndlessSwimmer\GamesFleadh\lib;E:\LeapDeveloperKit_3.2.1+45911_win\LeapSDK\lib\x86;C:\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\rusla\Desktop\FishEndlessSwimmer\GamesFleadh\lib;C:\FishEndlessSwimmer\GamesFleadh\lib;C:\LeapDeveloperKit_3.2.1_win\LeapDeveloperKit_3.2.1+45911_win\LeapSDK\lib\x86;C:\Users\rusla\OneDrive\Desktop\GAMES FLEADH\FishEndlessSwimmer\GamesFleadh\lib;E:\LeapDeveloperKit_3.2.1+45911_win\LeapSDK\lib\x86;C:\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Leap.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

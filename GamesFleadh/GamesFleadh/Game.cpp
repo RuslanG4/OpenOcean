@@ -12,7 +12,7 @@ Game::Game() :
 {
 	setupFontAndText();
 	enableGestures();
-
+	playBG();
 }
 
 /// <summary>
@@ -324,6 +324,7 @@ void Game::fishColl()
 		}
 		if (player->CollisionBox()->checkRectangleCollision(mine[i]->CollisionBox()) &&!immune)
 		{
+			mine[i]->sound();
 			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
 			player->mineHit();
 			mine[i]->setDamageT();
@@ -595,3 +596,27 @@ void Game::squidControl()
 	}
 
 }
+
+void Game::playBG()
+{
+	if (!bgMusic.openFromFile("ASSETS\\AUDIO\\bgmusic.wav"))
+	{
+		std::cout << "error laoding music";
+	}
+	if (!ambience.openFromFile("ASSETS\\AUDIO\\ambience.wav"))
+	{
+		std::cout << "error loading ambiecne";
+	}
+	ambience.setLoop(true);
+	ambience.setVolume(20);
+	ambience.play();
+
+	bgMusic.setLoop(true);
+	bgMusic.setVolume(10);
+	bgMusic.play();
+}
+
+
+
+
+

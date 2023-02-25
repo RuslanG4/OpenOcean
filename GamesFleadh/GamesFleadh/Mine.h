@@ -3,6 +3,8 @@
 class Mine : public Enemy
 {
 private:
+	sf::Music mineSound;
+
 	float speed = 3;
 	float idleSpeed = 0.15;
 	sf::Texture m_texture;
@@ -14,6 +16,8 @@ private:
 	int mineTimer = 0;
 	int explosionTimer = 0;
 	int explosionFrame = 0;
+
+	bool soundPlayed = false;
 public:
 	virtual void update(sf::Vector2f t_playerPos);
 	virtual void loadTextures();
@@ -33,6 +37,8 @@ public:
 	}
 	virtual void aiBehaviour() {};
 	virtual bool isChasing() { return 1; };
+
+	void sound();
 
 	
 };

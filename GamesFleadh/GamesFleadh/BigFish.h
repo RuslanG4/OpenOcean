@@ -36,5 +36,6 @@ public:
 	void aiBehaviour();
 	void chaseAI(sf::Vector2f t_playerPos);
 	virtual bool isChasing() { return chase; };
+	void sound() {};
 };
 

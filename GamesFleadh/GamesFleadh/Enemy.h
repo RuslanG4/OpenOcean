@@ -4,6 +4,7 @@
 #include"Collision.h"
 #include<iostream>
 #include"Thor/Vectors.hpp"
+#include<SFML/Audio.hpp>
 
 
 class Enemy
@@ -23,6 +24,7 @@ public:
 	virtual void setDamageT() = 0;
 	virtual void aiBehaviour() = 0;
 	virtual bool isChasing() { return 1; };
+	virtual void sound()=0;
 
 };
 

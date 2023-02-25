@@ -85,6 +85,10 @@ void Chest::animate()
 	if (chestTimer > 10)
 	{
 		chestFrame++;
+		if (chestFrame == 4)
+		{
+			playChest();
+		}
 		if (chestFrame > 9) //frame 44 is the last frame the robot is running
 		{
 			chestFrame = 9; //37 is the first frame the robot is running
@@ -118,8 +122,29 @@ void Chest::checkCollision(Player* t_player)
 		if (t_player->CollisionBox()->checkRectangleCollision(pearls[i].collisionBox()))
 		{
 			pearls[i].PearlSetPos();
+			pearls[i].playSound();
 			t_player->addPearls();
 		}
 	}
 }
 
+void Chest::playChest()
+{
+	if (!chestSound.openFromFile("ASSETS\\AUDIO\\chest.wav"))
+	{
+		std::cout << "error laoding music";
+	}
+	chestSound.setVolume(30);
+	chestSound.play();
+}
+
+void Pearl::playSound()
+{
+	if (!itemSound.openFromFile("ASSETS\\AUDIO\\item.wav"))
+	{
+		std::cout << "error laoding music";
+	}
+
+	itemSound.setVolume(150);
+	itemSound.play();
+}

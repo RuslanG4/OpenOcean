@@ -1,6 +1,7 @@
 #pragma once
 #include<iostream>
 #include <SFML/Graphics.hpp>
+#include<SFML/Audio.hpp>
 #include"Defines.h"
 #include"Collision.h"
 #include"Player.h"
@@ -15,6 +16,9 @@ private:
 	Rectangle* pearlHB;
 
 	sf::Vector2f offScreenPos{ -400, -400 };
+
+	sf::Music itemSound;
+
 public:
 	Pearl()
 	{
@@ -40,7 +44,9 @@ public:
 	sf::Sprite draw() { return m_pearl; };
 	sf::RectangleShape drawBox() { return m_box; };
 	Rectangle* collisionBox() { return pearlHB; };
+	void playSound();
 };
+
 class Chest
 {
 private:
@@ -58,6 +64,8 @@ private:
 
 	bool spawnedPearls = false;
 
+	sf::Music chestSound;
+	
 public:
 	void render(sf::RenderWindow& window);
 	void update();
@@ -69,5 +77,7 @@ public:
 	void animate();
 	sf::Vector2f chestPos() { return m_chest.getPosition(); };
 	void checkCollision(Player* t_player);
+	void playChest();
+
 };
 

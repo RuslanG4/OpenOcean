@@ -94,4 +94,14 @@ void Mine::animateDeath()
 
 }
 
+void Mine::sound()
+{
+	if (!mineSound.openFromFile("ASSETS\\AUDIO\\mine.wav"))
+	{
+		std::cout << "error laoding music";
+	}
+	mineSound.setVolume(50);
+	mineSound.play();
+}
+
 

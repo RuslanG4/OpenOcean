@@ -178,8 +178,9 @@ void Game::render()
 		m_window.draw(squid.getBsquid());
 	}
 	bg2->draw(m_window);
+	m_window.draw(darkness);
 
-	player->render(m_window);
+	
 
 	for (int i = 0; i < currentEnemies; i++)
 	{
@@ -193,13 +194,24 @@ void Game::render()
 		squid.render(m_window);
 	}
 
-	myOverLay.render(m_window);
-	m_window.draw(player->getAnimatedSpriteFrame());
+	
 	m_window.draw(m_bubbles);
+	
+
+
+	
+
 	myPlant->render(m_window);
 	myChest->render(m_window);
+
+	player->render(m_window);
+	m_window.draw(player->getAnimatedSpriteFrame());
+
+	myOverLay.render(m_window);
+
 	if (gameOver)
 	{
+		bgMusic.stop();
 		gameOverScreen.render(m_window);
 	}
 
@@ -230,8 +242,8 @@ void Game::setupFontAndText()
 	player_animated_sprite = AnimatedSprite(player_texture);
 	player = new Player(player_animated_sprite);
 
-	bg1 = new Background(BG_, 3.4,2,2,1350);
-	bg2 = new Background(BG_ROCKS, 3.8,2,2,1920);
+	bg1 = new Background(BG_, 3.4, 3, 3, 2000);
+	bg2 = new Background(BG_ROCKS, 3.8, 2, 2, 1920);
 
 	for (int i = 0; i < 5; i++)
 	{
@@ -258,6 +270,12 @@ void Game::setupFontAndText()
 	
 	myOverLay.initialise(m_ArialBlackfont);
 	gameOverScreen.initialise(m_ArialBlackfont);
+
+
+	darkness.setSize(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT));
+	darkness.setFillColor(sf::Color((255, 255, 255, 108)));
+	darkness.setPosition(0, 0);
+
 }
 /// <summary>
 /// ANIMATES THE BUBBLES THAT APPEAR WHEN PLAYER IS HIT
@@ -331,6 +349,10 @@ void Game::fishColl()
 			damaged = true;
 			immune = true;
 		}
+		if (player->CollisionBox()->checkRectangleCollision(squid.getHB()) && !immune)
+		{
+			gameOver = true;
+		}
 	}
 }
 /// <summary>
@@ -338,12 +360,12 @@ void Game::fishColl()
 /// </summary>
 void Game::increaseEnemies()
 {
-	if (clock.getElapsedTime().asSeconds() > 50.f)
+	if (clock.getElapsedTime().asSeconds() > 40.f)
 	{
 		currentEnemies++;
-		if (currentEnemies >= 5)
+		if (currentEnemies >= 6)
 		{
-			currentEnemies = 5;
+			currentEnemies = 6;
 		}
 		clock.restart();
 	}
@@ -498,6 +520,7 @@ void Game::deleteEntities()
 	}
 
 	delete myPlant;
+	delete myChest;
 
 }
 
@@ -520,7 +543,7 @@ void Game::restartGame()
 
 	player = new Player(player_animated_sprite);
 
-	bg1 = new Background(BG_, 3.4, 2, 2, 1350);
+	bg1 = new Background(BG_, 3.4, 3, 3, 2000);
 	bg2 = new Background(BG_ROCKS, 3.8, 2, 2, 1920);
 
 	for (int i = 0; i < 5; i++)
@@ -540,8 +563,13 @@ void Game::restartGame()
 
 	myPlant = new Plant;
 	myPlant->initialise();
+
+	myChest = new Chest();
+	myChest->initialise();
 	
 	squid.reset();
+
+	bgMusic.play();
 }
 
 /// <summary>
@@ -549,11 +577,11 @@ void Game::restartGame()
 /// </summary>
 void Game::plantReset()
 {
-	if (myPlant->plantPos().x < -100)
+	if (myPlant->plantPos().x < -400)
 	{
 		myPlant->setPosition();
 	}
-	if (myChest->chestPos().x < -200)
+	if (myChest->chestPos().x < -500)
 	{
 		myChest->setPosition();
 	}

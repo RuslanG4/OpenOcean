@@ -4,10 +4,13 @@
 #include<SFML/Audio.hpp>
 #include"Defines.h"
 #include"Collision.h"
+#include"Light.h"
 
 class Plant
 {
 private:
+	Light plantLight;
+
 	sf::Sprite m_bubble;
 	sf::Texture m_texture;
 
@@ -34,7 +37,7 @@ public:
 	void render(sf::RenderWindow& window);
 	void update();
 	void initialise();
-	void setPosition() { m_plant.setPosition(sf::Vector2f((rand() % 800) + 1500, 780)); bubbleSpawn = false;};
+	void setPosition();
 	void bubbleSetPos() { m_bubble.setPosition(offScreenPos); };
 	void timeBubbles();
 	void updateHB();

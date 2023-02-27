@@ -30,7 +30,7 @@ const sf::Color DEEPGREEN{ 24,53,67 };
 const sf::Color GREEN{ 5, 255, 68 };
 
 
-const int WINDOW_WIDTH = 1400;
-const int WINDOW_HEIGHT = 950;
+const int WINDOW_WIDTH = 1920;
+const int WINDOW_HEIGHT = 1080;
 
 #endif

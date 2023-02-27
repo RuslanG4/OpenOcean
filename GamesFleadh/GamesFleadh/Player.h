@@ -7,10 +7,14 @@
 #include"Defines.h"
 #include"Collision.h"
 #include<Leap.h>
+#include"Light.h"
 
 class Player
 {
 private:
+
+	Light playerLight;
+
 	PlayerState* m_state;
 	AnimatedSprite m_animated_sprite;
 

@@ -81,7 +81,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\rusla\Desktop\FishEndlessSwimmer\GamesFleadh\lib;C:\FishEndlessSwimmer\GamesFleadh\lib;C:\LeapDeveloperKit_3.2.1_win\LeapDeveloperKit_3.2.1+45911_win\LeapSDK\lib\x86;C:\Users\rusla\OneDrive\Desktop\GAMES FLEADH\FishEndlessSwimmer\GamesFleadh\lib;E:\LeapDeveloperKit_3.2.1+45911_win\LeapSDK\lib\x86;C:\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\rusla\Desktop\OpenOcean\GamesFleadh\lib;C:\FishEndlessSwimmer\GamesFleadh\lib;C:\LeapDeveloperKit_3.2.1_win\LeapDeveloperKit_3.2.1+45911_win\LeapSDK\lib\x86;C:\Users\rusla\OneDrive\Desktop\GAMES FLEADH\FishEndlessSwimmer\GamesFleadh\lib;E:\LeapDeveloperKit_3.2.1+45911_win\LeapSDK\lib\x86;C:\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Leap.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -141,6 +141,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="IdlePlayerState.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="LongFish.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mine.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="IdlePlayerState.h" />
+    <ClInclude Include="Light.h" />
     <ClInclude Include="LongFish.h" />
     <ClInclude Include="Mine.h" />
     <ClInclude Include="OverLay.h" />

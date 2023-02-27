@@ -4,10 +4,11 @@ void Chest::render(sf::RenderWindow& window)
 {
 	for (int i = 0; i < 3; i++)
 	{
+		window.draw(pearls[i].drawLight());
 		window.draw(pearls[i].draw());
 		//window.draw(pearls[i].drawBox());
 	}
-	
+	window.draw(chestLight.draw());
 	window.draw(m_chest);
 
 }
@@ -33,23 +34,29 @@ void Chest::initialise()
 
 	m_chest.setTexture(m_chestTexture);
 	m_chest.setTextureRect(sf::IntRect(0, 0, 48, 32));
-	m_chest.setPosition(sf::Vector2f((rand() % 800) + 1700, 790));
+	m_chest.setPosition(sf::Vector2f((rand() % 800) + (WINDOW_WIDTH +500), (WINDOW_HEIGHT - 160)));
 	m_chest.setScale(3, 3);
+
+	chestLight = Light{ sf::Vector2f(m_chest.getPosition().x + 40, m_chest.getPosition().y + 60) };
+	chestLight.scale(0.75, 0.75);
+	chestLight.setMaxLight(255);
 }
 
 void Chest::setPosition()
 {
-	m_chest.setPosition(sf::Vector2f((rand() % 800) + 1700, 790));
+	m_chest.setPosition(sf::Vector2f((rand() % 800) + (WINDOW_WIDTH + 500), (WINDOW_HEIGHT - 160)));
 	chestSpawn = false;
 	m_chest.setTextureRect(sf::IntRect(0, 0, 48, 32));
 	chestFrame = 0;
+	chestLight = Light{ sf::Vector2f(m_chest.getPosition().x + 40,m_chest.getPosition().y + 60) };
+	chestLight.scale(0.75, 0.75);
 }
 
 void Chest::timePearls()
 {
 	if (!chestSpawn)
 	{
-		if (m_chest.getPosition().x < 1350)
+		if (m_chest.getPosition().x < 1550)
 		{
 			if (chestSpawnTimer == 0)
 			{
@@ -77,6 +84,7 @@ void Chest::updateHB()
 void Chest::move()
 {
 	m_chest.move(-2.4, 0);
+	chestLight.moveLight(-2.4, 0);
 }
 
 void Chest::animate()

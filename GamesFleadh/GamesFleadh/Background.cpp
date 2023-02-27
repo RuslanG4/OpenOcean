@@ -23,25 +23,29 @@ Background::Background(const char* t_texture, float t_speed, float t_scaleX,floa
     {
         std::cout << "error loading tiles";
     }
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < 8; i++)
     {
         rocks[i].setTexture(rockTexture);
         rocks[i].setTextureRect(sf::IntRect(0, 82, 180, 82));
         rocks[i].setScale(2,2);
     }
-    rocks[0].setPosition(-50, 800);
-    rocks[1].setPosition(275, 800);
-    rocks[2].setPosition(600, 800);
-    rocks[3].setPosition(925, 800);
-    rocks[4].setPosition(1250, 800);
-    rocks[5].setPosition(1575, 800);
+    rocks[0].setPosition(-50, WINDOW_HEIGHT-150);
+    rocks[1].setPosition(275, WINDOW_HEIGHT - 150);
+    rocks[2].setPosition(600, WINDOW_HEIGHT - 150);
+    rocks[3].setPosition(925, WINDOW_HEIGHT - 150);
+    rocks[4].setPosition(1250, WINDOW_HEIGHT - 150);
+    rocks[5].setPosition(1575, WINDOW_HEIGHT - 150);
+    rocks[6].setPosition(1900, WINDOW_HEIGHT - 150);
+    rocks[7].setPosition(2225, WINDOW_HEIGHT - 150);
+    
+
 }
 
 void Background::draw(sf::RenderWindow& window)
 {
 	window.draw(back1);
     window.draw(back2);
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < 8; i++)
     {
         window.draw(rocks[i]);
     }
@@ -70,12 +74,12 @@ void Background::move()
 
 void Background::moveRocks()
 {
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < 8; i++)
     {
         rocks[i].move(-2.4, 0);
         if (rocks[i].getPosition().x < -375)
         {
-            rocks[i].setPosition(1575, 800);
+            rocks[i].setPosition(2225, WINDOW_HEIGHT - 150);
         }
     }
     

@@ -36,6 +36,12 @@ void Squid::loadTextures()
 	squidBlackedOut.setTextureRect(sf::IntRect(0, 0, 310, 192));
 	squidBlackedOut.setColor(sf::Color((255, 255, 255, 128)));
 	squidBlackedOut.setRotation(90);
+
+	m_box.setFillColor(sf::Color::Transparent);
+	m_box.setOutlineThickness(3);
+	m_box.setSize(sf::Vector2f(135, 250));
+
+	hb = new Rectangle(squid.getPosition().x - 90, squid.getPosition().y - 170, 135, 200);
 }
 /// <summary>
 /// DRAWS BIG SQUID
@@ -44,6 +50,7 @@ void Squid::loadTextures()
 void Squid::render(sf::RenderWindow& t_window)
 {
 	t_window.draw(squid);
+	//t_window.draw(m_box);
 }
 
 /// <summary>
@@ -120,12 +127,15 @@ void Squid::bossEntrance(sf::Vector2f playerPos)
 	{
 		if (!start) //SETS POSITIONS ETC
 		{
-			position = { 1250,-400 };
+			position = { WINDOW_WIDTH-150,-400 };
 			squid.setColor(sf::Color::White);
 			squid.setScale(2, 2);
 			squid.setPosition(position);
 			squid.setRotation(180);
 			start = true; //DONE SETTING
+
+			m_box.setSize(sf::Vector2f(135, 250));
+			m_box.setPosition(squid.getPosition().x - 90, squid.getPosition().y - 170);
 		}
 		if (squid.getPosition().y < 450)
 		{
@@ -134,6 +144,7 @@ void Squid::bossEntrance(sf::Vector2f playerPos)
 		else//AS SOON AS SQUID REACHES <450 Y ENTERANCE IS OVER
 		{
 			squid.setRotation(0);
+			m_box.setRotation(0);
 			enterance = true;
 		}
 	}
@@ -150,17 +161,20 @@ void Squid::bossEntrance(sf::Vector2f playerPos)
 /// <param name="playerPos">PLAYER POS TO FOLLOW</param>
 void Squid::aiMove(sf::Vector2f playerPos)
 {
+	hb = new Rectangle(squid.getPosition().x - 90, squid.getPosition().y - 170, 135, 200);
+	m_box.setPosition(squid.getPosition().x - 90, squid.getPosition().y-170);
+
 	if (!isMoving)
 	{ 
 		//MOVES SQUID TO FOLLOW PLAYER
 	chaseDirection = playerPos - squid.getPosition();
-	thor::setLength(chaseDirection, float(6));
+	thor::setLength(chaseDirection, float(1.5));
 	position = squid.getPosition();
 	position += chaseDirection;
 	squid.setPosition(position);
-	if (squid.getPosition().x < 1250) //MAKE SURE SQUID DOESNT GO PAST 1250
+	if (squid.getPosition().x < 1350) //MAKE SURE SQUID DOESNT GO PAST 1450
 	{
-		squid.setPosition(1250, squid.getPosition().y);
+		squid.setPosition(1350, squid.getPosition().y);
 	}
 
 	// TIMER FOR DECISIONS
@@ -188,8 +202,12 @@ void Squid::dash()
 		squid.rotate(-1); //SPINS SQUID TO INDICATE DASH
 		if (spinTimer <= 0) //AS SOON AS SPIN IS DONE, MOVES SQUID IN FAST DASH
 		{
+			delete hb;
 			squid.setRotation(270);
 			squid.move(-10, 0);
+			m_box.setSize(sf::Vector2f(250, 130));
+			m_box.setPosition(squid.getPosition().x - 150, squid.getPosition().y - 40);
+			hb = new Rectangle(squid.getPosition().x - 150, squid.getPosition().y - 140, 250, 135);
 			if (squid.getPosition().x < -200) //RESETS ENTIRE SQUID ENCOUNTER
 			{
 				enterance = false;

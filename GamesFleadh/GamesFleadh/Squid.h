@@ -10,6 +10,10 @@ class Squid
 private:
 	float speed = 1;
 
+	//hitbox
+	Rectangle* hb;
+	sf::RectangleShape m_box;
+
 	//SQUID AND OUTLINE SPRITES
 	sf::Sprite squid;
 	sf::Sprite squidBlackedOut;
@@ -68,6 +72,7 @@ public:
 	int returnDashes() { return dashAmount; };
 	sf::Sprite getBsquid() { return squidBlackedOut; };
 	float getScale() { return scale; };
+	Rectangle* getHB() { return hb; };
 
 };
 

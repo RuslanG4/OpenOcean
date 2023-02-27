@@ -21,6 +21,10 @@ Player::Player(const AnimatedSprite& sprite) : m_animated_sprite(sprite)
 	m_box.setSize(sf::Vector2f(100, 25));
 	m_box.setPosition(m_animated_sprite.getPosition().x - 20, m_animated_sprite.getPosition().y + 5);
 
+	playerLight = Light{ m_animated_sprite.getPosition() };
+
+	playerLight.setMaxLight(104);
+	playerLight.setIntensity(0.6);
 	
 }
 
@@ -48,6 +52,10 @@ void Player::update() {
 	boundary();
 	HB();
 	updateOxy();
+
+	playerLight.followCentre(sf::Vector2f(m_animated_sprite.getPosition().x+50, m_animated_sprite.getPosition().y));
+	playerLight.scale(0.7, 0.7);
+	
 }
 
 AnimatedSprite& Player::getAnimatedSprite() {
@@ -71,17 +79,22 @@ void Player::setPlayerState(PlayerState* state) { this->m_state = state; }
 void Player::render(sf::RenderWindow& window)
 {
 	//window.draw(m_box);
+	window.draw(playerLight.draw());
 }
 
 void Player::boundary()
 {
-	if (m_position.x > 650)
+	if (m_position.x > 750)
 	{
-		m_position.x = 650;
+		m_position.x = 750;
 	}
 	if (m_position.y < 20)
 	{
 		m_position.y = 20;
+	}
+	if (m_position.y > WINDOW_HEIGHT-50)
+	{
+		m_position.y = WINDOW_HEIGHT - 50;
 	}
 	if (m_position.x < -70)
 	{

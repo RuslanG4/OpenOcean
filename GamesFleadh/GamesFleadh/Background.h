@@ -10,7 +10,7 @@ private:
 	sf::Sprite back2;
 	sf::Texture backT;
 
-	sf::Sprite rocks[6];
+	sf::Sprite rocks[8];
 	sf::Texture rockTexture;
 
 	float speed;

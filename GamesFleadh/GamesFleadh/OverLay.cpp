@@ -59,11 +59,11 @@ void OverLay::initialise(sf::Font& t_font)
 
 	greyBox[0].setSize(sf::Vector2f(150, 40));
 	greyBox[0].setFillColor(sf::Color((255, 255, 255, 128)));
-	greyBox[0].setPosition(1225, 38);
+	greyBox[0].setPosition(WINDOW_WIDTH-175, 38);
 
 	greyBox[1].setSize(sf::Vector2f(150, 40));
 	greyBox[1].setFillColor(sf::Color((255, 255, 255, 128)));
-	greyBox[1].setPosition(1225, 98);
+	greyBox[1].setPosition(WINDOW_WIDTH - 175, 98);
 
 	greyBox[2].setSize(sf::Vector2f(265, 64));
 	greyBox[2].setFillColor(sf::Color((255, 255, 255, 128)));

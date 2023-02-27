@@ -17,7 +17,7 @@ void Fish::loadTextures()
 	m_sprite.setScale(-2, 2);
 	m_sprite.setOrigin(16, 16);
 	m_sprite.setTextureRect(sf::IntRect(0, 0, 32, 32));
-	m_sprite.setPosition(rand() % 300 + 1600, rand() % 800 + 100);
+	m_sprite.setPosition(rand() % 300 + (WINDOW_WIDTH + 200), rand() % (WINDOW_HEIGHT - 150) + 100);
 
 	m_box.setFillColor(sf::Color::Transparent);
 	m_box.setOutlineThickness(3);
@@ -64,7 +64,7 @@ void Fish::boundary()
 	{
 		if (m_sprite.getPosition().x < -50)
 		{
-			m_sprite.setPosition(rand() % 300 + 1600, rand() % 800 + 100);
+			m_sprite.setPosition(rand() % 300 + (WINDOW_WIDTH + 200), rand() % (WINDOW_HEIGHT - 150) + 100);
 		}
 	}
 }

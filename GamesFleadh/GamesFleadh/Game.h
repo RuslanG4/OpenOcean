@@ -77,6 +77,8 @@ private:
 	OverLay myOverLay;
 	GameOver gameOverScreen;
 
+	sf::RectangleShape darkness;
+
 	//PLAYER ANIMATION EVENTS
 	gpp::Events input;
 	//BACKGROUND

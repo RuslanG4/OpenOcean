@@ -2,6 +2,7 @@
 
 void Plant::render(sf::RenderWindow& window)
 {
+	window.draw(plantLight.draw());
 	window.draw(m_plant);
 	window.draw(m_bubble);
 	//window.draw(m_box);
@@ -32,18 +33,32 @@ void Plant::initialise()
 		std::cout << "error loading pearl";
 	}
 	m_plant.setTexture(m_plantTexture);
-	m_plant.setPosition(sf::Vector2f(rand() % 800 + 1500, 780));
+	m_plant.setPosition(sf::Vector2f(rand() % 800 + (WINDOW_WIDTH + 100), (WINDOW_HEIGHT - 170)));
 	m_plant.setScale(2, 2);
 
 	m_box.setFillColor(sf::Color::Transparent);
 	m_box.setOutlineThickness(3);
+
+	plantLight = Light{sf::Vector2f( m_plant.getPosition().x +55,m_plant.getPosition().y + 60 )};// m_plant.getPosition()};
+
+	plantLight.scale(0.75, 0.75);
+	plantLight.setMaxLight(132);
+	
+}
+
+void Plant::setPosition()
+{
+	m_plant.setPosition(sf::Vector2f((rand() % 800) + (WINDOW_WIDTH + 100), (WINDOW_HEIGHT - 170)));
+	plantLight = Light{ sf::Vector2f(m_plant.getPosition().x + 55,m_plant.getPosition().y + 60) };
+	plantLight.scale(0.75, 0.75);
+	bubbleSpawn = false; 
 }
 
 void Plant::timeBubbles()
 {
 	if (!bubbleSpawn)
 	{
-		if (m_plant.getPosition().x < 1350)
+		if (m_plant.getPosition().x < 1550)
 		{
 			if (bubbleSpawnTimer == 0)
 			{
@@ -71,6 +86,8 @@ void Plant::move()
 {
 	m_bubble.move(-2.5, -2);
 	m_plant.move(-2.4, 0);
+	//plantLight.setCenter(m_plant.getPosition());
+	plantLight.moveLight(-2.4, 0);
 }
 
 void Plant::animate()

@@ -24,7 +24,7 @@ void BigFish::loadTextures()
 	m_sprite.setScale(-2, 2);
 	m_sprite.setOrigin(27, 24);
 	m_sprite.setTextureRect(sf::IntRect(0, 0, 54, 49));
-	m_sprite.setPosition(rand() % 300 + 1600, rand() % 800 + 100);
+	m_sprite.setPosition(rand() % 300 + (WINDOW_WIDTH + 200), rand() % (WINDOW_HEIGHT - 150) + 100);
 
 	m_box.setFillColor(sf::Color::Transparent);
 	m_box.setOutlineThickness(3);
@@ -68,7 +68,7 @@ void BigFish::boundary()
 	{
 		if (m_sprite.getPosition().x < -60)
 		{
-			m_sprite.setPosition(rand() % 300 + 1600, rand() % 800 + 100);
+			m_sprite.setPosition(rand() % 300 + (WINDOW_WIDTH+200), rand() % (WINDOW_HEIGHT-150) + 100);
 			hasChased = false;
 			chase = false;
 		}

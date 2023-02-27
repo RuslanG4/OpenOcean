@@ -5,10 +5,13 @@
 #include"Defines.h"
 #include"Collision.h"
 #include"Player.h"
+#include"Light.h"
 
 class Pearl
 {
 private:
+	Light pearlLight;
+
 	sf::Sprite m_pearl;
 	sf::Texture m_pearlsTexture;
 
@@ -32,16 +35,27 @@ public:
 
 		m_box.setOutlineThickness(3);
 		m_box.setFillColor(sf::Color::Transparent);
+
+		pearlLight = Light{ m_pearl.getPosition() };
+		pearlLight.setMaxLight(255);
 	};
 	void PearlSetPos() { m_pearl.setPosition(offScreenPos); };
-	void pearlSetToChest(sf::Vector2f t_position) { m_pearl.setPosition(t_position.x + rand()% 75 + 5, t_position.y + 60 +rand()%50); };
+	void pearlSetToChest(sf::Vector2f t_position)
+	{
+		m_pearl.setPosition(t_position.x + rand()% 75 + 5, t_position.y + 60 +rand()%50);
+		pearlLight.followCentre(sf::Vector2f(m_pearl.getPosition().x + 10, m_pearl.getPosition().y + 10));
+		pearlLight.scale(0.1, 0.1);
+	};
 	void move()
 	{
 		m_pearl.move(-1.5, -2);
+		pearlLight.followCentre(sf::Vector2f(m_pearl.getPosition().x+5,m_pearl.getPosition().y+5));
+		pearlLight.scale(0.1, 0.1);
 	};
 	void setHBPos() { m_box.setPosition(m_pearl.getPosition()); pearlHB = new Rectangle(m_pearl.getPosition().x, m_pearl.getPosition().y, 8, 8); }
 	sf::Vector2f getPosition() { return m_pearl.getPosition(); };
 	sf::Sprite draw() { return m_pearl; };
+	sf::VertexArray drawLight() { return pearlLight.draw(); }
 	sf::RectangleShape drawBox() { return m_box; };
 	Rectangle* collisionBox() { return pearlHB; };
 	void playSound();
@@ -50,6 +64,7 @@ public:
 class Chest
 {
 private:
+	Light chestLight;
 
 	Pearl pearls[3];
 

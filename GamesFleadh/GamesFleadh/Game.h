@@ -152,6 +152,8 @@ private:
 	sf::Music bgMusic;
 	sf::Music ambience;
 	void playBG();
+	sf::Music breathing;
+	void playBreathing();
 
 	
 

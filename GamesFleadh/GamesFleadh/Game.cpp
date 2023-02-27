@@ -651,8 +651,10 @@ void Game::plantBubbleCollision()
 
 	if (player->CollisionBox()->checkRectangleCollision(myPlant->CollisionBox()))
 	{
+		playBreathing();
 		myPlant->bubbleSetPos();
 		player->bubblesHit();
+
 	}
 
 }
@@ -699,6 +701,16 @@ void Game::playBG()
 	bgMusic.setLoop(true);
 	bgMusic.setVolume(10);
 	bgMusic.play();
+}
+
+void Game::playBreathing()
+{
+	if (!breathing.openFromFile("ASSETS\\AUDIO\\breath.wav"))
+	{
+		std::cout << "error loading ambiecne";
+	}
+	breathing.setVolume(20);
+	breathing.play();
 }
 
 

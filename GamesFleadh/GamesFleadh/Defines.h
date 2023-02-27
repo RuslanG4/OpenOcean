@@ -23,6 +23,13 @@ const char* const CHESTS = "ASSETS\\IMAGES\\Chests.png";
 const char* const TILES = "ASSETS\\IMAGES\\tiles.png";
 const char* const PLANT = "ASSETS\\IMAGES\\plant.png";
 
+const char* const TOTEM = "ASSETS\\IMAGES\\totem.png";
+const char* const SEABUSH = "ASSETS\\IMAGES\\seabush.png";
+const char* const KELP = "ASSETS\\IMAGES\\kelp.png";
+const char* const PLATFORM= "ASSETS\\IMAGES\\platformQ.png";
+
+const char* const LOGO = "ASSETS\\IMAGES\\logo.png";
+
 const char* const BG_ = "ASSETS\\IMAGES\\bg.jpg";
 const char* const BG_ROCKS = "ASSETS\\IMAGES\\midground.png";
 

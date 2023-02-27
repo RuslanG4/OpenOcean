@@ -37,14 +37,51 @@ Background::Background(const char* t_texture, float t_speed, float t_scaleX,floa
     rocks[5].setPosition(1575, WINDOW_HEIGHT - 150);
     rocks[6].setPosition(1900, WINDOW_HEIGHT - 150);
     rocks[7].setPosition(2225, WINDOW_HEIGHT - 150);
+
+
+    if (!totemT.loadFromFile(TOTEM))
+    {
+        std::cout << "error loading totem";
+    }
+    totem.setTexture(totemT);
+    totem.setScale(2,2);
+    totem.setPosition(rand()%1920, rand() % 100 + 575);
+    totem.setColor(sf::Color(195, 184, 184));
+
+
+    if (!platT.loadFromFile(PLATFORM))
+    {
+        std::cout << "error loading PLATFORM";
+    }
+    platform.setTexture(platT);
+    platform.setScale(2, 2);
+    platform.setPosition(rand() % 1920, rand() % 300 + 375);
+    platform.setColor(sf::Color(195, 184, 184));
     
 
+}
+
+Background::Background(float t_scaleX, float t_scaleY, float t_x, float t_y, const char* t_texture)
+{
+    if (!backT.loadFromFile(t_texture))
+    {
+        std::cout << "error loading texting";
+    }
+    yCo = t_y;
+    xCo = t_x;
+    plant.setTexture(backT);
+    plant.setScale(t_scaleX, t_scaleY);
+    plant.setOrigin(32, 64);
+    plant.setPosition(xCo, yCo);
+    speed = 0;
 }
 
 void Background::draw(sf::RenderWindow& window)
 {
 	window.draw(back1);
     window.draw(back2);
+    window.draw(totem);
+    window.draw(platform);
     for (int i = 0; i < 8; i++)
     {
         window.draw(rocks[i]);
@@ -56,6 +93,7 @@ void Background::update()
 {
    move();
    moveRocks();
+   moveOtherBG();
 }
 
 void Background::move()
@@ -89,3 +127,32 @@ void Background::increaseSpeed()
 {
     speed = speed * 1.15;
 }
+
+void Background::moveOtherBG()
+{
+    platform.move(-speed, 0);
+    totem.move(-speed, 0);
+    if (totem.getPosition().x < -500)
+    {
+        totem.setPosition(rand() % 500 + 1920, rand()%100 + 575);
+    }
+    if (platform.getPosition().x < -500)
+    {
+        platform.setPosition(rand() % 500 + 1920, rand() % 300 + 375);
+    }
+}
+
+void Background::drawPlants(sf::RenderWindow& window)
+{
+    window.draw(plant);
+}
+
+void Background::updatePlants()
+{
+    plant.move(-2.4, 0);
+    if (plant.getPosition().x < -400)
+    {
+        plant.setPosition(rand() % 500 + 1920, yCo);
+    }
+}
+

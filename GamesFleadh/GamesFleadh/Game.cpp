@@ -105,62 +105,76 @@ void Game::processKeyRelease(sf::Event t_event)
 /// <param name="t_deltaTime">time interval per frame</param>
 void Game::update(sf::Time t_deltaTime)
 {
-	if (m_exitGame)
+	if (state == gameState::SPLASH)
 	{
-		m_window.close();
+		splash.update();
+		updateSplashClock();
 	}
-
-	for (int i = 0; i < currentEnemies; i++)
+	if (state == gameState::GAMEPLAY)
 	{
-		fish[i]->update(player->getPosition());
-		bigFish[i]->update(player->getPosition());
-		longFish[i]->update(player->getPosition());
-		mine[i]->update(player->getPosition());
-	}	
-
-	player->update();
-	player->handleInput(input);
-
-	if (!gameOver)
-	{
-		if (!player->getAlive())
+		if (m_exitGame)
 		{
-			gameOver = true;
-
+			m_window.close();
 		}
 
-		squidControl();
-
-		myPlant->update();
-		myChest->update();
-		myChest->checkCollision(player);
-
-		myOverLay.getOxyLevel(player->getOxyLvl(),player->getPearls());
-		myOverLay.update();
-
-		bg1->update();
-		bg2->update();
-
-		plantReset();
-
-		damage();
-		fishColl();
-		plantBubbleCollision();
-		increaseEnemies();
-
-		checkHand(controller);
-	}
-	else
-	{
-		input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
-		gameOverScreen.getDistance(myOverLay.returnDistance());
-		gameOverScreen.update();
-		if (gameOverScreen.getRestart())
+		for (int i = 0; i < currentEnemies; i++)
 		{
-			deleteEntities();
-			restartGame();
-			gameOverScreen.setRestartFalse();
-			gameOver = false;
+			fish[i]->update(player->getPosition());
+			bigFish[i]->update(player->getPosition());
+			longFish[i]->update(player->getPosition());
+			mine[i]->update(player->getPosition());
+		}
+
+		player->update();
+		player->handleInput(input);
+
+		if (!gameOver)
+		{
+			if (!player->getAlive())
+			{
+				gameOver = true;
+
+			}
+
+			squidControl();
+
+			myPlant->update();
+			myChest->update();
+			myChest->checkCollision(player);
+
+			myOverLay.getOxyLevel(player->getOxyLvl(), player->getPearls());
+			myOverLay.update();
+
+			bg1->update();
+			bg2->update();
+
+			for (int i = 0; i < 4; i++)
+			{
+				seabush[i]->updatePlants();
+				kelp[i]->updatePlants();
+			}
+
+			plantReset();
+
+			damage();
+			fishColl();
+			plantBubbleCollision();
+			increaseEnemies();
+
+			checkHand(controller);
+		}
+		else
+		{
+			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
+			gameOverScreen.getDistance(myOverLay.returnDistance());
+			gameOverScreen.update();
+			if (gameOverScreen.getRestart())
+			{
+				deleteEntities();
+				restartGame();
+				gameOverScreen.setRestartFalse();
+				gameOver = false;
+			}
 		}
 	}
 
@@ -170,49 +184,62 @@ void Game::update(sf::Time t_deltaTime)
 /// </summary>
 void Game::render()
 {
-	m_window.clear(sf::Color::White);
-	
-	bg1->draw(m_window);
-	if (!bossFight)
+	m_window.clear(DEEPGREEN);
+
+	if (state == gameState::SPLASH)
 	{
-		m_window.draw(squid.getBsquid());
+		splash.render(m_window);
 	}
-	bg2->draw(m_window);
-	m_window.draw(darkness);
-
-	
-
-	for (int i = 0; i < currentEnemies; i++)
+	if (state == gameState::GAMEPLAY)
 	{
-		fish[i]->render(m_window);
-		bigFish[i]->render(m_window);
-		longFish[i]->render(m_window);
-		mine[i]->render(m_window);
-	}
-	if (bossFight)
-	{
-		squid.render(m_window);
-	}
 
-	
-	m_window.draw(m_bubbles);
-	
+		bg1->draw(m_window);
+		if (!bossFight)
+		{
+			m_window.draw(squid.getBsquid());
+		}
+		bg2->draw(m_window);
+		for (int i = 0; i < 4; i++)
+		{
+			kelp[i]->drawPlants(m_window);
+			seabush[i]->drawPlants(m_window);
+		}
+		m_window.draw(darkness);
 
 
-	
 
-	myPlant->render(m_window);
-	myChest->render(m_window);
+		for (int i = 0; i < currentEnemies; i++)
+		{
+			fish[i]->render(m_window);
+			bigFish[i]->render(m_window);
+			longFish[i]->render(m_window);
+			mine[i]->render(m_window);
+		}
+		if (bossFight)
+		{
+			squid.render(m_window);
+		}
 
-	player->render(m_window);
-	m_window.draw(player->getAnimatedSpriteFrame());
 
-	myOverLay.render(m_window);
+		m_window.draw(m_bubbles);
 
-	if (gameOver)
-	{
-		bgMusic.stop();
-		gameOverScreen.render(m_window);
+
+
+
+
+		myPlant->render(m_window);
+		myChest->render(m_window);
+
+		player->render(m_window);
+		m_window.draw(player->getAnimatedSpriteFrame());
+
+		myOverLay.render(m_window);
+
+		if (gameOver)
+		{
+			bgMusic.stop();
+			gameOverScreen.render(m_window);
+		}
 	}
 
 	m_window.display();
@@ -222,6 +249,8 @@ void Game::render()
 /// </summary>
 void Game::setupFontAndText()
 {
+	splash.initialise();
+
 	if (!player_texture.loadFromFile(PLAYER_SPRITES))
 	{
 		std::cout << "error";
@@ -244,6 +273,12 @@ void Game::setupFontAndText()
 
 	bg1 = new Background(BG_, 3.4, 3, 3, 2000);
 	bg2 = new Background(BG_ROCKS, 3.8, 2, 2, 1920);
+
+	for (int i = 0; i < 4; i++)
+	{
+		kelp[i] = new Background(2, 2, rand() % 1920, WINDOW_HEIGHT - 50, KELP);
+		seabush[i] = new Background(2, 2, rand() % 1920, WINDOW_HEIGHT - 50, SEABUSH);
+	}
 
 	for (int i = 0; i < 5; i++)
 	{
@@ -276,6 +311,16 @@ void Game::setupFontAndText()
 	darkness.setFillColor(sf::Color((255, 255, 255, 108)));
 	darkness.setPosition(0, 0);
 
+}
+/// <summary>
+/// timer for splash Screen
+/// </summary>
+void Game::updateSplashClock()
+{
+	if (splashClock.getElapsedTime().asSeconds() > 3.3f)
+	{
+		state = gameState::GAMEPLAY;
+	};
 }
 /// <summary>
 /// ANIMATES THE BUBBLES THAT APPEAR WHEN PLAYER IS HIT
@@ -360,7 +405,7 @@ void Game::fishColl()
 /// </summary>
 void Game::increaseEnemies()
 {
-	if (clock.getElapsedTime().asSeconds() > 40.f)
+	if (clock.getElapsedTime().asSeconds() > 55.f)
 	{
 		currentEnemies++;
 		if (currentEnemies >= 6)
@@ -522,6 +567,12 @@ void Game::deleteEntities()
 	delete myPlant;
 	delete myChest;
 
+	for (int i = 0; i < 4; i++)
+	{
+		delete kelp[i];
+		delete seabush[i];
+	}
+
 }
 
 /// <summary>
@@ -545,6 +596,12 @@ void Game::restartGame()
 
 	bg1 = new Background(BG_, 3.4, 3, 3, 2000);
 	bg2 = new Background(BG_ROCKS, 3.8, 2, 2, 1920);
+
+	for (int i = 0; i < 4; i++)
+	{
+		kelp[i] = new Background(2, 2, rand() % 1920, WINDOW_HEIGHT - 50, KELP);
+		seabush[i] = new Background(2, 2, rand() % 1920, WINDOW_HEIGHT - 50, SEABUSH);
+	}
 
 	for (int i = 0; i < 5; i++)
 	{

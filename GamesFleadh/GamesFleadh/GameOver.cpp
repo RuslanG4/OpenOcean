@@ -31,16 +31,16 @@ void GameOver::initialise(sf::Font& t_font)
 	m_font = t_font;
 	m_text.setFont(m_font);
 	m_text.setCharacterSize(164U);
-	m_text.setPosition(660, 400);
+	m_text.setPosition(895, 450);
 
 	m_gameOverText.setString("GAME OVER");
 	m_gameOverText.setFont(m_font);
 	m_gameOverText.setCharacterSize(104U);
-	m_gameOverText.setPosition(460, 250);
+	m_gameOverText.setPosition(715, 315);
 
 	m_distanceText.setFont(m_font);
 	m_distanceText.setCharacterSize(48U);
-	m_distanceText.setPosition(310, 380);
+	m_distanceText.setPosition(535, 435);
 
 	box.setFillColor(DEEPGREEN);
 	box.setSize(sf::Vector2f(WINDOW_WIDTH, sizeIncrease));

@@ -27,10 +27,13 @@ void Mine::loadTextures()
 
 	m_box.setFillColor(sf::Color::Transparent);
 	m_box.setOutlineThickness(3);
+
+	mineLight = Light{ sf::Vector2f(m_sprite.getPosition().x + 80,m_sprite.getPosition().y + 75) };// m_plant.getPosition()};
 }
 void Mine::render(sf::RenderWindow& t_window)
 {
 	//t_window.draw(m_box);
+	t_window.draw(mineLight.draw());
 	t_window.draw(m_sprite);
 }
 void Mine::animate()
@@ -55,6 +58,10 @@ void Mine::move()
 	mineHB = new Rectangle(m_sprite.getPosition().x+35, m_sprite.getPosition().y+35, 95, 95);
 	m_box.setPosition(m_sprite.getPosition().x + 35, m_sprite.getPosition().y+35);
 	m_sprite.move(-speed, 0);
+
+	mineLight.followCentre(sf::Vector2f(m_sprite.getPosition().x + 80, m_sprite.getPosition().y + 75));
+	mineLight.scale(0.4, 0.4);
+	mineLight.setMaxLight(132);
 }
 void Mine::boundary()
 {

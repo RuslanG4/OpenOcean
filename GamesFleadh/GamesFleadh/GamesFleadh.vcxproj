@@ -149,6 +149,7 @@
     <ClCompile Include="Plant.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RunRightPlayerState.cpp" />
+    <ClCompile Include="SplashScreen.cpp" />
     <ClCompile Include="Squid.cpp" />
     <ClCompile Include="SwinFastState.cpp" />
   </ItemGroup>
@@ -175,6 +176,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerState.h" />
     <ClInclude Include="RunRightPlayerState.h" />
+    <ClInclude Include="SplashScreen.h" />
     <ClInclude Include="Squid.h" />
     <ClInclude Include="SwinFastState.h" />
   </ItemGroup>

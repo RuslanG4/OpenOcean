@@ -5,7 +5,7 @@
 #include<iostream>
 #include"Thor/Vectors.hpp"
 #include<SFML/Audio.hpp>
-
+#include"Light.h"
 
 class Enemy
 {

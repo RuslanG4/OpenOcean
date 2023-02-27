@@ -5,6 +5,8 @@ class Mine : public Enemy
 private:
 	sf::Music mineSound;
 
+	Light mineLight;
+
 	float speed = 3;
 	float idleSpeed = 0.15;
 	sf::Texture m_texture;

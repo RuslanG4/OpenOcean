@@ -29,7 +29,14 @@
 #include"Plant.h"
 #include"Chest.h"
 #include"Squid.h"
+#include"SplashScreen.h"
 #include<Leap.h>
+
+enum class gameState
+{
+	SPLASH,
+	GAMEPLAY
+};
 
 class Game
 {
@@ -56,6 +63,13 @@ private:
 	sf::RenderWindow m_window; // main SFML window
 
 	sf::Font m_ArialBlackfont; // font used by message
+
+	//splashScreen
+	SplashScreen splash;
+	sf::Clock splashClock;
+	gameState state = gameState::SPLASH;
+	void updateSplashClock();
+
 	
 	//Player TEXTURES AND SPRITE
 	sf::Texture player_texture;
@@ -84,6 +98,11 @@ private:
 	//BACKGROUND
 	Background* bg1;
 	Background* bg2;
+
+	//BACKGROUNDPLANTS
+	Background* kelp[4];
+	Background* seabush[4];
+
 	//ENEMIES
 	Enemy* fish[5];
 	Enemy* bigFish[5];

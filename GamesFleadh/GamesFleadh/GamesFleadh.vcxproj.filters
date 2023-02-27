@@ -108,6 +108,9 @@
     <ClCompile Include="Light.cpp">
       <Filter>Source Files\Game</Filter>
     </ClCompile>
+    <ClCompile Include="SplashScreen.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Defines.h">
@@ -180,6 +183,9 @@
       <Filter>Header Files\GameEntities</Filter>
     </ClInclude>
     <ClInclude Include="Light.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="SplashScreen.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
   </ItemGroup>

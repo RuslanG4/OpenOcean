@@ -21,6 +21,12 @@ void Fish::loadTextures()
 
 	m_box.setFillColor(sf::Color::Transparent);
 	m_box.setOutlineThickness(3);
+
+
+	light = Light{ sf::Vector2f(500,300) };
+	light.setMaxLight(255);
+	light.setIntensity(0.5);
+	light.selectColour(sf::Color(0, 0, 0), sf::Color(128, 128, 128));
 }
 void Fish::animate()
 {
@@ -51,11 +57,16 @@ void Fish::move()
 	fishHB = new Rectangle(m_sprite.getPosition().x - 20, m_sprite.getPosition().y - 12, 32, 32);
 	m_box.setPosition(m_sprite.getPosition().x - 20, m_sprite.getPosition().y - 12);
 	m_sprite.move(-speed, 0);
+
+
+	light.followCentre(sf::Vector2f(m_sprite.getPosition().x+10, m_sprite.getPosition().y+8));
+	light.scale(0.15, 0.15);
 	
 }
 void Fish::render(sf::RenderWindow & t_window)
 {
 	//t_window.draw(m_box);
+	t_window.draw(light.draw());
 	t_window.draw(m_sprite);
 }
 

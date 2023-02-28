@@ -10,6 +10,7 @@ class Plant
 {
 private:
 	Light plantLight;
+	Light bubbleLight;
 
 	sf::Sprite m_bubble;
 	sf::Texture m_texture;

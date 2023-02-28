@@ -4,11 +4,15 @@
 #include"Collision.h"
 #include<iostream>
 #include"Thor/Vectors.hpp"
+#include"Light.h"
 
 class Squid
 {
 private:
 	float speed = 1;
+
+	//Light
+	Light light;
 
 	//hitbox
 	Rectangle* hb;
@@ -73,6 +77,7 @@ public:
 	sf::Sprite getBsquid() { return squidBlackedOut; };
 	float getScale() { return scale; };
 	Rectangle* getHB() { return hb; };
+	Light getLight() { return light; };
 
 };
 

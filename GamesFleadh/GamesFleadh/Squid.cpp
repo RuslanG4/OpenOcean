@@ -42,6 +42,12 @@ void Squid::loadTextures()
 	m_box.setSize(sf::Vector2f(135, 250));
 
 	hb = new Rectangle(squid.getPosition().x - 90, squid.getPosition().y - 170, 135, 200);
+
+	light = Light{ sf::Vector2f(500,300) };
+	light.scale(1, 1);
+	light.setMaxLight(255);
+	light.setIntensity(0.5);
+	light.selectColour(sf::Color(0, 0, 0), sf::Color(128, 128, 128));
 }
 /// <summary>
 /// DRAWS BIG SQUID
@@ -106,6 +112,9 @@ void Squid::move()
 	move.x += velocity.x;
 	BlackedOutposition += move;
 	squidBlackedOut.setPosition(BlackedOutposition); //SETS POS
+
+	light.followCentre(squidBlackedOut.getPosition());
+	light.scale(scale,scale);
 }
 
 void Squid::Scale()

@@ -3,6 +3,9 @@
 class BigFish : public Enemy
 {
 private:
+
+	Light light;
+
 	float speed = 2;
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;

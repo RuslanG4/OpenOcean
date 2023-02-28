@@ -58,6 +58,11 @@ Background::Background(const char* t_texture, float t_speed, float t_scaleX,floa
     platform.setPosition(rand() % 1920, rand() % 300 + 375);
     platform.setColor(sf::Color(195, 184, 184));
     
+    platLight = Light{ sf::Vector2f(30,03) };
+
+    platLight.setMaxLight(255);
+    platLight.setIntensity(0.6);
+    platLight.selectColour(sf::Color(0, 0, 0), sf::Color(128, 128, 128));
 
 }
 
@@ -81,11 +86,15 @@ void Background::draw(sf::RenderWindow& window)
 	window.draw(back1);
     window.draw(back2);
     window.draw(totem);
+    window.draw(platLight.draw());
     window.draw(platform);
+    
+    
     for (int i = 0; i < 8; i++)
     {
         window.draw(rocks[i]);
     }
+   
     
 }
 
@@ -108,13 +117,14 @@ void Background::move()
     {
         back2.setPosition(width-10, 0);
     }
+ 
 }
 
 void Background::moveRocks()
 {
     for (int i = 0; i < 8; i++)
     {
-        rocks[i].move(-2.4, 0);
+        rocks[i].move(-3.6, 0);
         if (rocks[i].getPosition().x < -375)
         {
             rocks[i].setPosition(2225, WINDOW_HEIGHT - 150);
@@ -140,6 +150,9 @@ void Background::moveOtherBG()
     {
         platform.setPosition(rand() % 500 + 1920, rand() % 300 + 375);
     }
+
+    platLight.followCentre(sf::Vector2f(platform.getPosition().x + 250, platform.getPosition().y+150));
+
 }
 
 void Background::drawPlants(sf::RenderWindow& window)
@@ -149,7 +162,7 @@ void Background::drawPlants(sf::RenderWindow& window)
 
 void Background::updatePlants()
 {
-    plant.move(-2.4, 0);
+    plant.move(-3.6, 0);
     if (plant.getPosition().x < -400)
     {
         plant.setPosition(rand() % 500 + 1920, yCo);

@@ -4,6 +4,7 @@ void Plant::render(sf::RenderWindow& window)
 {
 	window.draw(plantLight.draw());
 	window.draw(m_plant);
+	window.draw(bubbleLight.draw());
 	window.draw(m_bubble);
 	//window.draw(m_box);
 }
@@ -43,6 +44,9 @@ void Plant::initialise()
 
 	plantLight.scale(0.75, 0.75);
 	plantLight.setMaxLight(132);
+
+	bubbleLight = Light{ sf::Vector2f(m_plant.getPosition().x + 55,m_plant.getPosition().y + 60) };// m_plant.getPosition()};
+	bubbleLight.setMaxLight(132);
 	
 }
 
@@ -58,11 +62,11 @@ void Plant::timeBubbles()
 {
 	if (!bubbleSpawn)
 	{
-		if (m_plant.getPosition().x < 1550)
+		if (m_plant.getPosition().x < 1750)
 		{
 			if (bubbleSpawnTimer == 0)
 			{
-				bubbleSpawnTimer = rand() % 300 + 100;
+				bubbleSpawnTimer = rand() % 200 + 100;
 			}
 			bubbleSpawnTimer--;
 			if (bubbleSpawnTimer <= 0)
@@ -84,10 +88,11 @@ void Plant::updateHB()
 
 void Plant::move()
 {
+	bubbleLight = Light{ sf::Vector2f(m_bubble.getPosition().x + 25,m_bubble.getPosition().y + 60) };
+	bubbleLight.scale(0.3, 0.3);
 	m_bubble.move(-2.5, -2);
-	m_plant.move(-2.4, 0);
-	//plantLight.setCenter(m_plant.getPosition());
-	plantLight.moveLight(-2.4, 0);
+	m_plant.move(-3.6, 0);
+	plantLight.moveLight(-3.6, 0);
 }
 
 void Plant::animate()

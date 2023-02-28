@@ -56,11 +56,11 @@ void Chest::timePearls()
 {
 	if (!chestSpawn)
 	{
-		if (m_chest.getPosition().x < 1550)
+		if (m_chest.getPosition().x < 1750)
 		{
 			if (chestSpawnTimer == 0)
 			{
-				chestSpawnTimer = rand() % 200 + 100;
+				chestSpawnTimer = rand() % 100 + 100;
 			}
 			chestSpawnTimer--;
 			if (chestSpawnTimer <= 0)
@@ -83,8 +83,8 @@ void Chest::updateHB()
 
 void Chest::move()
 {
-	m_chest.move(-2.4, 0);
-	chestLight.moveLight(-2.4, 0);
+	m_chest.move(-3.6, 0);
+	chestLight.moveLight(-3.6, 0);
 }
 
 void Chest::animate()

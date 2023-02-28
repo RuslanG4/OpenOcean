@@ -196,6 +196,7 @@ void Game::render()
 		bg1->draw(m_window);
 		if (!bossFight)
 		{
+			m_window.draw(squid.getLight().draw());
 			m_window.draw(squid.getBsquid());
 		}
 		bg2->draw(m_window);
@@ -271,8 +272,8 @@ void Game::setupFontAndText()
 	player_animated_sprite = AnimatedSprite(player_texture);
 	player = new Player(player_animated_sprite);
 
-	bg1 = new Background(BG_, 3.4, 3, 3, 2000);
-	bg2 = new Background(BG_ROCKS, 3.8, 2, 2, 1920);
+	bg1 = new Background(BG_, 2.4, 3, 3, 2000);
+	bg2 = new Background(BG_ROCKS, 3, 2, 2, 1920);
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -594,8 +595,8 @@ void Game::restartGame()
 
 	player = new Player(player_animated_sprite);
 
-	bg1 = new Background(BG_, 3.4, 3, 3, 2000);
-	bg2 = new Background(BG_ROCKS, 3.8, 2, 2, 1920);
+	bg1 = new Background(BG_, 2.4, 3, 3, 2000);
+	bg2 = new Background(BG_ROCKS, 3, 2, 2, 1920);
 
 	for (int i = 0; i < 4; i++)
 	{

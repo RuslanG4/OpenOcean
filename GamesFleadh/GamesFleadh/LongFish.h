@@ -11,6 +11,9 @@ private:
 	Rectangle* fishHB;
 	int fishTimer = 0;
 	int fishFrame = 0;
+
+	Light light;
+
 public:
 	virtual void update(sf::Vector2f t_playerPos);
 	virtual void loadTextures();

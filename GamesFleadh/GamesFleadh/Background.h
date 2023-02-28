@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include<iostream>
 #include"Defines.h"
+#include"Light.h"
 
 class Background
 {
@@ -16,6 +17,10 @@ private:
 	sf::Sprite totem;
 	sf::Texture totemT;
 
+	const static int numRays = 12;
+
+	Light platLight;
+
 	sf::Sprite plant;
 
 	sf::Sprite platform;
@@ -26,7 +31,6 @@ private:
 
 	int yCo = 0;
 	int xCo = 0;
-
 
 public:
 	Background();

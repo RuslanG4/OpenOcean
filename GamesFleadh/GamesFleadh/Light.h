@@ -12,6 +12,8 @@ private:
 
 	sf::Color LightCenterColour = sf::Color(153, 255, 255, lightIntensity);
 	sf::Color lightOutgoingColour = sf::Color(153, 255, 255, 1);
+
+	
 public:
 	Light();
 	Light(sf::Vector2f pos);
@@ -28,6 +30,8 @@ public:
 	void moveLight(float a, float b);
 
 	void followCentre(sf::Vector2f t_pos);
+
+	void selectColour(sf::Color t_colour, sf::Color t_colourLight);
 
 };
 

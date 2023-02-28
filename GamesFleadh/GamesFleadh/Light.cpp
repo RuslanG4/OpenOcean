@@ -113,3 +113,16 @@ void Light::followCentre(sf::Vector2f t_pos)
     triangle[15].position = sf::Vector2f(center.x - 100, center.y - 200);
     triangle[16].position = sf::Vector2f(center.x, center.y - 200);
 }
+
+void Light::selectColour(sf::Color t_colour, sf::Color t_colourLight)
+{
+    LightCenterColour = sf::Color(t_colour.r, t_colour.g, t_colour.b, lightIntensity);
+    lightOutgoingColour = sf::Color(t_colour.r, t_colour.g, t_colour.b, 1);
+
+    triangle[0].color = LightCenterColour;
+    for (int i = 1; i < 17; i++)
+    {
+        triangle[i].color = lightOutgoingColour;
+    }
+}
+

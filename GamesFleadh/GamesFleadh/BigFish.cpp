@@ -28,10 +28,16 @@ void BigFish::loadTextures()
 
 	m_box.setFillColor(sf::Color::Transparent);
 	m_box.setOutlineThickness(3);
+
+	light = Light{ sf::Vector2f(500,300) };
+	light.setMaxLight(255);
+	light.setIntensity(0.6);
+	light.selectColour(sf::Color(0, 0, 0), sf::Color(128, 128, 128));
 }
 void BigFish::render(sf::RenderWindow& t_window)
 {
 	//t_window.draw(m_box);
+	t_window.draw(light.draw());
 	t_window.draw(m_sprite);
 }
 void BigFish::animate()
@@ -61,6 +67,9 @@ void BigFish::move()
 	fishHB = new Rectangle(m_sprite.getPosition().x - 36, m_sprite.getPosition().y - 16, 54, 49);
 	m_box.setPosition(m_sprite.getPosition().x - 36, m_sprite.getPosition().y - 16);
 	m_sprite.move(-speed, 0);
+
+	light.followCentre(sf::Vector2f(m_sprite.getPosition().x+5, m_sprite.getPosition().y+20));
+	light.scale(0.25, 0.25);
 }
 void BigFish::boundary()
 {
@@ -78,6 +87,8 @@ void BigFish::boundary()
 		if (m_sprite.getPosition().x >20)
 		{
 			m_sprite.setPosition(20,m_sprite.getPosition().y);
+			light.followCentre(sf::Vector2f(m_sprite.getPosition().x, m_sprite.getPosition().y + 20));
+			light.scale(0.25, 0.25);
 		}
 	}
 }

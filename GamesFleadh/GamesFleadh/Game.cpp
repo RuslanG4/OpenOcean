@@ -272,8 +272,8 @@ void Game::setupFontAndText()
 	player_animated_sprite = AnimatedSprite(player_texture);
 	player = new Player(player_animated_sprite);
 
-	bg1 = new Background(BG_, 2.4, 3, 3, 2000);
-	bg2 = new Background(BG_ROCKS, 3, 2, 2, 1920);
+	bg1 = new Background(BG_, 2.4, 3, 3, 2000,1);
+	bg2 = new Background(BG_ROCKS, 3, 2, 2, 1920,0);
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -309,7 +309,7 @@ void Game::setupFontAndText()
 
 
 	darkness.setSize(sf::Vector2f(WINDOW_WIDTH, WINDOW_HEIGHT));
-	darkness.setFillColor(sf::Color((255, 255, 255, 108)));
+	darkness.setFillColor(sf::Color((255, 255, 255, 128)));
 	darkness.setPosition(0, 0);
 
 }
@@ -595,8 +595,8 @@ void Game::restartGame()
 
 	player = new Player(player_animated_sprite);
 
-	bg1 = new Background(BG_, 2.4, 3, 3, 2000);
-	bg2 = new Background(BG_ROCKS, 3, 2, 2, 1920);
+	bg1 = new Background(BG_, 2.4, 3, 3, 2000,1);
+	bg2 = new Background(BG_ROCKS, 3, 2, 2, 1920,0);
 
 	for (int i = 0; i < 4; i++)
 	{

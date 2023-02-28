@@ -55,6 +55,7 @@ void Squid::loadTextures()
 /// <param name="t_window"></param>
 void Squid::render(sf::RenderWindow& t_window)
 {
+	t_window.draw(light.draw());
 	t_window.draw(squid);
 	//t_window.draw(m_box);
 }
@@ -131,6 +132,11 @@ void Squid::Scale()
 /// <param name="playerPos"></param>
 void Squid::bossEntrance(sf::Vector2f playerPos)
 {
+	light.followCentre(squid.getPosition());
+	light.scale(scale, scale);
+	light.setMaxLight(255);
+	light.setIntensity(1);
+	light.selectColour(sf::Color(0, 0, 0), sf::Color(128, 128, 128));
 	animate();
 	if (!enterance)//DOES ENTERANCE
 	{
@@ -170,6 +176,12 @@ void Squid::bossEntrance(sf::Vector2f playerPos)
 /// <param name="playerPos">PLAYER POS TO FOLLOW</param>
 void Squid::aiMove(sf::Vector2f playerPos)
 {
+	light.followCentre(squid.getPosition());
+	light.scale(scale, scale);
+	light.setMaxLight(255);
+	light.setIntensity(1);
+	light.selectColour(sf::Color(0, 0, 0), sf::Color(128, 128, 128));
+
 	hb = new Rectangle(squid.getPosition().x - 90, squid.getPosition().y - 170, 135, 200);
 	m_box.setPosition(squid.getPosition().x - 90, squid.getPosition().y-170);
 
@@ -211,12 +223,11 @@ void Squid::dash()
 		squid.rotate(-1); //SPINS SQUID TO INDICATE DASH
 		if (spinTimer <= 0) //AS SOON AS SPIN IS DONE, MOVES SQUID IN FAST DASH
 		{
-			delete hb;
 			squid.setRotation(270);
 			squid.move(-10, 0);
 			m_box.setSize(sf::Vector2f(250, 130));
 			m_box.setPosition(squid.getPosition().x - 150, squid.getPosition().y - 40);
-			hb = new Rectangle(squid.getPosition().x - 150, squid.getPosition().y - 140, 250, 135);
+			hb = new Rectangle(squid.getPosition().x - 150, squid.getPosition().y - 40, 250, 135);
 			if (squid.getPosition().x < -200) //RESETS ENTIRE SQUID ENCOUNTER
 			{
 				enterance = false;
@@ -235,6 +246,10 @@ void Squid::dash()
 /// </summary>
 void Squid::reset()
 {
+	light.setMaxLight(255);
+	light.setIntensity(0.5);
+	light.selectColour(sf::Color(0, 0, 0), sf::Color(128, 128, 128));
+	delete hb;
 	aiTimer = 0;
 	aiChoice = 0;
 	spinTimer = 90;

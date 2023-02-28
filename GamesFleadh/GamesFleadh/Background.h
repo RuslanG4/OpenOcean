@@ -17,7 +17,8 @@ private:
 	sf::Sprite totem;
 	sf::Texture totemT;
 
-	const static int numRays = 12;
+	const static int numLight = 6;
+	Light light[numLight];
 
 	Light platLight;
 
@@ -32,9 +33,11 @@ private:
 	int yCo = 0;
 	int xCo = 0;
 
+	bool bgLight = false;
+
 public:
 	Background();
-	Background(const char* t_texture, float t_speed, float t_scaleX, float t_scaleY,float t_width);
+	Background(const char* t_texture, float t_speed, float t_scaleX, float t_scaleY,float t_width,bool t_light);
 	Background(float t_scaleX, float t_scaleY, float t_x, float t_y, const char* t_texture);
 
 	void draw(sf::RenderWindow& window);

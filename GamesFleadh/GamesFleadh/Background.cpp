@@ -4,7 +4,7 @@ Background::Background()
 {
 }
 
-Background::Background(const char* t_texture, float t_speed, float t_scaleX,float t_scaleY, float t_width)
+Background::Background(const char* t_texture, float t_speed, float t_scaleX,float t_scaleY, float t_width, bool t_light)
 {
     if (!backT.loadFromFile(t_texture))
     {
@@ -62,7 +62,33 @@ Background::Background(const char* t_texture, float t_speed, float t_scaleX,floa
 
     platLight.setMaxLight(255);
     platLight.setIntensity(0.6);
-    platLight.selectColour(sf::Color(0, 0, 0), sf::Color(128, 128, 128));
+    platLight.selectColour(sf::Color(0,0, 0), sf::Color(128, 128, 128));
+
+    if (t_light)
+    {
+        bgLight = true;
+
+        light[0] = Light{sf::Vector2f(300,120)};
+        light[1] = Light{ sf::Vector2f(1350,120) };
+        light[2] = Light{ sf::Vector2f(800,800) };
+
+        light[3] = Light{ sf::Vector2f(width+300,120) };
+        light[4] = Light{ sf::Vector2f(width + 1350,120) };
+        light[5] = Light{ sf::Vector2f(width + 800,800) };
+        for (int i = 0; i < numLight; i++)
+        {
+            light[i].setMaxLight(255);
+            light[i].setIntensity(0.5);
+            light[i].scale(2, 2);
+        }
+        light[0].selectColour(sf::Color(153, 255, 255), sf::Color(0, 102, 102));
+        light[1].selectColour(sf::Color(51, 255, 255), sf::Color(153, 255, 255));
+        light[2].selectColour(sf::Color(153, 255, 255), sf::Color(0, 102, 102));
+
+        light[3].selectColour(sf::Color(153, 255, 255), sf::Color(0, 102, 102));
+        light[5].selectColour(sf::Color(153, 51, 255), sf::Color(204, 153, 255));
+        light[4].selectColour(sf::Color(153, 255, 255), sf::Color(0, 102, 102));
+    }
 
 }
 
@@ -87,6 +113,14 @@ void Background::draw(sf::RenderWindow& window)
     window.draw(back2);
     window.draw(totem);
     window.draw(platLight.draw());
+    if (bgLight)
+    {
+        for (int i = 0; i < numLight; i++)
+        {
+            window.draw(light[i].draw());
+        }
+    }
+   
     window.draw(platform);
     
     
@@ -112,10 +146,47 @@ void Background::move()
     if (back1.getPosition().x<= -width)
     {
         back1.setPosition(width-10,0); //2 images looping to give off infinite feel, resets x position 
+        if (bgLight)
+        {
+            light[0] = Light{ sf::Vector2f(width + 300,120) };
+            light[1] = Light{ sf::Vector2f(width + 1350,120) };
+            light[2] = Light{ sf::Vector2f(width + 800,800) };
+            for (int i = 0; i < 3; i++)
+            {
+                light[i].setMaxLight(255);
+                light[i].setIntensity(0.5);
+                light[i].scale(2, 2);
+            }
+            light[0].selectColour(sf::Color(153, 255, 255), sf::Color(0, 102, 102));
+            light[1].selectColour(sf::Color(51, 255, 255), sf::Color(153, 255, 255));
+            light[2].selectColour(sf::Color(153, 255, 255), sf::Color(0, 102, 102));
+
+
+        }
     }
     if (back2.getPosition().x<= -width)
     {
         back2.setPosition(width-10, 0);
+        light[3] = Light{ sf::Vector2f(width + 300,120) };
+        light[4] = Light{ sf::Vector2f(width + 1350,120) };
+        light[5] = Light{ sf::Vector2f(width + 800,800) };
+        for (int i = 3; i < numLight; i++)
+        {
+            light[i].setMaxLight(255);
+            light[i].setIntensity(0.5);
+            light[i].scale(2, 2);
+        }
+        light[3].selectColour(sf::Color(153, 255, 255), sf::Color(0, 102, 102));
+        light[5].selectColour(sf::Color(153, 51, 255), sf::Color(204, 153, 255));
+        light[4].selectColour(sf::Color(153, 255, 255), sf::Color(0, 102, 102));
+    }
+    if (bgLight)
+    {
+        for (int i = 0; i < numLight; i++)
+        {
+            
+            light[i].moveLight(-speed, 0);
+        }
     }
  
 }

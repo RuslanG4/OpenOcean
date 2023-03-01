@@ -38,6 +38,21 @@ private:
 
 	int pearlCount = 0;
 
+	sf::Text mileStone;
+
+	bool flash = true;
+
+
+	int flashTimer = 0;
+
+	int beginFlashTimer = 0;
+
+	bool startFlash = false;
+
+	
+	
+	int Mile = 50;
+
 public:
 	void render(sf::RenderWindow& window);
 	void update();
@@ -47,5 +62,7 @@ public:
 	void reset() { distance = 0; };
 	int returnDistance() { return distance; };
 	void setPearlString();
+	void flashing();
+	void moveMileStone();
 };
 

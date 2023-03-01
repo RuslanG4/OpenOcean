@@ -11,12 +11,48 @@ void OverLay::render(sf::RenderWindow& window)
 	window.draw(bar);
 	window.draw(pearlAmount);
 	window.draw(pearlSprite);
+	
+	window.draw(mileStone);
+	
 }
 
 void OverLay::update()
 {
 	getDistance();
 	setPearlString();
+
+	if (!startFlash)
+	{
+		if (distance % 50 == 0)
+		{
+			mileStone.setString(std::to_string(Mile) + "M");
+			Mile += 50;
+
+			startFlash = true;
+		}
+	}
+	if (startFlash)
+	{
+		moveMileStone();
+	}
+	
+
+	/*if (startFlash)
+	{
+		beginFlashTimer++;
+		if (beginFlashTimer>60)
+		{
+			flashing();
+		}
+		if (beginFlashTimer > 160)
+		{
+			flashTimer = 0;
+			beginFlashTimer = 0;
+			startFlash = false;
+			flash = true;
+			
+		}
+	}*/
 }
 
 void OverLay::initialise(sf::Font& t_font)
@@ -68,6 +104,13 @@ void OverLay::initialise(sf::Font& t_font)
 	greyBox[2].setSize(sf::Vector2f(265, 64));
 	greyBox[2].setFillColor(sf::Color((255, 255, 255, 128)));
 	greyBox[2].setPosition(12, 26);
+
+
+	mileStone.setFont(m_font);
+	mileStone.setCharacterSize(100);
+	mileStone.setPosition(1300, 1080);
+	mileStone.setString("500M");
+	mileStone.setFillColor(sf::Color(160, 196, 157,195));
 }
 
 void OverLay::getOxyLevel(float t_oxygen, int t_pearls)
@@ -99,6 +142,7 @@ void OverLay::getDistance()
 	{
 		o2percent.setString(std::to_string(static_cast<int>(distance)) + "m");
 	}
+
 }
 
 void OverLay::setPearlString()
@@ -119,4 +163,37 @@ void OverLay::setPearlString()
 	{
 		pearlAmount.setString(std::to_string(pearlCount));
 	}
+}
+
+void OverLay::flashing()
+{
+
+		flashTimer++;
+		if (flashTimer < 5)
+		{
+			flash = true;
+		}
+		if (flashTimer > 5)
+		{
+			flash = false;
+		}
+		if (flashTimer > 15)
+		{
+			flashTimer = 0;
+		}
+	
+}
+
+void OverLay::moveMileStone()
+{
+	
+	mileStone.move(-2.4, -3.4);
+
+	if (mileStone.getPosition().y < -100)
+	{
+		mileStone.setPosition(1300, 1080);
+		startFlash = false;
+	}
+	
+	
 }

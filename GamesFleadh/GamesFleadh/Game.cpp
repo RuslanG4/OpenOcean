@@ -11,7 +11,7 @@ Game::Game() :
 	m_exitGame{ false } //when true game will exit
 {
 	setupFontAndText();
-	enableGestures();
+	//enableGestures();
 	playBG();
 }
 
@@ -154,6 +154,30 @@ void Game::update(sf::Time t_deltaTime)
 				kelp[i]->updatePlants();
 			}
 
+
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			{
+				input.setCurrent(gpp::Events::Event::SWIM_FAST);
+					player->moveLEAP(std::string("left-hand"));
+
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			{
+				input.setCurrent(gpp::Events::Event::SWIM_FAST);
+				player->moveLEAP(std::string("right-hand"));
+
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+			{
+				player->moveLEAP(std::string("fingers"));
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+			{
+				player->moveLEAP(std::string("fingersDown"));
+			}
+
+
 			plantReset();
 
 			damage();
@@ -161,7 +185,7 @@ void Game::update(sf::Time t_deltaTime)
 			plantBubbleCollision();
 			increaseEnemies();
 
-			checkHand(controller);
+			//checkHand(controller);
 		}
 		else
 		{

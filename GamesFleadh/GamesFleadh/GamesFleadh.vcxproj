@@ -81,12 +81,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\c00273521\Desktop\FishEndlessSwimmer\GamesFleadh\include;C:\LeapDeveloperKit_3.2.1_win\LeapDeveloperKit_3.2.1+45911_win\LeapSDK\include;C:\Users\rusla\OneDrive\Desktop\GAMES FLEADH\FishEndlessSwimmer\GamesFleadh\GamesFleadh;E:\LeapDeveloperKit_3.2.1+45911_win\LeapSDK\include;C:\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\c00273521\Desktop\OpenOcean\GamesFleadh\include;C:\Users\c00273521\Desktop\FishEndlessSwimmer\GamesFleadh\include;C:\LeapDeveloperKit_3.2.1_win\LeapDeveloperKit_3.2.1+45911_win\LeapSDK\include;C:\Users\rusla\OneDrive\Desktop\GAMES FLEADH\FishEndlessSwimmer\GamesFleadh\GamesFleadh;E:\LeapDeveloperKit_3.2.1+45911_win\LeapSDK\include;C:\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\rusla\Desktop\OpenOcean\GamesFleadh\lib;C:\FishEndlessSwimmer\GamesFleadh\lib;C:\LeapDeveloperKit_3.2.1_win\LeapDeveloperKit_3.2.1+45911_win\LeapSDK\lib\x86;C:\Users\rusla\OneDrive\Desktop\GAMES FLEADH\FishEndlessSwimmer\GamesFleadh\lib;E:\LeapDeveloperKit_3.2.1+45911_win\LeapSDK\lib\x86;C:\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\c00273521\Desktop\OpenOcean\GamesFleadh\lib;C:\Users\rusla\Desktop\OpenOcean\GamesFleadh\lib;C:\FishEndlessSwimmer\GamesFleadh\lib;C:\LeapDeveloperKit_3.2.1_win\LeapDeveloperKit_3.2.1+45911_win\LeapSDK\lib\x86;C:\Users\rusla\OneDrive\Desktop\GAMES FLEADH\FishEndlessSwimmer\GamesFleadh\lib;E:\LeapDeveloperKit_3.2.1+45911_win\LeapSDK\lib\x86;C:\SFML-2.5.1\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>Leap.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

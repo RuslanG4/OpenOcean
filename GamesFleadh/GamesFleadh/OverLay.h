@@ -59,10 +59,11 @@ public:
 	void initialise(sf::Font& t_font);
 	void getOxyLevel(float t_oxygen, int t_pearls);
 	void getDistance();
-	void reset() { distance = 0; };
+	void reset() { distance = 0; Mile = 50; startFlash = false; mileStone.setPosition(1300, 1080);};
 	int returnDistance() { return distance; };
 	void setPearlString();
 	void flashing();
 	void moveMileStone();
+	
 };
 

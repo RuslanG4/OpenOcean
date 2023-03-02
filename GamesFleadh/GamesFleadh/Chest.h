@@ -15,12 +15,17 @@ private:
 	sf::Sprite m_pearl;
 	sf::Texture m_pearlsTexture;
 
+	sf::Text m_text;
+	sf::Font font;
+
 	sf::RectangleShape m_box{ sf::Vector2f(8,8) };
 	Rectangle* pearlHB;
 
 	sf::Vector2f offScreenPos{ -400, -400 };
 
 	sf::Music itemSound;
+
+	bool startMove = false;
 
 public:
 	Pearl()
@@ -32,6 +37,16 @@ public:
 		m_pearl.setTexture(m_pearlsTexture);
 		m_pearl.setScale(0.25, 0.25);
 		m_pearl.setPosition(offScreenPos);
+
+		if (!font.loadFromFile(FONT))
+		{
+			std::cout << "error loading font";
+		}
+		m_text.setFont(font);
+		m_text.setCharacterSize(32U);
+		m_text.setString("75");
+		m_text.setPosition(-400, 400);
+		m_text.setFillColor(sf::Color(255, 227, 248, 255));
 
 		m_box.setOutlineThickness(3);
 		m_box.setFillColor(sf::Color::Transparent);
@@ -55,10 +70,15 @@ public:
 	void setHBPos() { m_box.setPosition(m_pearl.getPosition()); pearlHB = new Rectangle(m_pearl.getPosition().x, m_pearl.getPosition().y, 8, 8); }
 	sf::Vector2f getPosition() { return m_pearl.getPosition(); };
 	sf::Sprite draw() { return m_pearl; };
+	sf::Text drawText() { return m_text; };
 	sf::VertexArray drawLight() { return pearlLight.draw(); }
 	sf::RectangleShape drawBox() { return m_box; };
 	Rectangle* collisionBox() { return pearlHB; };
 	void playSound();
+
+	void setText();
+	void moveText();
+	bool getTextSpawn() { return startMove; };
 };
 
 class Chest

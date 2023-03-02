@@ -25,7 +25,7 @@ void Squid::loadTextures()
 	squid.setScale(scale, scale);
 	squid.setPosition(position);
 	squid.setTextureRect(sf::IntRect(0, 0, 310, 192));
-	squid.setColor(sf::Color((255, 255, 255, 128)));
+	squid.setColor(sf::Color((139, 69, 19)));
 	velocity.x = rand() % 3 + 1;
 	squid.setRotation(90);
 	//SQUID SHADOW
@@ -220,10 +220,10 @@ void Squid::dash()
 	if (isMoving)
 	{
 		spinTimer--;
-		squid.rotate(-1); //SPINS SQUID TO INDICATE DASH
+		//squid.rotate(-1); //SPINS SQUID TO INDICATE DASH
 		if (spinTimer <= 0) //AS SOON AS SPIN IS DONE, MOVES SQUID IN FAST DASH
 		{
-			squid.setRotation(270);
+			//squid.setRotation(270);
 			squid.move(-10, 0);
 			m_box.setSize(sf::Vector2f(250, 130));
 			m_box.setPosition(squid.getPosition().x - 150, squid.getPosition().y - 40);

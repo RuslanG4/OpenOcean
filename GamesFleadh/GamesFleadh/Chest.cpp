@@ -7,9 +7,12 @@ void Chest::render(sf::RenderWindow& window)
 		window.draw(pearls[i].drawLight());
 		window.draw(pearls[i].draw());
 		//window.draw(pearls[i].drawBox());
+		window.draw(pearls[i].drawText());
 	}
 	window.draw(chestLight.draw());
 	window.draw(m_chest);
+
+	
 
 }
 
@@ -19,6 +22,12 @@ void Chest::update()
 	{
 		pearls[i].move();
 		pearls[i].setHBPos();
+
+		if (pearls[i].getTextSpawn())
+		{
+			pearls[i].moveText();
+		}
+
 	}
 	move();
 	timePearls();
@@ -129,6 +138,7 @@ void Chest::checkCollision(Player* t_player)
 	{
 		if (t_player->CollisionBox()->checkRectangleCollision(pearls[i].collisionBox()))
 		{
+			pearls[i].setText();
 			pearls[i].PearlSetPos();
 			pearls[i].playSound();
 			t_player->addPearls();
@@ -155,4 +165,22 @@ void Pearl::playSound()
 
 	itemSound.setVolume(150);
 	itemSound.play();
+}
+
+void Pearl::setText()
+{
+	startMove = true;
+	m_text.setPosition(m_pearl.getPosition());
+}
+
+void Pearl::moveText()
+{
+	m_text.move(-2.4, -3.4);
+
+
+	if (m_text.getPosition().y < -50)
+	{
+		m_text.setPosition(1300, 1080);
+		startMove = false;
+	}
 }

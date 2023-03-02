@@ -20,6 +20,12 @@ private:
 	int explosionFrame = 0;
 
 	bool soundPlayed = false;
+
+	sf::Text m_text;
+	sf::Font font;
+
+	bool startMove = false;
+
 public:
 	virtual void update(sf::Vector2f t_playerPos);
 	virtual void loadTextures();
@@ -41,6 +47,9 @@ public:
 	virtual bool isChasing() { return 1; };
 
 	void sound();
+
+	void setText() ;
+	void moveText();
 
 	
 };

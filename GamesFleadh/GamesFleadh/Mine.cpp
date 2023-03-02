@@ -8,6 +8,11 @@ void Mine::update(sf::Vector2f t_playerPos)
 	{
 		animateDeath();
 	}
+
+	if (startMove)
+	{
+		moveText();
+	}
 }
 void Mine::loadTextures()
 {
@@ -28,6 +33,17 @@ void Mine::loadTextures()
 	m_box.setFillColor(sf::Color::Transparent);
 	m_box.setOutlineThickness(3);
 
+
+	if (!font.loadFromFile(FONT))
+	{
+		std::cout << "error loading font";
+	}
+	m_text.setFont(font);
+	m_text.setCharacterSize(40U);
+	m_text.setString("50");
+	m_text.setPosition(-400, 400);
+	m_text.setFillColor(sf::Color(159, 42, 76));
+
 	mineLight = Light{ sf::Vector2f(m_sprite.getPosition().x + 80,m_sprite.getPosition().y + 75) };// m_plant.getPosition()};
 }
 void Mine::render(sf::RenderWindow& t_window)
@@ -35,6 +51,7 @@ void Mine::render(sf::RenderWindow& t_window)
 	//t_window.draw(m_box);
 	t_window.draw(mineLight.draw());
 	t_window.draw(m_sprite);
+	t_window.draw(m_text);
 }
 void Mine::animate()
 {
@@ -109,6 +126,24 @@ void Mine::sound()
 	}
 	mineSound.setVolume(50);
 	mineSound.play();
+}
+
+void Mine::setText()
+{
+	startMove = true;
+	m_text.setPosition(m_sprite.getPosition());
+}
+
+void Mine::moveText()
+{
+	m_text.move(-2.4, -3.4);
+
+
+	if (m_text.getPosition().y < -50)
+	{
+		m_text.setPosition(1300, 1080);
+		startMove = false;
+	}
 }
 
 

@@ -11,7 +11,7 @@ Game::Game() :
 	m_exitGame{ false } //when true game will exit
 {
 	setupFontAndText();
-	//enableGestures();
+	enableGestures();
 	playBG();
 }
 
@@ -156,26 +156,26 @@ void Game::update(sf::Time t_deltaTime)
 
 
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-			{
-				input.setCurrent(gpp::Events::Event::SWIM_FAST);
-					player->moveLEAP(std::string("left-hand"));
+			//if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			//{
+			//	input.setCurrent(gpp::Events::Event::SWIM_FAST);
+			//		player->moveLEAP(std::string("left-hand"));
 
-			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-			{
-				input.setCurrent(gpp::Events::Event::SWIM_FAST);
-				player->moveLEAP(std::string("right-hand"));
+			//}
+			//else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			//{
+			//	input.setCurrent(gpp::Events::Event::SWIM_FAST);
+			//	player->moveLEAP(std::string("right-hand"));
 
-			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-			{
-				player->moveLEAP(std::string("fingers"));
-			}
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-			{
-				player->moveLEAP(std::string("fingersDown"));
-			}
+			//}
+			//if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+			//{
+			//	player->moveLEAP(std::string("fingers"));
+			//}
+			//if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+			//{
+			//	player->moveLEAP(std::string("fingersDown"));
+			//}
 
 
 			plantReset();
@@ -185,7 +185,7 @@ void Game::update(sf::Time t_deltaTime)
 			plantBubbleCollision();
 			increaseEnemies();
 
-			//checkHand(controller);
+			checkHand(controller);
 		}
 		else
 		{
@@ -305,7 +305,7 @@ void Game::setupFontAndText()
 		seabush[i] = new Background(2, 2, rand() % 1920, WINDOW_HEIGHT - 50, SEABUSH);
 	}
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		fish[i] = new Fish();
 		fish[i]->loadTextures();
@@ -383,6 +383,7 @@ void Game::fishColl()
 	{
 		if (player->CollisionBox()->checkRectangleCollision(fish[i]->CollisionBox()) && !immune)
 		{
+			fish[i]->setText();
 			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
 			player->hit();
 			damaged = true;
@@ -397,6 +398,7 @@ void Game::fishColl()
 			}
 			else
 			{
+				bigFish[i]->setText();
 				input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
 				player->hit();
 				damaged = true;
@@ -405,6 +407,7 @@ void Game::fishColl()
 		}
 		if (player->CollisionBox()->checkRectangleCollision(longFish[i]->CollisionBox()) && !immune)
 		{
+			longFish[i]->setText();
 			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
 			player->hit();
 			damaged = true;
@@ -413,6 +416,7 @@ void Game::fishColl()
 		if (player->CollisionBox()->checkRectangleCollision(mine[i]->CollisionBox()) &&!immune)
 		{
 			mine[i]->sound();
+			mine[i]->setText();
 			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
 			player->mineHit();
 			mine[i]->setDamageT();
@@ -628,7 +632,7 @@ void Game::restartGame()
 		seabush[i] = new Background(2, 2, rand() % 1920, WINDOW_HEIGHT - 50, SEABUSH);
 	}
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i <6; i++)
 	{
 		fish[i] = new Fish();
 		fish[i]->loadTextures();

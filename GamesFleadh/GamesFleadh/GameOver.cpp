@@ -24,6 +24,8 @@ void GameOver::update()
 	{
 		updateTimer();
 	}
+	showScore();
+	
 }
 
 void GameOver::initialise(sf::Font& t_font)
@@ -31,7 +33,7 @@ void GameOver::initialise(sf::Font& t_font)
 	m_font = t_font;
 	m_text.setFont(m_font);
 	m_text.setCharacterSize(164U);
-	m_text.setPosition(895, 450);
+	m_text.setPosition(895, 500);
 
 	m_gameOverText.setString("GAME OVER");
 	m_gameOverText.setFont(m_font);
@@ -63,6 +65,7 @@ void GameOver::updateTimer()
 		{
 			restarted = true;
 			restartTimer = 3;
+			gotDistance = false;
 		}
 		clock = 0;;
 	}
@@ -90,5 +93,24 @@ void GameOver::animateGameOver()
 void GameOver::getDistance(int t_distance)
 {
 	distance = t_distance;
-	m_distanceText.setString("You   travelled   " + std::to_string(distance) + "m   before   drowning");
+	
+
+}
+
+void GameOver::showScore()
+{
+	if (!gotDistance)
+	{
+		if (distance > highScore)
+		{
+			highScore = distance;
+			m_distanceText.setString("You   travelled   " + std::to_string(distance) + "m   before   drowning" + "\n" + "                              New High Score!  " + std::to_string(highScore) + "m");
+			
+		}
+		else
+		{
+			m_distanceText.setString("You   travelled   " + std::to_string(distance) + "m   before   drowning" + "\n" + "                      Current High Score  " + std::to_string(highScore) + "m");
+		}
+		gotDistance = true;
+	}
 }

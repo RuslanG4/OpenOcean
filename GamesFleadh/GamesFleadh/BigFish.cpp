@@ -13,6 +13,10 @@ void BigFish::update(sf::Vector2f t_playerPos)
 	boundary();
 	aiBehaviour();
 	chaseAI(t_playerPos);
+
+
+		moveText();
+	
 }
 void BigFish::loadTextures()
 {
@@ -33,12 +37,30 @@ void BigFish::loadTextures()
 	light.setMaxLight(255);
 	light.setIntensity(0.6);
 	light.selectColour(sf::Color(0, 0, 0), sf::Color(128, 128, 128));
+
+
+	if (!font.loadFromFile(FONT))
+	{
+		std::cout << "error loading font";
+	}
+	for (int i = 0; i < 3; i++)
+	{
+		m_text[i].setFont(font);
+		m_text[i].setCharacterSize(40U);
+		m_text[i].setString("5");
+		m_text[i].setPosition(-400, -400);
+		m_text[i].setFillColor(sf::Color(159, 42, 76));
+	}
 }
 void BigFish::render(sf::RenderWindow& t_window)
 {
 	//t_window.draw(m_box);
 	t_window.draw(light.draw());
 	t_window.draw(m_sprite);
+	for (int i = 0; i < currTxt; i++)
+	{
+		t_window.draw(m_text[i]);
+	}
 }
 void BigFish::animate()
 {
@@ -137,6 +159,29 @@ void BigFish::chaseAI(sf::Vector2f t_playerPos)
 		}
 	}
 	
+}
+
+void BigFish::setText()
+{
+	if (currTxt >= 3)
+	{
+		currTxt = 0;
+	}
+	m_text[currTxt].setPosition(m_sprite.getPosition());
+
+	currTxt++;
+
+}
+
+void BigFish::moveText()
+{
+	for (int i = 0; i < 3; i++)
+	{
+		if (m_text[i].getPosition().y > -400)
+		{
+			m_text[i].move(-2.4, -3.4);
+		}
+	}
 }
 
 

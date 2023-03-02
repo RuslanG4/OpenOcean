@@ -104,10 +104,10 @@ private:
 	Background* seabush[4];
 
 	//ENEMIES
-	Enemy* fish[5];
-	Enemy* bigFish[5];
-	Enemy* longFish[5];
-	Enemy* mine[5];
+	Enemy* fish[6];
+	Enemy* bigFish[6];
+	Enemy* longFish[6];
+	Enemy* mine[6];
 	//SQUID
 	Squid squid;
 

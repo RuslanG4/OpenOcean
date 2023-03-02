@@ -24,6 +24,13 @@ private:
 
 	sf::Vector2f chaseDirection;
 
+	sf::Text m_text[3];
+	sf::Font font;
+
+	int currTxt = 0;
+
+	bool startMove = false;
+
 public:
 	virtual void update(sf::Vector2f t_playerPos);
 	virtual void loadTextures();
@@ -40,5 +47,8 @@ public:
 	void chaseAI(sf::Vector2f t_playerPos);
 	virtual bool isChasing() { return chase; };
 	void sound() {};
+
+	void setText() ;
+	void moveText() ;
 };
 

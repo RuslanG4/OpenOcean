@@ -31,6 +31,10 @@ private:
 	bool restarted = false;
 	bool drawnBox = false;
 
+	int highScore=0;
+
+	bool gotDistance = false;
+
 public:
 	void render(sf::RenderWindow& window);
 	void update();
@@ -47,6 +51,7 @@ public:
 	};
 	void animateGameOver();
 	void getDistance(int t_distance);
+	void showScore();
 
 };
 

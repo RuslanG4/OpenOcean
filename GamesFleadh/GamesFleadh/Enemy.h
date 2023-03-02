@@ -26,6 +26,9 @@ public:
 	virtual bool isChasing() { return 1; };
 	virtual void sound()=0;
 
+	virtual void setText()=0;
+	virtual void moveText() = 0;
+
 };
 
 

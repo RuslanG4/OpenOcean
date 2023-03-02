@@ -14,6 +14,13 @@ private:
 
 	Light light;
 
+	sf::Text m_text[3];
+	sf::Font font;
+
+	int currTxt = 0;
+
+	bool startMove = false;
+
 public:
 	virtual void update(sf::Vector2f t_playerPos);
 	virtual void loadTextures();
@@ -29,5 +36,8 @@ public:
 	virtual void aiBehaviour() {};
 	virtual bool isChasing() { return 1; };
 	void sound() {};
+
+	void setText() ;
+	void moveText() ;
 };
 

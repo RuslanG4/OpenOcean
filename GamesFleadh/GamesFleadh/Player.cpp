@@ -14,7 +14,7 @@ Player::Player(const AnimatedSprite& sprite) : m_animated_sprite(sprite)
 	m_state->enter(*this);
 	m_animated_sprite.setOrigin(40, 42);
 	m_animated_sprite.setPosition(200, 200);
-	m_animated_sprite.setScale(3, 3);
+	m_animated_sprite.setScale(3.5, 3.5);
 	m_box.setFillColor(sf::Color::Transparent);
 	m_box.setOutlineThickness(3);
 	playerHB = new Rectangle(m_animated_sprite.getPosition().x - 20, m_animated_sprite.getPosition().y + 5, 100, 25);
@@ -107,12 +107,12 @@ void Player::moveLEAP(std::string t_action)
 	if (t_action == "right-hand")
 	{
 		m_veloctiy.x = 1.15;
-		m_animated_sprite.setScale(3, 3);
+		m_animated_sprite.setScale(3.5, 3.5);
 	}
 	else if (t_action == "left-hand")
 	{
 		m_veloctiy.x = 1.15;
-		m_animated_sprite.setScale(3, 3);
+		m_animated_sprite.setScale(3.5, 3.5);
 	}
 	if (t_action == "fingers")
 	{
@@ -128,8 +128,8 @@ void Player::moveLEAP(std::string t_action)
 
 void Player::HB()
 {
-	playerHB = new Rectangle(m_animated_sprite.getPosition().x - 20, m_animated_sprite.getPosition().y+5, 100, 25);
-	m_box.setSize(sf::Vector2f(100, 25));
+	playerHB = new Rectangle(m_animated_sprite.getPosition().x - 20, m_animated_sprite.getPosition().y+5, 100, 35);
+	m_box.setSize(sf::Vector2f(100, 35));
 	m_box.setPosition(m_animated_sprite.getPosition().x - 20, m_animated_sprite.getPosition().y + 5);
 }
 

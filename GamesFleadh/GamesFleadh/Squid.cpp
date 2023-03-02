@@ -27,7 +27,6 @@ void Squid::loadTextures()
 	squid.setTextureRect(sf::IntRect(0, 0, 310, 192));
 	squid.setColor(sf::Color((139, 69, 19)));
 	velocity.x = rand() % 3 + 1;
-	squid.setRotation(90);
 	//SQUID SHADOW
 	squidBlackedOut.setTexture(squidT);
 	squidBlackedOut.setOrigin(155, 96);
@@ -142,23 +141,19 @@ void Squid::bossEntrance(sf::Vector2f playerPos)
 	{
 		if (!start) //SETS POSITIONS ETC
 		{
-			position = { WINDOW_WIDTH-150,-400 };
+			position = { WINDOW_WIDTH+400,300 };
 			squid.setColor(sf::Color::White);
 			squid.setScale(2, 2);
 			squid.setPosition(position);
-			squid.setRotation(180);
+		
 			start = true; //DONE SETTING
 
 			m_box.setSize(sf::Vector2f(135, 250));
 			m_box.setPosition(squid.getPosition().x - 90, squid.getPosition().y - 170);
 		}
-		if (squid.getPosition().y < 450)
-		{
-			squid.move(0, 3);
-		}
+	
 		else//AS SOON AS SQUID REACHES <450 Y ENTERANCE IS OVER
 		{
-			squid.setRotation(0);
 			m_box.setRotation(0);
 			enterance = true;
 		}
@@ -189,7 +184,7 @@ void Squid::aiMove(sf::Vector2f playerPos)
 	{ 
 		//MOVES SQUID TO FOLLOW PLAYER
 	chaseDirection = playerPos - squid.getPosition();
-	thor::setLength(chaseDirection, float(1.5));
+	thor::setLength(chaseDirection, float(3));
 	position = squid.getPosition();
 	position += chaseDirection;
 	squid.setPosition(position);
@@ -219,25 +214,24 @@ void Squid::dash()
 {
 	if (isMoving)
 	{
-		spinTimer--;
+		
 		//squid.rotate(-1); //SPINS SQUID TO INDICATE DASH
-		if (spinTimer <= 0) //AS SOON AS SPIN IS DONE, MOVES SQUID IN FAST DASH
-		{
+		
+		squid.setPosition(sf::Vector2f(squid.getPosition().x, squid.getPosition().y + -(float)std::cos(squid.getPosition().x / 200) * 8));
+		squid.move(-7, 0);
+
 			//squid.setRotation(270);
-			squid.move(-10, 0);
-			m_box.setSize(sf::Vector2f(250, 130));
-			m_box.setPosition(squid.getPosition().x - 150, squid.getPosition().y - 40);
-			hb = new Rectangle(squid.getPosition().x - 150, squid.getPosition().y - 40, 250, 135);
-			if (squid.getPosition().x < -200) //RESETS ENTIRE SQUID ENCOUNTER
-			{
-				enterance = false;
-				start = false;
-				isMoving = false;
-				aiChoice = 0;
-				spinTimer = 90;
-				dashAmount++; //CAN DASH ONE MORE TIME AFTER FORST DASH
-			}
+			//squid.move(-10, 0);
+		if (squid.getPosition().x < -200) //RESETS ENTIRE SQUID ENCOUNTER
+		{
+			enterance = false;
+			start = false;
+			isMoving = false;
+			aiChoice = 0;
+				
+			dashAmount++; //CAN DASH ONE MORE TIME AFTER FORST DASH
 		}
+		
 	}
 }
 

@@ -5,6 +5,7 @@
 #include<iostream>
 #include"Thor/Vectors.hpp"
 #include"Light.h"
+#include<math.h>
 
 class Squid
 {

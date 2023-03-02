@@ -342,7 +342,7 @@ void Game::setupFontAndText()
 /// </summary>
 void Game::updateSplashClock()
 {
-	if (splashClock.getElapsedTime().asSeconds() > 3.3f)
+	if (splashClock.getElapsedTime().asSeconds() > 5.f)
 	{
 		state = gameState::GAMEPLAY;
 	};
@@ -677,6 +677,7 @@ void Game::plantBubbleCollision()
 	if (player->CollisionBox()->checkRectangleCollision(myPlant->CollisionBox()))
 	{
 		playBreathing();
+		myPlant->setText();
 		myPlant->bubbleSetPos();
 		player->bubblesHit();
 

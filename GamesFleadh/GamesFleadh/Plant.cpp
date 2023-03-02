@@ -6,6 +6,7 @@ void Plant::render(sf::RenderWindow& window)
 	window.draw(m_plant);
 	window.draw(bubbleLight.draw());
 	window.draw(m_bubble);
+	window.draw(m_text);
 	//window.draw(m_box);
 }
 
@@ -15,6 +16,11 @@ void Plant::update()
 	move();
 	animate();
 	timeBubbles();
+
+	if (startMove)
+	{
+		moveText();
+	}
 }
 
 void Plant::initialise()
@@ -47,6 +53,18 @@ void Plant::initialise()
 
 	bubbleLight = Light{ sf::Vector2f(m_plant.getPosition().x + 55,m_plant.getPosition().y + 60) };// m_plant.getPosition()};
 	bubbleLight.setMaxLight(132);
+
+
+	if (!font.loadFromFile(FONT))
+	{
+		std::cout << "error loading font";
+	}
+	m_text.setFont(font);
+	m_text.setCharacterSize(40U);
+	m_text.setString("H2O");
+	m_text.setPosition(-400, 400);
+	m_text.setFillColor(sf::Color(160, 196, 157, 195));
+
 	
 }
 
@@ -127,4 +145,22 @@ void Plant::playBubble()
 	}
 	bubbleSound.play();
 	bubbleSound.setVolume(20);
+}
+
+void Plant::setText()
+{
+	startMove = true;
+	m_text.setPosition(m_bubble.getPosition());
+}
+
+void Plant::moveText()
+{
+	m_text.move(-2.4, -3.4);
+
+
+	if (m_text.getPosition().y < -50)
+	{
+		m_text.setPosition(1300, 1080);
+		startMove = false;
+	}
 }

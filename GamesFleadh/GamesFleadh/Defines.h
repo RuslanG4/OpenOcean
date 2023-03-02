@@ -28,7 +28,10 @@ const char* const SEABUSH = "ASSETS\\IMAGES\\seabush.png";
 const char* const KELP = "ASSETS\\IMAGES\\kelp.png";
 const char* const PLATFORM= "ASSETS\\IMAGES\\platformQ.png";
 
-const char* const LOGO = "ASSETS\\IMAGES\\logo3.jpg";
+const char* const LOGO = "ASSETS\\IMAGES\\logo4.jpg";
+
+const char* const LOADINGBG = "ASSETS\\IMAGES\\loadingBG.jpg";
+const char* const TEXT = "ASSETS\\IMAGES\\overlayBG.png";
 
 const char* const BG_ = "ASSETS\\IMAGES\\bg.jpg";
 const char* const BG_ROCKS = "ASSETS\\IMAGES\\midground1.png";

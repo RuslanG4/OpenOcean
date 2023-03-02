@@ -23,6 +23,11 @@ private:
 
 	sf::Vector2f offScreenPos{-400, -400};
 
+	sf::Text m_text;
+	sf::Font font;
+
+	bool startMove = false;
+
 	int bubbleTimer = 0;
 	int bubbleFrame = 0;
 
@@ -49,5 +54,9 @@ public:
 	sf::Vector2f plantPos() { return m_plant.getPosition(); };
 
 	void playBubble();
+
+	void setText();
+	void moveText();
+
 };
 

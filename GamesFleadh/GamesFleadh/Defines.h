@@ -22,6 +22,7 @@ const char* const PEARL = "ASSETS\\IMAGES\\pearl.png";
 const char* const CHESTS = "ASSETS\\IMAGES\\Chests.png";
 const char* const TILES = "ASSETS\\IMAGES\\tiles.png";
 const char* const PLANT = "ASSETS\\IMAGES\\plant.png";
+const char* const SHELL = "ASSETS\\IMAGES\\shell.png";
 
 const char* const TOTEM = "ASSETS\\IMAGES\\totem.png";
 const char* const SEABUSH = "ASSETS\\IMAGES\\seabush.png";

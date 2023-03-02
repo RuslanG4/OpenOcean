@@ -31,7 +31,10 @@ private:
 	bool restarted = false;
 	bool drawnBox = false;
 
-	int highScore=0;
+	int highDistance=0;
+
+	int highScore = 0;
+	int currScore = 0;
 
 	bool gotDistance = false;
 
@@ -51,6 +54,7 @@ public:
 	};
 	void animateGameOver();
 	void getDistance(int t_distance);
+	void getScore(int t_score);
 	void showScore();
 
 };

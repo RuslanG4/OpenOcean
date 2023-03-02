@@ -5,6 +5,17 @@
 #include"RunRightPlayerState.h"
 
 
+void Player::playHit()
+{
+	if (!hitSound.openFromFile("ASSETS\\AUDIO\\hit.wav"))
+	{
+		std::cout << "error laoding music";
+	}
+
+	hitSound.setVolume(15);
+	hitSound.play();
+}
+
 Player::Player(const AnimatedSprite& sprite) : m_animated_sprite(sprite)
 {
 
@@ -135,6 +146,7 @@ void Player::HB()
 
 void Player::hit()
 { 
+	
 	oxygenLvl -= 5;
 	if (oxygenLvl <= 0)
 	{

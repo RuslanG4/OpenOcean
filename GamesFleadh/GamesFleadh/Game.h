@@ -30,6 +30,7 @@
 #include"Chest.h"
 #include"Squid.h"
 #include"SplashScreen.h"
+#include"Shell.h"
 #include<Leap.h>
 
 enum class gameState
@@ -110,6 +111,9 @@ private:
 	Enemy* mine[6];
 	//SQUID
 	Squid squid;
+
+	//SHELLS
+	Shell* shell[3];
 
 
 	//ENTITES

@@ -142,6 +142,7 @@ void Chest::checkCollision(Player* t_player)
 			pearls[i].PearlSetPos();
 			pearls[i].playSound();
 			t_player->addPearls();
+			t_player->updateScore(75);
 		}
 	}
 }
@@ -158,12 +159,12 @@ void Chest::playChest()
 
 void Pearl::playSound()
 {
-	if (!itemSound.openFromFile("ASSETS\\AUDIO\\item.wav"))
+	if (!itemSound.openFromFile("ASSETS\\AUDIO\\shellPickUp.wav"))
 	{
 		std::cout << "error laoding music";
 	}
 
-	itemSound.setVolume(150);
+	itemSound.setVolume(30);
 	itemSound.play();
 }
 

@@ -76,6 +76,10 @@ void GameOver::animateGameOver()
 	//boxTimer++;
 	//if (boxTimer > 5)
 	//{
+	if (sizeIncrease == 30)
+	{
+		gotDistance = false;
+	}
 		sizeIncrease += 10;
 		//xPos += 5;
 		if (sizeIncrease > 300)
@@ -97,19 +101,27 @@ void GameOver::getDistance(int t_distance)
 
 }
 
+void GameOver::getScore(int t_score)
+{
+	currScore = t_score;
+}
+
 void GameOver::showScore()
 {
 	if (!gotDistance)
 	{
-		if (distance > highScore)
+		if (distance > highDistance)
 		{
-			highScore = distance;
-			m_distanceText.setString("You   travelled   " + std::to_string(distance) + "m   before   drowning" + "\n" + "                              New High Score!  " + std::to_string(highScore) + "m");
+			highDistance = distance;
+			highScore = currScore;
+			m_distanceText.setString("You   travelled   " + std::to_string(distance) + "m   before   drowning" + "\n" + 
+				"     New High Score!  " + std::to_string(highDistance) + "m" +  "       Score " + std::to_string(highScore));
 			
 		}
 		else
 		{
-			m_distanceText.setString("You   travelled   " + std::to_string(distance) + "m   before   drowning" + "\n" + "                      Current High Score  " + std::to_string(highScore) + "m");
+			m_distanceText.setString("You   travelled   " + std::to_string(distance) + "m   before   drowning" + "\n" +
+				"      Current High Score  " + std::to_string(highDistance) + "m" + "       Score " + std::to_string(highScore));
 		}
 		gotDistance = true;
 	}

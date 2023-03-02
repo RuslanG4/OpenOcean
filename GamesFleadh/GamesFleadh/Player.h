@@ -1,6 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include <SFML/Graphics.hpp>
+#include<SFML/Audio.hpp>
 #include "Events.h"
 #include "PlayerState.h"
 #include "AnimatedSprite.h"
@@ -35,6 +36,11 @@ private:
 	int pushbackSpeed = 1;
 
 	sf::Clock m_oxyTimer;
+
+	int score = 0;
+
+	sf::Music hitSound;
+	
 
 public:
 	//FSM
@@ -86,6 +92,7 @@ public:
 	};
 	void mineHit()
 	{
+		
 		oxygenLvl -= 50;
 		pushbackSpeed = 4;
 		if (oxygenLvl <= 0)
@@ -93,6 +100,15 @@ public:
 			oxygenLvl = 0;
 		}
 	}
+
+	void updateScore(int t_amount)
+	{
+		score += t_amount;
+	}
+	int getScore() { return score; };
+
+
+	void playHit();
 
 	
 	

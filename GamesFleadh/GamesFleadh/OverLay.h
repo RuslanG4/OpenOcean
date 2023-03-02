@@ -48,8 +48,6 @@ private:
 	int beginFlashTimer = 0;
 
 	bool startFlash = false;
-
-	
 	
 	int Mile = 50;
 

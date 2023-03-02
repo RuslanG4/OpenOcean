@@ -52,7 +52,8 @@ void Plant::initialise()
 	plantLight.setMaxLight(132);
 
 	bubbleLight = Light{ sf::Vector2f(m_plant.getPosition().x + 55,m_plant.getPosition().y + 60) };// m_plant.getPosition()};
-	bubbleLight.setMaxLight(132);
+	bubbleLight.setMaxLight(108);
+	bubbleLight.selectColour(sf::Color(153, 255, 255), sf::Color(0, 102, 102));
 
 
 	if (!font.loadFromFile(FONT))
@@ -63,7 +64,7 @@ void Plant::initialise()
 	m_text.setCharacterSize(40U);
 	m_text.setString("H2O");
 	m_text.setPosition(-400, 400);
-	m_text.setFillColor(sf::Color(160, 196, 157, 195));
+	m_text.setFillColor(sf::Color(255, 227, 248, 255));
 
 	
 }
@@ -106,8 +107,9 @@ void Plant::updateHB()
 
 void Plant::move()
 {
-	bubbleLight = Light{ sf::Vector2f(m_bubble.getPosition().x + 25,m_bubble.getPosition().y + 60) };
+	bubbleLight.setCenter(sf::Vector2f(m_bubble.getPosition().x+35, m_bubble.getPosition().y+55));
 	bubbleLight.scale(0.3, 0.3);
+
 	m_bubble.move(-2.5, -2);
 	m_plant.move(-3.6, 0);
 	plantLight.moveLight(-3.6, 0);

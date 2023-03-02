@@ -177,6 +177,11 @@ void Game::update(sf::Time t_deltaTime)
 			//	player->moveLEAP(std::string("fingersDown"));
 			//}
 
+			for (int i = 0; i <3; i++)
+			{
+				shell[i]->update();
+			}
+
 
 			plantReset();
 
@@ -191,6 +196,7 @@ void Game::update(sf::Time t_deltaTime)
 		{
 			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
 			gameOverScreen.getDistance(myOverLay.returnDistance());
+			gameOverScreen.getScore(player->getScore());
 			gameOverScreen.update();
 			if (gameOverScreen.getRestart())
 			{
@@ -248,8 +254,10 @@ void Game::render()
 
 		m_window.draw(m_bubbles);
 
-
-
+		for (int i = 0; i < 3; i++)
+		{
+			shell[i]->render(m_window);
+		}
 
 
 		myPlant->render(m_window);
@@ -327,6 +335,11 @@ void Game::setupFontAndText()
 	myChest->initialise();
 
 	squid.loadTextures();
+
+	for (int i = 0; i < 3; i++)
+	{
+		shell[i] = new Shell();
+	}
 	
 	myOverLay.initialise(m_ArialBlackfont);
 	gameOverScreen.initialise(m_ArialBlackfont);
@@ -385,6 +398,7 @@ void Game::fishColl()
 		{
 			fish[i]->setText();
 			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
+			player->playHit(); 
 			player->hit();
 			damaged = true;
 			immune = true;
@@ -400,6 +414,7 @@ void Game::fishColl()
 			{
 				bigFish[i]->setText();
 				input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
+				player->playHit();
 				player->hit();
 				damaged = true;
 				immune = true;
@@ -409,6 +424,7 @@ void Game::fishColl()
 		{
 			longFish[i]->setText();
 			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
+		 player->playHit(); 
 			player->hit();
 			damaged = true;
 			immune = true;
@@ -418,6 +434,7 @@ void Game::fishColl()
 			mine[i]->sound();
 			mine[i]->setText();
 			input.setCurrent(gpp::Events::Event::DAMAGE_TAKEN);
+			 player->playHit(); 
 			player->mineHit();
 			mine[i]->setDamageT();
 			damaged = true;
@@ -602,6 +619,11 @@ void Game::deleteEntities()
 		delete seabush[i];
 	}
 
+	for (int i = 0; i < 3; i++)
+	{
+		delete shell[i];
+	}
+
 }
 
 /// <summary>
@@ -652,6 +674,11 @@ void Game::restartGame()
 
 	myChest = new Chest();
 	myChest->initialise();
+
+	for (int i = 0; i < 3; i++)
+	{
+		shell[i] = new Shell;
+	}
 	
 	squid.reset();
 
@@ -687,6 +714,15 @@ void Game::plantBubbleCollision()
 
 	}
 
+	for (int i = 0; i < 3; i++)
+	{
+		if (player->CollisionBox()->checkRectangleCollision(shell[i]->CollisionBox()))
+		{
+			player->updateScore(25);
+			shell[i]->setText();
+			shell[i]->respawn();
+		}
+	}
 }
 
 /// <summary>

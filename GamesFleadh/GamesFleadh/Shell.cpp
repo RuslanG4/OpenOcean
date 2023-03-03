@@ -109,6 +109,6 @@ void Shell::soundPlay()
 		std::cout << "error laoding music";
 	}
 
-	pop.setVolume(30);
+	pop.setVolume(15);
 	pop.play();
 }

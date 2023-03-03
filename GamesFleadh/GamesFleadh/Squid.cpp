@@ -40,7 +40,7 @@ void Squid::loadTextures()
 	m_box.setOutlineThickness(3);
 	m_box.setSize(sf::Vector2f(135, 250));
 
-	hb = new Rectangle(squid.getPosition().x - 90, squid.getPosition().y - 170, 135, 200);
+	hb = new Rectangle(-400, -400, 135, 200);
 
 	light = Light{ sf::Vector2f(500,300) };
 	light.scale(1, 1);

@@ -164,7 +164,7 @@ void Pearl::playSound()
 		std::cout << "error laoding music";
 	}
 
-	itemSound.setVolume(30);
+	itemSound.setVolume(15);
 	itemSound.play();
 }
 

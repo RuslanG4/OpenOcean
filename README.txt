@@ -16,3 +16,6 @@
 
 	GAMEPLAY VIDEO:
 	https://instituteoftechnol663-my.sharepoint.com/personal/c00273521_itcarlow_ie/_layouts/15/stream.aspx?id=%2Fpersonal%2Fc00273521_itcarlow_ie%2FDocuments%2F2023-03-02%2021-37-54_Trim%2Emp4&ga=1
+        
+        GAME TRAILER
+	https://instituteoftechnol663-my.sharepoint.com/:v:/g/personal/c00273521_itcarlow_ie/EXaEtKPyHH5Ar3O9CK520VcBxg9WQo4Aj02flUnAXG7qag?e=hmf6IZ
